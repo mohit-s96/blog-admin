@@ -1,12 +1,9 @@
 import React from "react";
-import "./App.css";
+import Layout from "./components/Layout";
+import "./styles/index.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">Admin ??</header>
-    </div>
-  );
+  return <Layout>Aloha amigos</Layout>;
 }
 
 export default App;

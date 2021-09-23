@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import Navitem from "./navitem";
 import { Blogs, Branding, Settings } from "../svg/svg.collection";
+import { Link } from "react-router-dom";
 
 interface Props {
   auth?: boolean;
@@ -8,10 +9,10 @@ interface Props {
 
 function Nav({ auth }: Props): ReactElement {
   return (
-    <nav className="p-2 bg-primary-dark flex justify-between items-center">
-      <div className="cursor-pointer flex justify-center items-center">
+    <nav className="p-2 bg-primary-dark flex justify-between items-center border-b-2 border-cyan">
+      <Link to="/" className="cursor-pointer flex justify-center items-center">
         <Branding color="cyan" />
-      </div>
+      </Link>
       <div className="flex justify-center items-center">
         <Navitem>
           <Blogs color="cyan" /> Blogs

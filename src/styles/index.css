@@ -2,10 +2,10 @@
 
 /* Write your own custom base styles here */
 .sidebar {
-  position: absolute;
-  left: 0;
-  top: 48px;
-  min-height: calc(100vh - 48px);
+  /* position: absolute; */
+  /* left: 0;
+  top: 48px; */
+  min-height: calc(99vh - 50px);
   width: 15%;
 }
 

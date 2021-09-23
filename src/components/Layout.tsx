@@ -10,8 +10,10 @@ function Layout({ children }: Props): ReactElement {
   return (
     <div>
       <Nav />
-      <Sidebar />
-      {children}
+      <div className="flex w-full bg-primary-dark">
+        <Sidebar />
+        {children}
+      </div>
     </div>
   );
 }

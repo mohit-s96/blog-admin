@@ -1,14 +1,19 @@
-import React, { ReactElement } from "react";
-import { BlogListType } from "../../types/blogTypes";
+import React, { ReactElement, useContext } from "react";
+import { BlogContext } from "../blog/blog";
+import BlogCard from "./blogCard";
 
 interface Props {
   auth?: boolean;
-  data: [BlogListType];
 }
 
-function BlogList({ auth, data }: Props): ReactElement {
+function BlogList({ auth }: Props): ReactElement {
+  const data = useContext(BlogContext);
   return (
-    <div className="flex w-11/12 bg-red-700 h-96 mt-6">{data[0].excerpt}</div>
+    <div className="flex-col flex">
+      {data!.map((blog) => (
+        <BlogCard data={blog} key={blog._id as unknown as string} />
+      ))}
+    </div>
   );
 }
 

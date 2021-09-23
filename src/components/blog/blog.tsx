@@ -1,12 +1,14 @@
 import React, { ReactElement } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { BlogListType } from "../../types/blogTypes";
-import BlogList from "../blog-list/blogList";
+import BlogLists from "../blog-list/blogLists";
 import BlogNav from "../blog-nav/blogNav";
 
 interface Props {
   auth?: boolean;
 }
+
+export const BlogContext = React.createContext<[BlogListType] | null>(null);
 
 async function fetcher(uri: string) {
   const json = await fetch(uri);
@@ -21,10 +23,12 @@ function Blog({ auth }: Props): ReactElement {
   const render = loading ? (
     <div>loading</div>
   ) : data ? (
-    <div className="flex flex-col w-10/12 items-center">
-      <BlogNav count={data ? data.length : -1} />
-      <BlogList data={data as [BlogListType]} />
-    </div>
+    <BlogContext.Provider value={data}>
+      <div className="flex flex-col w-10/12 items-center">
+        <BlogNav count={data ? data.length : -1} />
+        <BlogLists />
+      </div>
+    </BlogContext.Provider>
   ) : error ? (
     <div>Something went very horrible</div>
   ) : (

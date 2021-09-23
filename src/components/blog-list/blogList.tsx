@@ -7,7 +7,9 @@ interface Props {
 }
 
 function BlogList({ auth, data }: Props): ReactElement {
-  return <div className="flex w-11/12 bg-red-700 h-96 mt-6">x</div>;
+  return (
+    <div className="flex w-11/12 bg-red-700 h-96 mt-6">{data[0].excerpt}</div>
+  );
 }
 
 export default BlogList;

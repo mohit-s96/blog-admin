@@ -56,4 +56,4 @@ export interface CommentSlug {
   body: string;
 }
 
-export type BlogListType = Omit<BlogPathNames, "metadata" | "blogData">;
+export type BlogListType = Omit<BlogSlug, "metadata" | "blogData">;

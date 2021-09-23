@@ -12,7 +12,7 @@ const baseURL = "http://localhost:5000";
 
 function cacheToLocalStorage(path: string, data: any) {
   const withTimestamp = {
-    ...data,
+    data,
     timestamp: Date.now(),
   };
   localStorage.setItem(path, JSON.stringify(withTimestamp));
@@ -51,12 +51,15 @@ export function useFetch<F extends Fetch>(
   }, []);
 
   useEffect(() => {
+    isMounted.current = true;
     if ((cache !== undefined && cache === false) || cache === undefined) {
       executeFetch();
     } else {
       try {
         setLoading(true);
+
         const staleData = localStorage.getItem(path);
+
         if (!staleData) {
           executeFetch();
         } else {
@@ -67,11 +70,11 @@ export function useFetch<F extends Fetch>(
             const dataObject = JSON.parse(staleData);
             const previousCacheTime = dataObject.timestamp;
             const currentTime = Date.now();
+
             if (currentTime - previousCacheTime < cacheTime) {
-              if (isMounted.current) {
-                setLoading(false);
-                setData(dataObject);
-              }
+              setLoading(false);
+
+              setData(dataObject.data);
             } else {
               executeFetch();
             }
@@ -84,10 +87,13 @@ export function useFetch<F extends Fetch>(
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     return () => {
       isMounted.current = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {

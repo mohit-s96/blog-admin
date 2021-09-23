@@ -16,20 +16,22 @@ async function fetcher(uri: string) {
 }
 
 function Blog({ auth }: Props): ReactElement {
-  const { data, error, loading } = useFetch("/api/list", fetcher);
+  const { data, error, loading } = useFetch("/api/list", fetcher, true, 3600);
 
-  if (loading) {
-    return <div>loading</div>;
-  }
-  if (error) {
-    return <div>Something went wrong</div>;
-  }
-  return (
+  const render = loading ? (
+    <div>loading</div>
+  ) : data ? (
     <div className="flex flex-col w-10/12 items-center">
-      <BlogNav />
+      <BlogNav count={data ? data.length : -1} />
       <BlogList data={data as [BlogListType]} />
     </div>
+  ) : error ? (
+    <div>Something went very horrible</div>
+  ) : (
+    <div>Something went wrong</div>
   );
+
+  return render;
 }
 
 export default Blog;

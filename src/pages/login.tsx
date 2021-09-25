@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { useHistory } from "react-router";
+import { useAuth } from "../components/provider/Provider";
 
 interface Props {
   auth?: boolean;
@@ -9,29 +10,21 @@ function Login({ auth }: Props): ReactElement {
   const [uname, setUname] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState(false);
+  console.log("rendered");
 
   const history = useHistory();
+
+  const { signin, isAuth } = useAuth();
+
+  if (isAuth) {
+    history.push("/");
+  }
 
   async function handleSubmit() {
     if (uname.trim().length > 5 && pass.trim().length > 10) {
       try {
-        const json = await fetch("http://localhost:5000/api/login", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ uname: uname, pass: pass }),
-        });
-        const data = await json.json();
-        if (data.success) {
-          setError(false);
-          console.log(data);
-
-          // history.push("/");
-        }
+        await signin(uname, pass);
       } catch (err) {
-        console.log(err);
         setError(true);
       }
     } else {

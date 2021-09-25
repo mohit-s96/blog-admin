@@ -7,8 +7,6 @@ interface Props {
 }
 
 function BlogCard({ auth, data }: Props): ReactElement {
-  console.log(data);
-
   return <div>{data.title}</div>;
 }
 

@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useEffect, useState, useRef } from "react";
+import { getUri } from "../utils/resolvePort";
 
 type Fetch = (uri: string) => Promise<any>;
 type Await<T> = T extends {
@@ -8,7 +9,7 @@ type Await<T> = T extends {
   ? U
   : T;
 
-const baseURL = "http://localhost:5000";
+const baseURL = getUri();
 
 function cacheToLocalStorage(path: string, data: any) {
   const withTimestamp = {

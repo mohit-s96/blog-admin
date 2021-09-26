@@ -9,6 +9,24 @@
   width: 15%;
 }
 
+#testsvg {
+  transition: all 0.5s linear;
+  transform-origin: 50% 50%;
+}
+
+.fix-focus + p {
+  background-color: cyan;
+  transition: width 0.4s linear;
+}
+
+.fix-focus:focus-visible {
+  outline: none;
+}
+
+.fix-focus:focus-visible + p {
+  width: 100%;
+}
+
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

@@ -43,6 +43,11 @@ function Provider({ children }: Props): ReactElement {
         credentials: "include",
         body: JSON.stringify({ uname: uname, pass: pass }),
       });
+
+      if (!json.ok) {
+        throw new Error("error");
+      }
+
       const data = await json.json();
 
       if (data?.message === "success") {

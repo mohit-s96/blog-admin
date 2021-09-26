@@ -14,6 +14,7 @@ module.exports = {
         "primary-bg-light": "#EBECF1",
         //dark theme
         "primary-dark": "#0B0640",
+        "dark-2": "rgb(13 11 40)",
         "primary-text-dark": "#FFFFFF",
         "secondary-text-dark": "#FFFFFF",
         "primary-accent-dark": "#6A279F",

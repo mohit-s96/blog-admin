@@ -1,5 +1,6 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import { useHistory } from "react-router";
+import LoginForm from "../components/login/form";
 import { useAuth } from "../components/provider/Provider";
 
 interface Props {
@@ -7,11 +8,6 @@ interface Props {
 }
 
 function Login({ auth }: Props): ReactElement {
-  const [uname, setUname] = useState("");
-  const [pass, setPass] = useState("");
-  const [error, setError] = useState(false);
-  console.log("rendered");
-
   const history = useHistory();
 
   const { signin, isAuth } = useAuth();
@@ -20,37 +16,20 @@ function Login({ auth }: Props): ReactElement {
     history.push("/");
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(uname: string, pass: string) {
     if (uname.trim().length > 5 && pass.trim().length > 10) {
       try {
         await signin(uname, pass);
       } catch (err) {
-        setError(true);
+        throw new Error("unauthorized login");
       }
     } else {
-      setError(true);
+      throw new Error("invalid data in form fields");
     }
   }
   return (
-    <div className="flex flex-col w-2/12">
-      <input
-        type="text"
-        value={uname}
-        onChange={(e) => setUname(e.target.value)}
-        className="border-4 border-black m-4"
-        placeholder="Username"
-      />
-      <input
-        className="border-4 border-black m-4"
-        type="password"
-        value={pass}
-        placeholder="Password"
-        onChange={(e) => setPass(e.target.value)}
-      />
-      {error ? <div className="text-red-600">Unauthorized</div> : null}
-      <button className="bg-yellow-400 p-2" onClick={handleSubmit}>
-        Login
-      </button>
+    <div className="flex flex-col w-full h-screen bg-dark-2 justify-center items-center">
+      <LoginForm submit={handleSubmit} />
     </div>
   );
 }

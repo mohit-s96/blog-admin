@@ -101,7 +101,7 @@ function LoginForm({ submit }: Props): ReactElement {
         />
       ) : null}
       <div
-        className="w-[22%] min-h-[500px] border-4 border-cyan rounded-sm shadow-2xl bg-primary-dark flex flex-col items-center"
+        className="w-clamp min-h-[500px] border-4 border-cyan rounded-sm shadow-2xl bg-primary-dark flex flex-col items-center"
         ref={rectRef}
         style={{ zIndex: 1 }}
       >

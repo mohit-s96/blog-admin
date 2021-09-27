@@ -4,11 +4,7 @@ import { Blogs, Branding, Logout, Settings } from "../svg/svg.collection";
 import { Link } from "react-router-dom";
 import { useAuth } from "../provider/Provider";
 
-interface Props {
-  auth?: boolean;
-}
-
-function Nav({ auth }: Props): ReactElement {
+function Nav(): ReactElement {
   const { logout } = useAuth();
 
   return (

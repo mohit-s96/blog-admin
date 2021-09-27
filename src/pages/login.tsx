@@ -28,7 +28,7 @@ function Login({ auth }: Props): ReactElement {
     }
   }
   return (
-    <div className="flex flex-col w-full h-screen bg-dark-2 justify-center items-center">
+    <div className="flex flex-col w-full h-screen bg-dark-2 justify-center items-center overflow-hidden">
       <LoginForm submit={handleSubmit} />
     </div>
   );

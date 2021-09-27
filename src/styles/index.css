@@ -27,6 +27,10 @@
   width: 100%;
 }
 
+.w-clamp {
+  width: clamp(350px, 22%, 20vw);
+}
+
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

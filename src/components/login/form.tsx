@@ -107,7 +107,7 @@ function LoginForm({ submit }: Props): ReactElement {
       >
         <div className="p-4">
           <h1
-            className="font-extrabold text-cyan p-2 text-2xl"
+            className="font-extrabold text-cyan p-1 text-2xl"
             tabIndex={1}
             onMouseEnter={() => setPosition(Math.random() < 0.5 ? "TL" : "TR")}
             onFocus={() => setPosition("T")}

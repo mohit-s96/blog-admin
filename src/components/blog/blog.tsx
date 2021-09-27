@@ -11,8 +11,15 @@ interface Props {
 export const BlogContext = React.createContext<[BlogListType] | null>(null);
 
 async function fetcher(uri: string) {
-  const json = await fetch(uri);
-  const data = await json.json();
+  const json = await fetch(uri, {
+    credentials: "include",
+  });
+  let data;
+  if (json.ok) {
+    data = await json.json();
+  } else {
+    throw new Error("internal server error");
+  }
 
   return data as [BlogListType];
 }

@@ -1,13 +1,16 @@
 import React, { ReactElement } from "react";
 import Navitem from "./navitem";
-import { Blogs, Branding, Settings } from "../svg/svg.collection";
+import { Blogs, Branding, Logout, Settings } from "../svg/svg.collection";
 import { Link } from "react-router-dom";
+import { useAuth } from "../provider/Provider";
 
 interface Props {
   auth?: boolean;
 }
 
 function Nav({ auth }: Props): ReactElement {
+  const { logout } = useAuth();
+
   return (
     <nav className="p-2 bg-primary-dark flex justify-between items-center border-b-2 border-cyan">
       <Link to="/" className="cursor-pointer flex justify-center items-center">
@@ -19,6 +22,9 @@ function Nav({ auth }: Props): ReactElement {
         </Navitem>
         <Navitem>
           <Settings color="cyan" /> Manage
+        </Navitem>
+        <Navitem callback={logout}>
+          <Logout color="cyan" /> Log out
         </Navitem>
       </div>
     </nav>

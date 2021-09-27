@@ -59,7 +59,18 @@ function Provider({ children }: Props): ReactElement {
   }
 
   function unAuthenticateUser() {
-    setAuth(false);
+    fetch(`${getUri()}/api/logout`, {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.message === "success") {
+          setAuth(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   useEffect(() => {

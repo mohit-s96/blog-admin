@@ -12,10 +12,6 @@ function Sidebar({ show, setShow }: Props): ReactElement {
   const [hidden, setHidden] = useState(false);
   const hideRef = useRef(null);
   useEffect(() => {
-    console.log(
-      (hideRef.current as unknown as HTMLDivElement).classList,
-      hidden
-    );
     if (hidden) {
       (hideRef.current as unknown as HTMLDivElement).classList.add(
         "w-0",

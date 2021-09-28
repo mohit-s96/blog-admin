@@ -4,7 +4,7 @@ export type BlogPathNames = {
   _id: ObjectId;
   pathNames: Array<string>;
 };
-interface ImageData {
+export interface ImageData {
   alt: string;
   uri: string;
 }

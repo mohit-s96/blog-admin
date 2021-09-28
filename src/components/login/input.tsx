@@ -5,9 +5,15 @@ interface Props {
   type: string;
   value: string;
   id?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => any;
+  containerClassName?: string;
+  labelClassName?: string;
+  className?: string;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => any;
   onFocus?: () => any;
   onBlur?: () => any;
+  isTextArea?: boolean;
 }
 
 function Input({
@@ -15,25 +21,47 @@ function Input({
   type,
   value,
   id,
+  containerClassName = "",
+  className = "",
+  labelClassName = "",
+  isTextArea = false,
   onChange,
   onBlur,
   onFocus,
 }: Props): ReactElement {
   return (
-    <div className="flex flex-col items-start mb-8">
-      <label htmlFor={id} className="text-cyan p-2 text-lg font-bold pl-0">
+    <div className={`flex flex-col items-start mb-8 ${containerClassName}`}>
+      <label
+        htmlFor={id}
+        className={`text-cyan p-2 text-lg font-bold pl-0 ${labelClassName}`}
+        style={{
+          textAlign: "left",
+        }}
+      >
         {name}:{" "}
       </label>
-      <input
-        className="p-2 w-full rounded-sm fix-focus"
-        type={type}
-        placeholder={name}
-        value={value}
-        id={id}
-        onChange={(e) => onChange(e)}
-        onFocus={() => onFocus && onFocus()}
-        onBlur={() => onBlur && onBlur()}
-      />
+      {isTextArea ? (
+        <textarea
+          className={`p-2 w-full rounded-sm fix-focus ${className}`}
+          placeholder={name}
+          value={value}
+          id={id}
+          onChange={(e) => onChange(e)}
+          onFocus={() => onFocus && onFocus()}
+          onBlur={() => onBlur && onBlur()}
+        />
+      ) : (
+        <input
+          className={`p-2 w-full rounded-sm fix-focus ${className}`}
+          type={type}
+          placeholder={name}
+          value={value}
+          id={id}
+          onChange={(e) => onChange(e)}
+          onFocus={() => onFocus && onFocus()}
+          onBlur={() => onBlur && onBlur()}
+        />
+      )}
       <p className="pt-0 w-0 h-[4px]"></p>
     </div>
   );

@@ -7,6 +7,8 @@ import PostTags from "./PostTags";
 import PostTitle from "./PostTitle";
 import { CardProps } from "./PostPreview";
 import { formatDistance } from "date-fns";
+import CreateNew from "../blog-nav/createNew";
+import { Author } from "../svg/svg.collection";
 
 interface Props {
   theme: ThemeType;
@@ -28,9 +30,13 @@ function PostPreviewContent({
         type === "horiz"
           ? "rounded-br-3xl rounded-tr-3xl"
           : "rounded-br-3xl rounded-bl-3xl"
-      }`}
+      } border-4 border-l-0 border-cyan`}
     >
       <div className={`p-2 flex flex-col h-full justify-evenly`}>
+        <CreateNew className="inline-block absolute top-2 right-2 mt-2 mr-2">
+          <Author color="rgba(11, 6, 64)" />
+          <span className="font-bold">edit blog</span>
+        </CreateNew>
         <PostTitle text={title} theme={theme} type={type} />
         <PostExcerpt text={excerpt} theme={theme} type={type} />
         <PostTags tags={tags} theme={theme} type={type} />

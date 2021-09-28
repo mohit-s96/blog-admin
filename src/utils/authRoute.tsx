@@ -4,7 +4,6 @@ import { useAuth } from "../components/provider/Provider";
 
 function AuthRoute({ children, ...rest }: RouteProps) {
   const { isAuth } = useAuth();
-  console.log(isAuth);
 
   return (
     <Route

@@ -8,7 +8,7 @@ interface Props {
 
 function Sidebar({ auth }: Props): ReactElement {
   return (
-    <div className="sidebar bg-primary-dark flex flex-col items-center border-r-2 border-cyan">
+    <div className="sidebar bg-primary-dark flex flex-col items-center border-r-2 border-cyan z-10">
       <Sideitem>
         <Blogs color="cyan" />
         Blogs

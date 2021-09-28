@@ -31,6 +31,22 @@
   width: clamp(350px, 22%, 20vw);
 }
 
+.hidden-left {
+  opacity: 0.1;
+  transform: translateX(-100%);
+}
+
+.hidden-right {
+  opacity: 0.1;
+  transform: translateX(200%);
+}
+
+.slide-in {
+  /* left: 0; */
+  opacity: 1;
+  transform: translateX(0%);
+}
+
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

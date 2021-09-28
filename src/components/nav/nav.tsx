@@ -22,6 +22,9 @@ function Nav(): ReactElement {
         <Navitem callback={logout}>
           <Logout color="cyan" /> Log out
         </Navitem>
+        <Navitem>
+          <Link to="/create" children="Create" />
+        </Navitem>
       </div>
     </nav>
   );

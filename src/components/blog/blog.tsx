@@ -3,6 +3,7 @@ import { useFetch } from "../../hooks/useFetch";
 import { BlogListType } from "../../types/blogTypes";
 import BlogLists from "../blog-list/blogLists";
 import BlogNav from "../blog-nav/blogNav";
+import WithTransition from "../hoc/withTransition";
 
 interface Props {
   auth?: boolean;
@@ -31,7 +32,7 @@ function Blog({ auth }: Props): ReactElement {
     <div>loading</div>
   ) : data ? (
     <BlogContext.Provider value={data}>
-      <div className="flex flex-col w-10/12 items-center">
+      <div className="flex flex-col w-10/12 items-center opacity-[inherit]">
         <BlogNav count={data ? data.length : -1} />
         <BlogLists />
       </div>
@@ -42,7 +43,7 @@ function Blog({ auth }: Props): ReactElement {
     <div>Something went wrong</div>
   );
 
-  return render;
+  return <WithTransition children={render} />;
 }
 
 export default Blog;

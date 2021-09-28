@@ -13,7 +13,7 @@ function PostPreviewImage({ type, uri, alt }: Props): ReactElement {
       <img
         src={uri}
         alt={alt}
-        className={`w-full h-full ${
+        className={`w-full h-72  ${
           type === "horiz"
             ? "rounded-tl-3xl rounded-bl-3xl"
             : "rounded-tl-3xl rounded-tr-3xl"

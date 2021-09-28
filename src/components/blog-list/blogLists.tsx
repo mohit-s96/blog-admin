@@ -8,7 +8,7 @@ interface Props {
 function BlogLists({ auth }: Props): ReactElement {
   return (
     <div className="flex w-11/12 mt-6 flex-col items-start">
-      <div className="text-cyan p-2">Manage blogs:</div>
+      <div className="text-cyan p-2 text-lg font-bold">Manage blogs:</div>
       <BlogList />
     </div>
   );

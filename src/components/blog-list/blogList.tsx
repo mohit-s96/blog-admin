@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from "react";
 import { BlogContext } from "../blog/blog";
-import BlogCard from "./blogCard";
+import PostPreview from "../card/PostPreview";
 
 interface Props {
   auth?: boolean;
@@ -11,7 +11,11 @@ function BlogList({ auth }: Props): ReactElement {
   return (
     <div className="flex-col flex">
       {data!.map((blog) => (
-        <BlogCard data={blog} key={blog._id as unknown as string} />
+        <PostPreview
+          key={blog._id as unknown as string}
+          data={blog}
+          theme="dark"
+        />
       ))}
     </div>
   );

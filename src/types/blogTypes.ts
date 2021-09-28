@@ -4,11 +4,14 @@ export type BlogPathNames = {
   _id: ObjectId;
   pathNames: Array<string>;
 };
-
+interface ImageData {
+  alt: string;
+  uri: string;
+}
 export interface BlogImages {
-  hero: string;
-  subImage1: string;
-  subImage2: string;
+  hero: ImageData;
+  subImage1: ImageData;
+  subImage2: ImageData;
 }
 
 export interface BlogMetadata {

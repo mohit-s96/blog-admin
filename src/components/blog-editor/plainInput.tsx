@@ -23,8 +23,6 @@ function PlainInput({
   const { heroImg } = useContext(EditorContext);
 
   function resolveCommas(val: string) {
-    console.log(val);
-
     let resolvedObject: Array<string> | Partial<ImageData> = {} as ImageData;
     if (fieldType === "HEROIMG") {
       val = val.replace(/\n/, "");
@@ -44,6 +42,13 @@ function PlainInput({
           resolvedObject.uri += ",";
         }
       }
+    }
+    if (fieldType === "TAGS") {
+      const arr = val.split(",");
+
+      resolvedObject = [];
+
+      resolvedObject = resolvedObject.concat(...arr);
     }
     return resolvedObject;
   }

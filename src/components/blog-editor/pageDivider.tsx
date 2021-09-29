@@ -20,6 +20,7 @@ function PageDivider(): ReactElement {
   const manageWidth = useCallback(
     (e: MouseEvent) => {
       const { pageX } = e;
+      e.preventDefault();
 
       const editor = editorRect as DOMRect;
 

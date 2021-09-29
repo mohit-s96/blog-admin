@@ -66,6 +66,10 @@
   background-color: cyan;
   border-radius: 3px;
 }
+
+.w-null {
+  width: 0% !important;
+}
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

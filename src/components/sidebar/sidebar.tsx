@@ -14,7 +14,7 @@ function Sidebar({ show, setShow }: Props): ReactElement {
   useEffect(() => {
     if (hidden) {
       (hideRef.current as unknown as HTMLDivElement).classList.add(
-        "w-0",
+        "w-null",
         "border-r-0"
       );
 
@@ -26,7 +26,7 @@ function Sidebar({ show, setShow }: Props): ReactElement {
   useEffect(() => {
     if (show) {
       (hideRef.current as unknown as HTMLDivElement).classList.remove(
-        "w-0",
+        "w-null",
         "border-r-0"
       );
 
@@ -36,7 +36,7 @@ function Sidebar({ show, setShow }: Props): ReactElement {
 
   return (
     <div
-      className="sidebar bg-primary-dark flex flex-col items-center border-r-2 border-cyan z-10 relative transition-all duration-200 overflow-hidden"
+      className="w-1/6 sidebar bg-primary-dark flex flex-col items-center border-r-2 border-cyan z-10 relative transition-all duration-200 overflow-hidden"
       ref={hideRef}
     >
       <Navitem

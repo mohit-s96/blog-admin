@@ -73,7 +73,7 @@ const reducer = (
     case "TAGS":
       return {
         ...state,
-        tags: state.tags.concat(payload),
+        tags: payload,
       };
     case "TITLE":
       return {

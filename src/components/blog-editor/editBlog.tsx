@@ -1,6 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useRef } from "react";
 import { useRect } from "../../hooks/useRect";
-import { testMatch } from "../../utils/constants";
 import { EditorContext, WidthContext } from "./editorMain";
 import PlainInput from "./plainInput";
 
@@ -66,17 +65,14 @@ function EditBlog(): ReactElement {
         commaSeparated={true}
         isTextArea={true}
       />
-      {heroImg.uri &&
-      testMatch.test(heroImg.uri) &&
-      heroImg.uri.endsWith(",") ? (
-        <div className="p-2 m-2 w-10/12">
-          <img
-            src={heroImg.uri.slice(0, -1)}
-            alt={heroImg.alt}
-            className="w-full"
-          />
-        </div>
-      ) : null}
+      <PlainInput
+        dispatch={dispatch}
+        fieldName="tags"
+        fieldType="TAGS"
+        value={tags.join(",")}
+        commaSeparated={true}
+        isTextArea={true}
+      />
     </div>
   );
 }

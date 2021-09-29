@@ -8,7 +8,7 @@ function EditBlog(): ReactElement {
   const { dispatch, title, readingTime, excerpt, heroImg, tags } =
     useContext(EditorContext);
 
-  const { wDispatch } = useContext(WidthContext);
+  const { wDispatch, editorWidth } = useContext(WidthContext);
 
   const divRef = useRef(null);
 
@@ -27,8 +27,11 @@ function EditBlog(): ReactElement {
 
   return (
     <div
-      className="w-[49%] h-full border-2 border-cyan border-r-0 overflow-hidden overflow-y-scroll style-scroll max-h-[89vh]"
+      className={`w-[49%] h-full border-2 border-cyan border-r-0 overflow-hidden overflow-y-scroll style-scroll max-h-[89vh]`}
       ref={divRef}
+      style={{
+        width: `${editorWidth! > 0 ? editorWidth + "px" : ""}`,
+      }}
     >
       <div className="p-1 font-bold text-center text-primary-dark text-2xl bg-cyan">
         create blog

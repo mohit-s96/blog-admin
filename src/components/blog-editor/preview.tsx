@@ -5,7 +5,7 @@ import { EditorContext, WidthContext } from "./editorMain";
 function Preview(): ReactElement {
   const { title } = useContext(EditorContext);
 
-  const { wDispatch } = useContext(WidthContext);
+  const { wDispatch, previewWidth } = useContext(WidthContext);
 
   const divRef = useRef(null);
 
@@ -25,6 +25,9 @@ function Preview(): ReactElement {
     <div
       className="w-[49%] bg-primary-text-dark h-full border-2 border-cyan border-l-0  overflow-hidden overflow-y-scroll style-scroll max-h-[89vh]"
       ref={divRef}
+      style={{
+        width: `${previewWidth! > 0 ? previewWidth + "px" : ""}`,
+      }}
     >
       {title}
     </div>

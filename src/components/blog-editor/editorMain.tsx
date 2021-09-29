@@ -1,4 +1,5 @@
-import React, { ReactElement, useReducer } from "react";
+import React, { ReactElement, useEffect, useReducer, useRef } from "react";
+import { useRect } from "../../hooks/useRect";
 import { ImageData } from "../../types/blogTypes";
 import WithTransition from "../hoc/withTransition";
 import EditBlog from "./editBlog";
@@ -84,7 +85,12 @@ const reducer = (
   }
 };
 
-export type WidthActionType = "E-RECT" | "P-RECT" | "E-WIDTH" | "P-WIDTH";
+export type WidthActionType =
+  | "E-RECT"
+  | "P-RECT"
+  | "E-WIDTH"
+  | "P-WIDTH"
+  | "PARENT";
 
 export type WidthAction = {
   type: WidthActionType;
@@ -94,6 +100,7 @@ export type WidthAction = {
 export interface WidthContextType {
   editorRect: DOMRect | {};
   previewRect: DOMRect | {};
+  parentRect: DOMRect | {};
   editorWidth: number | null;
   previewWidth: number | null;
   wDispatch?: React.Dispatch<WidthAction>;
@@ -102,6 +109,7 @@ export interface WidthContextType {
 const initialWidthState: WidthContextType = {
   editorRect: {},
   previewRect: {},
+  parentRect: {},
   editorWidth: 0,
   previewWidth: 0,
 };
@@ -131,6 +139,11 @@ const widthReducer = (
         ...state,
         previewWidth: payload,
       };
+    case "PARENT":
+      return {
+        ...state,
+        parentRect: payload,
+      };
     default:
       return state;
   }
@@ -141,10 +154,20 @@ export const WidthContext =
 
 function EditorMain(): ReactElement {
   const [data, dispatch] = useReducer(reducer, initialState);
+  const divRef = useRef(null);
+  const rect = useRect(divRef);
   const [widthData, widthDispatch] = useReducer(
     widthReducer,
     initialWidthState
   );
+
+  useEffect(() => {
+    widthDispatch({
+      type: "PARENT",
+      payload: rect,
+    });
+  }, [rect]);
+
   return (
     <WithTransition slide="right">
       <EditorContext.Provider
@@ -159,7 +182,7 @@ function EditorMain(): ReactElement {
             wDispatch: widthDispatch,
           }}
         >
-          <div className="w-11/12 flex opacity-[inherit]">
+          <div className="w-11/12 flex opacity-[inherit]" ref={divRef}>
             <EditBlog />
             <PageDivider />
             <Preview />

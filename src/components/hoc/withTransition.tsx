@@ -21,7 +21,7 @@ function WithTransition({ children, slide = "left" }: Props): ReactElement {
       <div
         className={`${
           slide === "left" ? "hidden-left" : "hidden-right"
-        } transition-all duration-[300ms] w-full flex justify-center items-center`}
+        } transition-all duration-[300ms] w-full flex justify-center`}
         ref={classRef}
       >
         {children}

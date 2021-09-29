@@ -2,6 +2,7 @@ import React, { ReactElement, useReducer } from "react";
 import { ImageData } from "../../types/blogTypes";
 import WithTransition from "../hoc/withTransition";
 import EditBlog from "./editBlog";
+import PageDivider from "./pageDivider";
 import Preview from "./preview";
 
 export type EditorActionType =
@@ -83,8 +84,67 @@ const reducer = (
   }
 };
 
+export type WidthActionType = "E-RECT" | "P-RECT" | "E-WIDTH" | "P-WIDTH";
+
+export type WidthAction = {
+  type: WidthActionType;
+  payload: any;
+};
+
+export interface WidthContextType {
+  editorRect: DOMRect | {};
+  previewRect: DOMRect | {};
+  editorWidth: number | null;
+  previewWidth: number | null;
+  wDispatch?: React.Dispatch<WidthAction>;
+}
+
+const initialWidthState: WidthContextType = {
+  editorRect: {},
+  previewRect: {},
+  editorWidth: 0,
+  previewWidth: 0,
+};
+
+const widthReducer = (
+  state = initialWidthState,
+  { type, payload }: WidthAction
+): WidthContextType => {
+  switch (type) {
+    case "E-WIDTH":
+      return {
+        ...state,
+        editorWidth: payload,
+      };
+    case "E-RECT":
+      return {
+        ...state,
+        editorRect: payload,
+      };
+    case "P-RECT":
+      return {
+        ...state,
+        previewRect: payload,
+      };
+    case "P-WIDTH":
+      return {
+        ...state,
+        previewWidth: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const WidthContext =
+  React.createContext<WidthContextType>(initialWidthState);
+
 function EditorMain(): ReactElement {
   const [data, dispatch] = useReducer(reducer, initialState);
+  const [widthData, widthDispatch] = useReducer(
+    widthReducer,
+    initialWidthState
+  );
   return (
     <WithTransition slide="right">
       <EditorContext.Provider
@@ -93,10 +153,18 @@ function EditorMain(): ReactElement {
           dispatch,
         }}
       >
-        <div className="w-11/12 flex opacity-[inherit]">
-          <EditBlog />
-          <Preview />
-        </div>
+        <WidthContext.Provider
+          value={{
+            ...widthData,
+            wDispatch: widthDispatch,
+          }}
+        >
+          <div className="w-11/12 flex opacity-[inherit]">
+            <EditBlog />
+            <PageDivider />
+            <Preview />
+          </div>
+        </WidthContext.Provider>
       </EditorContext.Provider>
     </WithTransition>
   );

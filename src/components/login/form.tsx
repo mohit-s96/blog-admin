@@ -112,6 +112,7 @@ function LoginForm({ submit }: Props): ReactElement {
             onMouseEnter={() => setPosition(Math.random() < 0.5 ? "TL" : "TR")}
             onFocus={() => setPosition("T")}
             onBlur={() => setPosition("H")}
+            onMouseLeave={() => setPosition("H")}
           >
             [ login to dashboard ]
           </h1>

@@ -5,9 +5,10 @@ import SimpleTags from "../tags/SimpleTags";
 import AuthorBar from "./authorBar";
 import BlogImage from "./blogImage";
 import { EditorContext, WidthContext } from "./editorMain";
+import { astToHtml, parser } from "nomark-js";
 
 function Preview(): ReactElement {
-  const { title, readingTime, heroImg, tags } = useContext(EditorContext);
+  const { title, readingTime, heroImg, tags, body } = useContext(EditorContext);
 
   const { wDispatch, previewWidth } = useContext(WidthContext);
 
@@ -51,6 +52,10 @@ function Preview(): ReactElement {
             ? tags.map((tag) => <SimpleTags tag={tag} key={tag} theme="dark" />)
             : null}
         </div>
+        <div
+          className="p-2 m-1"
+          dangerouslySetInnerHTML={{ __html: astToHtml(parser(body)) }}
+        ></div>
       </div>
     </div>
   );

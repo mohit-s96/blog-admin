@@ -41,13 +41,16 @@ export type Action = {
   type: EditorActionType;
   payload: string & ImageData & [string];
 };
-
+function syncToLocalStorage(data: string) {
+  localStorage.setItem("nomark", data);
+}
 const reducer = (
   state = initialState,
   { payload, type }: Action
 ): EditorType => {
   switch (type) {
     case "BODY":
+      syncToLocalStorage(payload);
       return {
         ...state,
         body: payload,

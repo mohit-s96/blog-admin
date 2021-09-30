@@ -5,6 +5,7 @@ import Dashboard from "./pages/dashboard";
 import Login from "./pages/login";
 import Provider from "./components/provider/Provider";
 import AuthRoute from "./utils/authRoute";
+import Test from "./pages/test";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           </AuthRoute>
           <Route exact path="/auth">
             <Login />
+          </Route>
+          <Route exact path="/test">
+            <Test />
           </Route>
         </Switch>
       </BrowserRouter>

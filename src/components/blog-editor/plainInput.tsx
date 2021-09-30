@@ -9,6 +9,7 @@ interface Props {
   fieldType: EditorActionType;
   value: string;
   isTextArea?: boolean;
+  className?: string;
   dispatch?: React.Dispatch<Action>;
 }
 
@@ -19,6 +20,7 @@ function PlainInput({
   value,
   fieldType,
   isTextArea = false,
+  className = "",
 }: Props): ReactElement {
   const { heroImg } = useContext(EditorContext);
 
@@ -69,7 +71,7 @@ function PlainInput({
         }
         containerClassName="w-10/12 items-center"
         labelClassName="w-full text-2xl"
-        className="w-full text-2xl bg-primary-bg-light bg-opacity-95 focus-visible:bg-opacity-100 transition-all"
+        className={`w-full text-2xl bg-primary-bg-light bg-opacity-95 focus-visible:bg-opacity-100 transition-all ${className}`}
         isTextArea={isTextArea}
       />
     </div>

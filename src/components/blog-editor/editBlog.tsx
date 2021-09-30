@@ -1,10 +1,11 @@
 import React, { ReactElement, useContext, useEffect, useRef } from "react";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import { useRect } from "../../hooks/useRect";
 import { EditorContext, WidthContext } from "./editorMain";
 import PlainInput from "./plainInput";
 
 function EditBlog(): ReactElement {
-  const { dispatch, title, readingTime, excerpt, heroImg, tags } =
+  const { dispatch, title, readingTime, excerpt, heroImg, tags, body } =
     useContext(EditorContext);
 
   const { wDispatch, editorWidth } = useContext(WidthContext);
@@ -12,6 +13,8 @@ function EditBlog(): ReactElement {
   const divRef = useRef(null);
 
   const rect = useRect(divRef);
+
+  const lsData = useLocalStorage("nomark");
 
   useEffect(() => {
     wDispatch &&
@@ -72,6 +75,14 @@ function EditBlog(): ReactElement {
         value={tags.join(",")}
         commaSeparated={true}
         isTextArea={true}
+      />
+      <PlainInput
+        dispatch={dispatch}
+        fieldName="nomark"
+        fieldType="BODY"
+        value={body || lsData}
+        isTextArea={true}
+        className="min-h-[80vh]"
       />
     </div>
   );

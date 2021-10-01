@@ -9,7 +9,7 @@ interface Props {
   device?: DeviceTypes;
 }
 
-function PostTags({ tags, type, theme, device }: Props): ReactElement {
+function PostTags({ tags, type, theme }: Props): ReactElement {
   const [loaded, setLoaded] = useState(false);
   const filterIfSmallScreen = useCallback(() => {
     if (typeof window === "undefined") return tags;

@@ -221,9 +221,10 @@ export function Loader({ color }: Props): ReactElement {
 interface CatProps {
   tilt: number;
   closed: boolean;
+  color: string;
 }
 
-export function Cat({ closed = false, tilt = -10 }: CatProps) {
+export function Cat({ closed = false, tilt = -10, color }: CatProps) {
   return (
     <svg
       width={200}
@@ -233,7 +234,7 @@ export function Cat({ closed = false, tilt = -10 }: CatProps) {
     >
       <defs>
         <linearGradient id="left-to-right">
-          <stop offset="0" stopColor="cyan">
+          <stop offset="0" stopColor={color}>
             <animate
               dur="1s"
               attributeName="offset"
@@ -244,7 +245,7 @@ export function Cat({ closed = false, tilt = -10 }: CatProps) {
           </stop>
         </linearGradient>
       </defs>
-      <g fill="#0ff">
+      <g fill={color}>
         <g
           id="testsvg"
           style={{
@@ -254,7 +255,7 @@ export function Cat({ closed = false, tilt = -10 }: CatProps) {
           <path
             d="M37.117 32.531c-54.476 31.149-18.586 68.23 22.824 63.094 50.938 5.914 72.516-37.223 32.637-60.324-14.867-6.965-25.668-6.113-55.46-2.77zm0 0"
             strokeWidth={0.47609999999999997}
-            stroke="#0ff"
+            stroke={color}
           />
           {closed ? (
             <path
@@ -277,7 +278,7 @@ export function Cat({ closed = false, tilt = -10 }: CatProps) {
             d="M255.685 1303.2c0 18.085-14.652 32.744-32.745 32.744-18.08 0-32.744-14.659-32.744-32.743 0-18.085 14.665-32.743 32.744-32.743 18.093 0 32.745 14.658 32.745 32.743zm0 0"
             transform="matrix(.30659 0 0 .44237 18.954 -516.452)"
             strokeWidth={0.9}
-            stroke="#0ff"
+            stroke={color}
           />
           {closed ? (
             <path
@@ -300,21 +301,21 @@ export function Cat({ closed = false, tilt = -10 }: CatProps) {
             d="M255.688 1303.2c0 18.085-14.665 32.744-32.745 32.744S190.2 1321.285 190.2 1303.2c0-18.085 14.665-32.743 32.744-32.743 18.093 0 32.745 14.658 32.745 32.743zm0 0"
             transform="matrix(.30659 0 0 .44237 -32.754 -516.452)"
             strokeWidth={0.9}
-            stroke="#0ff"
+            stroke={color}
           />
           <path
             d="M46.416 33.807L31.732 17.146l-8.66 27.692z"
-            stroke="#0ff"
+            stroke={color}
             strokeWidth={0.427}
           />
           <path
             d="M98.907 41.18l-3.823-24.638-16.97 17.651zm0 0"
-            fill="#0ff"
-            stroke="#0ff"
+            fill={color}
+            stroke={color}
             strokeWidth={0.476}
           />
           {!closed ? (
-            <g fill="none" stroke="#000">
+            <g fill="none" stroke={color === "#0e0e0e" ? "#fff" : "#000"}>
               <path
                 d="M80.849 39.466v0l3.134 5.003v0zM75.506 44.102v0l3.134 5.003v0zM88.325 40.278v0l3.134 5.003v0zM71.776 49.254v0l3.134 5.003v0zM67.064 55.319v0l1.659 5.665v0z"
                 strokeWidth={0.75}
@@ -326,7 +327,11 @@ export function Cat({ closed = false, tilt = -10 }: CatProps) {
               />
             </g>
           ) : (
-            <g fill="none" stroke="#000" strokeWidth={0.75}>
+            <g
+              fill="none"
+              stroke={color === "#0e0e0e" ? "#fff" : "#000"}
+              strokeWidth={0.75}
+            >
               <path d="M71.065 66.225l-3.3 6.203zM77.385 71.784l-2.715 6.48zM83.031 74.298l-2.715 6.48zM88.598 76.313l-2.645 6.508zM94.112 74.485l2.503 6.565zM98.572 71.011l2.503 6.565zM102.789 66.155l2.503 6.564zM51.441 67.252l2.503 6.564zM47.263 70.772l2.503 6.564zM42.145 73.99l2.503 6.564zM19.67 67.092l-4.765 4.001zM24.06 70.596l-4.982 4.953zM30.92 73.606l-4.982 4.954zM36.89 76.313l-4.982 4.953z" />
             </g>
           )}
@@ -334,12 +339,12 @@ export function Cat({ closed = false, tilt = -10 }: CatProps) {
         <path
           d="M60.191 95.625s-1.976 30.988-6.261 33.953c-4.285 2.969 21.758 8.57 28.02 2.637 11.495-9.797-9.106-30.012-11.54-37.578-7.52-23.602-10.219.988-10.219.988zm0 0"
           strokeWidth={0.47309999999999997}
-          stroke="#0ff"
+          stroke={color}
         />
         <path
           d="M81.563 125.113s17.89-1.441 24.32-14.41c6.43-12.973 2.515-23.348 3.914-27.383 1.398-4.035 8.105-20.172 24.32-10.949s14.817 22.766 7.547 26.227c-7.266 3.457-20.012 3.015-11.738 0 7.984-2.91 18.23-8.024 6.707-18.157-8.867-7.804-12.305-7.875-19.29-1.73-8.433 7.418 4.36 25.875-11.741 40.348C90.734 132.429 81 127.996 81 127.996zm0 0"
           strokeWidth={0.40740000000000004}
-          stroke="#0ff"
+          stroke={color}
         />
       </g>
     </svg>

@@ -5,10 +5,6 @@ import BlogLists from "../blog-list/blogLists";
 import BlogNav from "../blog-nav/blogNav";
 import WithTransition from "../hoc/withTransition";
 
-interface Props {
-  auth?: boolean;
-}
-
 export const BlogContext = React.createContext<[BlogListType] | null>(null);
 
 async function fetcher(uri: string) {
@@ -25,7 +21,7 @@ async function fetcher(uri: string) {
   return data as [BlogListType];
 }
 
-function Blog({ auth }: Props): ReactElement {
+function Blog(): ReactElement {
   const { data, error, loading } = useFetch("/api/list", fetcher, true, 3600);
 
   const render = loading ? (

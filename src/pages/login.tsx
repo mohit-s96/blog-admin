@@ -1,7 +1,8 @@
 import React, { ReactElement } from "react";
 import { useHistory } from "react-router";
 import LoginForm from "../components/login/form";
-import { useAuth } from "../components/provider/Provider";
+import { useAuth, useTheme } from "../components/provider/Provider";
+import { getClasses } from "../utils/classNameResolver";
 
 interface Props {
   auth?: boolean;
@@ -11,6 +12,8 @@ function Login({ auth }: Props): ReactElement {
   const history = useHistory();
 
   const { signin, isAuth } = useAuth();
+
+  const { theme } = useTheme();
 
   if (isAuth) {
     history.push("/");
@@ -28,7 +31,15 @@ function Login({ auth }: Props): ReactElement {
     }
   }
   return (
-    <div className="flex flex-col w-full h-screen bg-dark-2 justify-center items-center overflow-hidden">
+    <div
+      className={`flex flex-col w-full h-screen ${getClasses(
+        "bg",
+        theme,
+        "btn"
+      )} ${
+        theme === "neon" ? "bg-[#090d24]" : ""
+      } justify-center items-center overflow-hidden`}
+    >
       <LoginForm submit={handleSubmit} />
     </div>
   );

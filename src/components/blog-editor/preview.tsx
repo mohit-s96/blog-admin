@@ -29,7 +29,7 @@ function Preview(): ReactElement {
   }, [rect]);
   return (
     <div
-      className="w-[49%] bg-[#f1f1f1] h-full border-2 border-cyan border-l-0  overflow-hidden overflow-y-scroll style-scroll max-h-[89vh] width-transition"
+      className={`w-[49%] bg-[antiquewhite] h-full overflow-hidden overflow-y-scroll style-scroll max-h-[89vh] width-transition`}
       ref={divRef}
       style={{
         width: `${previewWidth! > 0 ? previewWidth + "px" : ""}`,

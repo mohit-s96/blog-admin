@@ -11,11 +11,7 @@ function BlogList({ auth }: Props): ReactElement {
   return (
     <div className="flex-col flex">
       {data!.map((blog) => (
-        <PostPreview
-          key={blog._id as unknown as string}
-          data={blog}
-          theme="dark"
-        />
+        <PostPreview key={blog._id as unknown as string} data={blog} />
       ))}
     </div>
   );

@@ -5,6 +5,8 @@ import AceEditor from "react-ace";
 
 import "ace-builds/src-noconflict/mode-javascript";
 import PlainInput from "./plainInput";
+import { useTheme } from "../provider/Provider";
+import { getClasses } from "../../utils/classNameResolver";
 
 function EditBlog(): ReactElement {
   const { dispatch, title, readingTime, excerpt, heroImg, tags, body } =
@@ -13,6 +15,8 @@ function EditBlog(): ReactElement {
   const { wDispatch, editorWidth } = useContext(WidthContext);
 
   const divRef = useRef(null);
+
+  const { theme } = useTheme();
 
   const rect = useRect(divRef);
 
@@ -31,13 +35,19 @@ function EditBlog(): ReactElement {
   }
   return (
     <div
-      className={`w-[49%] h-full border-2 border-cyan border-r-0 overflow-hidden overflow-y-scroll style-scroll max-h-[89vh] width-transition`}
+      className={`w-[49%] h-full overflow-hidden overflow-y-scroll style-scroll max-h-[89vh] width-transition`}
       ref={divRef}
       style={{
         width: `${editorWidth! > 0 ? editorWidth + "px" : ""}`,
       }}
     >
-      <div className="p-1 font-bold text-center text-primary-dark text-2xl bg-cyan">
+      <div
+        className={`p-1 font-bold text-center text-2xl ${getClasses(
+          "text",
+          theme,
+          "btn"
+        )}`}
+      >
         create blog
       </div>
       <PlainInput
@@ -81,7 +91,11 @@ function EditBlog(): ReactElement {
       <div className="flex items-center p-2 m-2 flex-col">
         <div className="flex justify-start w-10/12">
           <label
-            className={`text-cyan p-2 text-lg font-bold pl-0`}
+            className={`${getClasses(
+              "text",
+              theme,
+              "btn"
+            )} p-2 text-lg font-bold pl-0`}
             style={{
               textAlign: "left",
             }}

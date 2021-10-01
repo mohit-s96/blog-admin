@@ -9,6 +9,7 @@ import { CardProps } from "./PostPreview";
 import { formatDistance } from "date-fns";
 import CreateNew from "../blog-nav/createNew";
 import { Author } from "../svg/svg.collection";
+import { getClasses } from "../../utils/classNameResolver";
 
 interface Props {
   theme: ThemeType;
@@ -26,7 +27,7 @@ function PostPreviewContent({
     <div
       className={`${
         type === "horiz" ? "w-card-lg-horiz" : "w-full min-h-[50%]"
-      } ${theme === "dark" ? "bg-primary-dark" : "bg-primary-light"} ${
+      } ${getClasses("bg", theme)} ${
         type === "horiz"
           ? "rounded-br-3xl rounded-tr-3xl"
           : "rounded-br-3xl rounded-bl-3xl"
@@ -34,7 +35,7 @@ function PostPreviewContent({
     >
       <div className={`p-2 flex flex-col h-full justify-evenly`}>
         <CreateNew className="inline-block absolute top-2 right-2 mt-2 mr-2">
-          <Author color="rgba(11, 6, 64)" />
+          <Author color={getClasses("", theme, "icon")} />
           <span className="font-bold">edit blog</span>
         </CreateNew>
         <PostTitle text={title} theme={theme} type={type} />

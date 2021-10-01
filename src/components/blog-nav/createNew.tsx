@@ -1,4 +1,6 @@
 import React, { ReactElement, ReactNode } from "react";
+import { getClasses } from "../../utils/classNameResolver";
+import { useTheme } from "../provider/Provider";
 
 interface Props {
   children: ReactNode;
@@ -6,9 +8,18 @@ interface Props {
 }
 
 function CreateNew({ children, className = "" }: Props): ReactElement {
+  const { theme } = useTheme();
+
   return (
     <button
-      className={`flex justify-between items-center p-2 rounded-sm text-primary-dark bg-cyan hover:scale-105 transition-all duration-300 ${className}`}
+      className={`flex justify-between items-center p-2 rounded-sm ${getClasses(
+        "text",
+        theme
+      )} ${getClasses(
+        "bg",
+        theme,
+        "btn"
+      )} hover:scale-105 transition-all duration-300 ${className}`}
     >
       {children}
     </button>

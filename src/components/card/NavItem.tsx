@@ -23,9 +23,7 @@ function NavItem({
       className={`focus:outline-black p-2 flex justify-center items-center font-bold ${
         size === "sm" ? "text-sm" : size === "xsm" ? "text-xsm" : "text-base"
       } ${
-        theme === "light"
-          ? "text-secondary-text-light"
-          : "text-primary-text-dark"
+        theme === "light" ? "text-primary-dark" : "text-primary-light"
       } cursor-pointer`}
       onClick={() => callback()}
     >

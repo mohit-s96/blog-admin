@@ -7,19 +7,17 @@ module.exports = {
     extend: {
       colors: {
         //light theme
-        "primary-light": "#FFFFFF",
-        "primary-text-light": "#000000",
-        "secondary-text-light": "#6A6666",
-        "primary-accent-light": "#6A279F",
-        "primary-bg-light": "#EBECF1",
+        "primary-light": "#fcfcfc",
+        "accent-light": "crimson",
+        "text-light": "#050546",
         //dark theme
-        "primary-dark": "#0B0640",
-        "dark-2": "rgb(13 11 40)",
-        "primary-text-dark": "#FFFFFF",
-        "secondary-text-dark": "#FFFFFF",
-        "primary-accent-dark": "#6A279F",
-        "primary-bg-dark": "#0B0707",
-        cyan: "cyan",
+        "primary-dark": "#161414",
+        "accent-dark": "purple",
+        "text-dark": "#c9a0e7",
+        //neon theme
+        "primary-neon": "#0B0640",
+        "accent-neon": "cyan",
+        "text-neon": "#ffffff",
       },
       borderRadius: {
         "brc-md": "20px",

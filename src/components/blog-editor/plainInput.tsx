@@ -80,7 +80,7 @@ function PlainInput({
         }
         containerClassName="w-10/12 items-center"
         labelClassName="w-full text-2xl"
-        className={`w-full text-2xl bg-primary-bg-light bg-opacity-95 focus-visible:bg-opacity-100 transition-all ${className}`}
+        className={`w-full text-2xl ${className}`}
         isTextArea={isTextArea}
       />
     </div>

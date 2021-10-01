@@ -6,7 +6,9 @@ import React, {
   useState,
 } from "react";
 import { CatPosition } from "../../hooks/useAnimation";
+import { getClasses } from "../../utils/classNameResolver";
 import FormCat from "../cat/cat";
+import { useTheme } from "../provider/Provider";
 import Button from "./button";
 import Input from "./input";
 
@@ -71,6 +73,8 @@ function LoginForm({ submit }: Props): ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const { theme } = useTheme();
+
   function handleChange(type: ActionTypes, value: string) {
     if (value.length < 35) {
       dispatch({
@@ -101,13 +105,24 @@ function LoginForm({ submit }: Props): ReactElement {
         />
       ) : null}
       <div
-        className="w-clamp min-h-[500px] border-4 border-cyan rounded-sm shadow-2xl bg-primary-dark flex flex-col items-center"
+        className={`w-clamp min-h-[500px] border-4 ${getClasses(
+          "border",
+          theme,
+          "btn"
+        )} rounded-sm shadow-2xl ${getClasses(
+          "bg",
+          theme
+        )} flex flex-col items-center`}
         ref={rectRef}
         style={{ zIndex: 1 }}
       >
         <div className="p-4">
           <h1
-            className="font-extrabold text-cyan p-1 text-2xl"
+            className={`font-extrabold ${getClasses(
+              "text",
+              theme,
+              "btn"
+            )} p-1 text-2xl`}
             tabIndex={1}
             onMouseEnter={() => setPosition(Math.random() < 0.5 ? "TL" : "TR")}
             onFocus={() => setPosition("T")}

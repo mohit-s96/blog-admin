@@ -1,11 +1,11 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { BlogListType } from "../../types/blogTypes";
-import { DeviceTypes, ThemeType } from "../../types/globalTypes";
+import { DeviceTypes } from "../../types/globalTypes";
+import { useTheme } from "../provider/Provider";
 import PostPreviewContent from "./PostPreviewContent";
 import PostPreviewImage from "./PostPreviewImage";
 
 export interface CardProps {
-  theme: ThemeType;
   data: BlogListType;
 }
 function PostPreview({
@@ -15,9 +15,9 @@ function PostPreview({
       hero: { uri, alt },
     },
   },
-  theme,
 }: CardProps): ReactElement {
   const [deviceType, setDeviceType] = useState<DeviceTypes>("ipad");
+  const { theme } = useTheme();
   useEffect(() => {
     const targetWidth = window.innerWidth;
     if (targetWidth < 1024) {

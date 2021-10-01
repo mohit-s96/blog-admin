@@ -5,6 +5,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import {
+  AuthContextType,
+  ThemeContextType,
+  ThemeType,
+} from "../../types/globalTypes";
 import { getUri } from "../../utils/resolvePort";
 import AuthLoader from "../loaders/authLoader";
 
@@ -12,25 +17,25 @@ interface Props {
   children: ReactNode;
 }
 
-type AuthContextType = {
-  isAuth: boolean;
-  signin: (uname: string, pass: string) => Promise<void>;
-  logout: () => void;
-};
-
 const initState: AuthContextType = {
   isAuth: false,
   signin: () => Promise.resolve(),
   logout: () => {},
 };
 
+const ThemeContext = React.createContext<ThemeContextType>({ theme: "dark" });
+
 const AuthContext = React.createContext<AuthContextType>(initState);
 
 export const useAuth = () => useContext(AuthContext);
 
+export const useTheme = () => useContext(ThemeContext);
+
 function Provider({ children }: Props): ReactElement {
   const [auth, setAuth] = useState(false);
   const [ready, setReady] = useState(false);
+
+  const [theme, setTheme] = useState<ThemeType>("dark");
 
   async function authenticateUser(uname: string, pass: string) {
     try {
@@ -99,10 +104,19 @@ function Provider({ children }: Props): ReactElement {
   };
 
   if (!ready) {
-    return <AuthLoader />;
+    return <AuthLoader theme={theme} />;
   } else {
     return (
-      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+      <AuthContext.Provider value={value}>
+        <ThemeContext.Provider
+          value={{
+            theme,
+            setTheme,
+          }}
+        >
+          {children}
+        </ThemeContext.Provider>
+      </AuthContext.Provider>
     );
   }
 }

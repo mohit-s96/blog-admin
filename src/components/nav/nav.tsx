@@ -2,28 +2,42 @@ import React, { ReactElement } from "react";
 import Navitem from "./navitem";
 import { Blogs, Branding, Logout, Settings } from "../svg/svg.collection";
 import { Link } from "react-router-dom";
-import { useAuth } from "../provider/Provider";
+import { useAuth, useTheme } from "../provider/Provider";
+import { getClasses } from "../../utils/classNameResolver";
 
 function Nav(): ReactElement {
   const { logout } = useAuth();
 
+  const { theme } = useTheme();
+
   return (
-    <nav className="p-2 bg-primary-dark flex justify-between items-center border-b-2 border-cyan">
+    <nav
+      className={`p-2 ${
+        theme === "dark"
+          ? "bg-accent-dark"
+          : theme === "light"
+          ? "bg-accent-light"
+          : "bg-primary-neon"
+      } flex justify-between items-center border-b-2 ${getClasses(
+        "border",
+        theme,
+        "btn"
+      )}`}
+    >
       <Link to="/" className="cursor-pointer flex justify-center items-center">
-        <Branding color="cyan" />
+        <Branding color={getClasses("nb", theme, "icon")} />
       </Link>
       <div className="flex justify-center items-center">
         <Navitem>
-          <Blogs color="cyan" /> Blogs
+          <Blogs color={getClasses("nb", theme, "icon")} />
+          <Link to="/" children="blogs" />
         </Navitem>
         <Navitem>
-          <Settings color="cyan" /> Manage
+          <Settings color={getClasses("nb", theme, "icon")} />
+          <Link to="/test" children="manage" />
         </Navitem>
         <Navitem callback={logout}>
-          <Logout color="cyan" /> Log out
-        </Navitem>
-        <Navitem>
-          <Link to="/create" children="Create" />
+          <Logout color={getClasses("nb", theme, "icon")} /> log out
         </Navitem>
       </div>
     </nav>

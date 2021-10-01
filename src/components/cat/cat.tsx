@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect } from "react";
 import useAnimation, { CatPosition } from "../../hooks/useAnimation";
+import { useTheme } from "../provider/Provider";
 import { Cat } from "../svg/svg.collection";
 
 interface Props {
@@ -15,6 +16,8 @@ function FormCat({ dimensions, isPassword, position }: Props): ReactElement {
       height: 200,
       width: 200,
     });
+  const { theme } = useTheme();
+
   useEffect(() => {
     setCurrentPos(position);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,7 +36,17 @@ function FormCat({ dimensions, isPassword, position }: Props): ReactElement {
         transform: `translate(${pos.x}px, ${pos.y}px) rotate(${rotation}deg)`,
       }}
     >
-      <Cat closed={!blinking} tilt={tilt.current} />
+      <Cat
+        closed={!blinking}
+        tilt={tilt.current}
+        color={
+          theme === "dark"
+            ? "antiquewhite"
+            : theme === "light"
+            ? "#0e0e0e"
+            : "cyan"
+        }
+      />
     </div>
   );
 }

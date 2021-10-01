@@ -2,10 +2,7 @@
 
 /* Write your own custom base styles here */
 .sidebar {
-  /* position: absolute; */
-  /* left: 0;
-  top: 48px; */
-  min-height: calc(99vh - 50px);
+  height: calc(99vh - 50px);
   width: 15%;
 }
 
@@ -20,19 +17,46 @@
   transform-origin: 50% 50%;
 }
 
-.fix-focus + p {
+/* neon mode */
+.fix-focus-neon + p {
   background-color: cyan;
   transition: width 0.4s linear;
 }
 
-.fix-focus:focus-visible {
+.fix-focus-neon:focus-visible {
   outline: none;
 }
 
-.fix-focus:focus-visible + p {
+.fix-focus-neon:focus-visible + p {
+  width: 100%;
+}
+/* light mode */
+.fix-focus-light + p {
+  background-color: crimson;
+  transition: width 0.4s linear;
+}
+
+.fix-focus-light:focus-visible {
+  outline: none;
+}
+
+.fix-focus-light:focus-visible + p {
   width: 100%;
 }
 
+/* dark mode */
+.fix-focus-dark + p {
+  background-color: purple;
+  transition: width 0.4s linear;
+}
+
+.fix-focus-dark:focus-visible {
+  outline: none;
+}
+
+.fix-focus-dark:focus-visible + p {
+  width: 100%;
+}
 .w-clamp {
   width: clamp(350px, 22%, 20vw);
 }
@@ -63,7 +87,7 @@
   background-color: #f5f5f5;
 }
 .style-scroll::-webkit-scrollbar-thumb {
-  background-color: cyan;
+  background-color: #e19090;
   border-radius: 3px;
 }
 

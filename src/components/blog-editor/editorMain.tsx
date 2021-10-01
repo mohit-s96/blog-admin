@@ -12,7 +12,8 @@ export type EditorActionType =
   | "RTIME"
   | "BODY"
   | "TAGS"
-  | "HEROIMG";
+  | "HEROIMG"
+  | "ALL";
 
 export interface EditorType {
   title: string;
@@ -41,16 +42,46 @@ export type Action = {
   type: EditorActionType;
   payload: string & ImageData & [string];
 };
-function syncToLocalStorage(data: string) {
-  localStorage.setItem("nomark", data);
+function resolveType(type: Action["type"]) {
+  switch (type) {
+    case "BODY":
+      return "body";
+    case "EXCERPT":
+      return "excerpt";
+    case "HEROIMG":
+      return "heroImg";
+    case "RTIME":
+      return "readingTime";
+    case "TAGS":
+      return "tags";
+    case "TITLE":
+      return "title";
+    default:
+      return "";
+  }
+}
+function syncToLocalStorage(
+  data: any,
+  type: Action["type"],
+  state: EditorType
+) {
+  const temp = {
+    ...state,
+    [resolveType(type)]: data,
+  };
+  localStorage.setItem("nomark", JSON.stringify(temp));
 }
 const reducer = (
   state = initialState,
   { payload, type }: Action
 ): EditorType => {
+  syncToLocalStorage(payload, type, state);
   switch (type) {
+    case "ALL":
+      return {
+        ...(payload as any),
+      };
     case "BODY":
-      syncToLocalStorage(payload);
       return {
         ...state,
         body: payload,
@@ -170,6 +201,16 @@ function EditorMain(): ReactElement {
       payload: rect,
     });
   }, [rect]);
+
+  useEffect(() => {
+    const data = localStorage.getItem("nomark");
+    if (data) {
+      dispatch({
+        type: "ALL",
+        payload: JSON.parse(data),
+      });
+    }
+  }, []);
 
   return (
     <WithTransition slide="right">

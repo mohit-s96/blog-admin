@@ -1,41 +1,34 @@
-import React, { Component } from "react";
-import { EditorState, convertToRaw, ContentState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-import draftToHtml from "draftjs-to-html";
-import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import React, { ReactElement } from "react";
+import AceEditor from "react-ace";
 
-class Test extends Component {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      editorState: EditorState.createEmpty(),
-    };
-  }
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/theme-twilight";
 
-  onEditorStateChange: Function = (editorState: EditorState) => {
-    this.setState({
-      editorState,
-    });
-  };
-  render() {
-    //@ts-ignore
-    const { editorState } = this.state;
-    return (
-      <div>
-        <Editor
-          editorState={editorState}
-          wrapperClassName="demo-wrapper"
-          editorClassName="demo-editor"
-          //@ts-ignore
-          onEditorStateChange={this.onEditorStateChange}
-        />
-        <textarea
-          disabled
-          value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-        />
-      </div>
-    );
+function Test(): ReactElement {
+  function onChange(val: string) {
+    console.log(val);
   }
+  return (
+    <AceEditor
+      placeholder="Placeholder Text"
+      mode="javascript"
+      theme="twilight"
+      name="blah2"
+      onChange={onChange}
+      fontSize={14}
+      showPrintMargin={true}
+      showGutter={true}
+      highlightActiveLine={true}
+      value={``}
+      setOptions={{
+        enableBasicAutocompletion: false,
+        enableLiveAutocompletion: false,
+        enableSnippets: false,
+        showLineNumbers: true,
+        tabSize: 2,
+      }}
+    />
+  );
 }
 
 export default Test;

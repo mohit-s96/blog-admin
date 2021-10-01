@@ -52,6 +52,15 @@ function PlainInput({
 
       resolvedObject = resolvedObject.concat(...arr);
     }
+    if (fieldType === "BODY") {
+      if (val.endsWith("{")) {
+        return (val += "\n\t}");
+      }
+      if (val.endsWith("*")) {
+        return (val += "*");
+      }
+      return val;
+    }
     return resolvedObject;
   }
   return (

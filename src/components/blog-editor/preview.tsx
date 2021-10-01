@@ -8,7 +8,8 @@ import { EditorContext, WidthContext } from "./editorMain";
 import { astToHtml, parser } from "nomark-js";
 
 function Preview(): ReactElement {
-  const { title, readingTime, heroImg, tags, body } = useContext(EditorContext);
+  const { title, readingTime, heroImg, tags, body, excerpt } =
+    useContext(EditorContext);
 
   const { wDispatch, previewWidth } = useContext(WidthContext);
 
@@ -28,7 +29,7 @@ function Preview(): ReactElement {
   }, [rect]);
   return (
     <div
-      className="w-[49%] bg-[#f1f1f1] h-full border-2 border-cyan border-l-0  overflow-hidden overflow-y-scroll style-scroll max-h-[89vh]"
+      className="w-[49%] bg-[#f1f1f1] h-full border-2 border-cyan border-l-0  overflow-hidden overflow-y-scroll style-scroll max-h-[89vh] width-transition"
       ref={divRef}
       style={{
         width: `${previewWidth! > 0 ? previewWidth + "px" : ""}`,
@@ -40,7 +41,9 @@ function Preview(): ReactElement {
             {title}
           </h1>
         </div>
-        <AuthorBar time={readingTime} />
+        <div className="flex justify-start px-4">
+          <p className="text-md my-2 text-gray-600 p-2">{excerpt}</p>
+        </div>
         {heroImg.uri &&
         testMatch.test(heroImg.uri) &&
         heroImg.uri.endsWith(",") ? (
@@ -52,9 +55,10 @@ function Preview(): ReactElement {
             ? tags.map((tag) => <SimpleTags tag={tag} key={tag} theme="dark" />)
             : null}
         </div>
+        <AuthorBar time={readingTime} />
         <div
           className="p-2 m-1"
-          dangerouslySetInnerHTML={{ __html: astToHtml(parser(body)) }}
+          dangerouslySetInnerHTML={{ __html: astToHtml(parser(body, "warn")) }}
         ></div>
       </div>
     </div>

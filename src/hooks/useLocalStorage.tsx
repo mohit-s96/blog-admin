@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
+import { EditorType } from "../components/blog-editor/editorMain";
 
-function useLocalStorage(key: string) {
-  const [state, setState] = useState("");
+function useLocalStorage(key: string, refetchValues: EditorType) {
+  const { readingTime, body, heroImg, excerpt, tags, title } = refetchValues;
+  const [state, setState] = useState({});
+
   useEffect(() => {
-    console.log("ran");
-
     const data = localStorage.getItem(key) || "";
-    setState(data);
+    setState(JSON.parse(data));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  return state;
+  }, [readingTime, body, heroImg, excerpt, tags, title]);
+  return state as EditorType;
 }
 
 export default useLocalStorage;

@@ -70,6 +70,10 @@
 .w-null {
   width: 0% !important;
 }
+
+.width-transition {
+  transition: width 0.1s ease-in-out;
+}
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

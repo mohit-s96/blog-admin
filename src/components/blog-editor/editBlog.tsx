@@ -1,7 +1,9 @@
 import React, { ReactElement, useContext, useEffect, useRef } from "react";
-import useLocalStorage from "../../hooks/useLocalStorage";
 import { useRect } from "../../hooks/useRect";
 import { EditorContext, WidthContext } from "./editorMain";
+import AceEditor from "react-ace";
+
+import "ace-builds/src-noconflict/mode-javascript";
 import PlainInput from "./plainInput";
 
 function EditBlog(): ReactElement {
@@ -14,8 +16,6 @@ function EditBlog(): ReactElement {
 
   const rect = useRect(divRef);
 
-  const lsData = useLocalStorage("nomark");
-
   useEffect(() => {
     wDispatch &&
       wDispatch({
@@ -26,10 +26,12 @@ function EditBlog(): ReactElement {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rect]);
-
+  function onChange(val: string) {
+    dispatch && dispatch({ type: "BODY", payload: val as any });
+  }
   return (
     <div
-      className={`w-[49%] h-full border-2 border-cyan border-r-0 overflow-hidden overflow-y-scroll style-scroll max-h-[89vh]`}
+      className={`w-[49%] h-full border-2 border-cyan border-r-0 overflow-hidden overflow-y-scroll style-scroll max-h-[89vh] width-transition`}
       ref={divRef}
       style={{
         width: `${editorWidth! > 0 ? editorWidth + "px" : ""}`,
@@ -76,14 +78,42 @@ function EditBlog(): ReactElement {
         commaSeparated={true}
         isTextArea={true}
       />
-      <PlainInput
-        dispatch={dispatch}
-        fieldName="nomark"
-        fieldType="BODY"
-        value={body || lsData}
-        isTextArea={true}
-        className="min-h-[80vh]"
-      />
+      <div className="flex items-center p-2 m-2 flex-col">
+        <div className="flex justify-start w-10/12">
+          <label
+            className={`text-cyan p-2 text-lg font-bold pl-0`}
+            style={{
+              textAlign: "left",
+            }}
+          >
+            {"nomark"}:{" "}
+          </label>
+        </div>
+        <AceEditor
+          placeholder="nomark data"
+          mode="javascript"
+          name="blah2"
+          onChange={onChange}
+          fontSize={18}
+          showPrintMargin={true}
+          showGutter={true}
+          highlightActiveLine={true}
+          value={body}
+          setOptions={{
+            enableBasicAutocompletion: false,
+            enableLiveAutocompletion: false,
+            enableSnippets: false,
+            showLineNumbers: true,
+            tabSize: 2,
+          }}
+          className="w-full p-2 m-2"
+          style={{
+            width: "84%",
+            // fontSize: "18px",
+            height: "80vh",
+          }}
+        />
+      </div>
     </div>
   );
 }

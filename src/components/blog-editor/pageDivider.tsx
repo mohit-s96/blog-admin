@@ -5,8 +5,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import throttle from "../../utils/throttle";
-import { DoubleArrow } from "../svg/svg.collection";
 import { WidthContext } from "./editorMain";
 
 function PageDivider(): ReactElement {
@@ -40,19 +38,17 @@ function PageDivider(): ReactElement {
       // 200 is minimum width we want for any of the screen, should be change later for smaller devices
       if (previewW > 200 && editorW > 200) {
         //@ts-ignore
-        throttle(() => {
-          wDispatch &&
-            wDispatch({
-              type: "E-WIDTH",
-              payload: editorW,
-            });
+        wDispatch &&
+          wDispatch({
+            type: "E-WIDTH",
+            payload: editorW,
+          });
 
-          wDispatch &&
-            wDispatch({
-              type: "P-WIDTH",
-              payload: previewW,
-            });
-        }, 500)();
+        wDispatch &&
+          wDispatch({
+            type: "P-WIDTH",
+            payload: previewW,
+          });
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,14 +84,10 @@ function PageDivider(): ReactElement {
   }, []);
 
   return (
-    <div className="w-[0.3%] mx-2.5 max-h-[89vh] bg-[#318add] flex-col flex justify-center items-center">
-      <span
-        className="hover:scale-150  cursor-pointer transition-all"
-        onMouseDown={() => setIsPressed(true)}
-      >
-        <DoubleArrow color="cyan" />
-      </span>
-    </div>
+    <div
+      className="w-[0.3%] mx-2.5 max-h-[89vh] bg-[#318add] flex-col flex justify-center items-center cursor-[col-resize]"
+      onMouseDown={() => setIsPressed(true)}
+    ></div>
   );
 }
 

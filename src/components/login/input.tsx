@@ -55,7 +55,9 @@ function Input({
             theme,
             "btn"
           )} focus-visible:bg-white transition-all placeholder-white ${
-            theme === "neon" ? "text-black" : "text-white"
+            theme === "neon"
+              ? "text-black"
+              : "text-white focus-visible:text-black"
           }`}
           placeholder={name}
           value={value}
@@ -72,7 +74,7 @@ function Input({
             "btn"
           )} focus-visible:bg-white transition-all placeholder-white ${
             theme === "neon" ? "text-black" : "text-white"
-          }`}
+          } focus-visible:text-black`}
           type={type}
           placeholder={name}
           value={value}

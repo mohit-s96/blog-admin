@@ -19,6 +19,22 @@ function cacheToLocalStorage(path: string, data: any) {
   localStorage.setItem(path, JSON.stringify(withTimestamp));
 }
 
+/**
+ *
+ * @param path path which gets appeneded to base uri. Eg. * /api/list *
+ * @param fetcher a function which returns promise with the response data. this function will be called with the full url constructed from *path parameter*
+ * @param cache boolean value sppecifying whether to cache api response
+ * @param cacheDuration number in seconds specifying the duration after which cache is marked as stale, if cache is true and cacheDuration isn't specified then 25 seconds is used as default
+ * @returns data
+ *
+ * response data @type inferred
+ * @returns loading
+ *
+ * fetching data in progress @type boolean
+ * @returns error
+ *
+ * error in fetching results @type boolean
+ */
 export function useFetch<F extends Fetch>(
   path: string,
   fetcher: F,

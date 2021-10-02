@@ -28,7 +28,6 @@ interface Params {
 
 function useAnimation(rect: Params["rect"], child: Params["child"]) {
   const initState = {
-    // these must be different for different screen sizes. TODO : find a better way of doing this
     x: rect.width / 2 - child.width / 2,
     y: -child.height / 4,
   };
@@ -36,7 +35,7 @@ function useAnimation(rect: Params["rect"], child: Params["child"]) {
   const [rotation, setRotation] = useState(0);
   const [pass, setPass] = useState(false);
   const [blinking, setBlinking] = useState(true);
-  const [currentPos, setCurrentPos] = useState<Params["animType"]>("TM");
+  const [currentPos, setCurrentPos] = useState<CatPosition>("TM");
   const tilt = useRef(0);
 
   useEffect(() => {

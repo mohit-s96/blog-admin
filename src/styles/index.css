@@ -3,6 +3,10 @@
 /* Write your own custom base styles here */
 .sidebar {
   height: calc(99vh - 50px);
+  position: fixed !important;
+  left: 0;
+  top: 58px;
+  z-index: 50;
   width: 15%;
 }
 

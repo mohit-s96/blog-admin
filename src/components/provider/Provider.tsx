@@ -35,7 +35,7 @@ function Provider({ children }: Props): ReactElement {
   const [auth, setAuth] = useState(false);
   const [ready, setReady] = useState(false);
 
-  const [theme, setTheme] = useState<ThemeType>("dark");
+  const [theme, setTheme] = useState<ThemeType>("light");
 
   async function authenticateUser(uname: string, pass: string) {
     try {

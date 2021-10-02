@@ -4,6 +4,9 @@ import { BlogListType } from "../../types/blogTypes";
 import BlogLists from "../blog-list/blogLists";
 import BlogNav from "../blog-nav/blogNav";
 import WithTransition from "../hoc/withTransition";
+import AuthLoader from "../loaders/authLoader";
+import ErrorState from "../loaders/errorState";
+import { useTheme } from "../provider/Provider";
 
 export const BlogContext = React.createContext<[BlogListType] | null>(null);
 
@@ -24,8 +27,10 @@ async function fetcher(uri: string) {
 function Blog(): ReactElement {
   const { data, error, loading } = useFetch("/api/list", fetcher, true, 3600);
 
+  const { theme } = useTheme();
+
   const render = loading ? (
-    <div>loading</div>
+    <AuthLoader theme={theme} className="h-full z-10" />
   ) : data ? (
     <BlogContext.Provider value={data}>
       <div className="flex flex-col w-10/12 items-center opacity-[inherit]">
@@ -34,9 +39,9 @@ function Blog(): ReactElement {
       </div>
     </BlogContext.Provider>
   ) : error ? (
-    <div>Something went very horrible</div>
+    <ErrorState theme={theme} className="h-full z-10" />
   ) : (
-    <div>Something went wrong</div>
+    <ErrorState theme={theme} className="h-full z-10" />
   );
 
   return <WithTransition children={render} />;

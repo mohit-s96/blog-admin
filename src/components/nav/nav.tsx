@@ -12,7 +12,7 @@ function Nav(): ReactElement {
 
   return (
     <nav
-      className={`p-2 ${
+      className={`sticky z-50 top-0 p-2 ${
         theme === "dark"
           ? "bg-accent-dark"
           : theme === "light"

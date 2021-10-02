@@ -42,45 +42,47 @@ function Sidebar({ show, setShow }: Props): ReactElement {
   }, [show]);
 
   return (
-    <div
-      className={`w-1/6 sidebar ${
-        theme === "dark"
-          ? "bg-primary-dark"
-          : theme === "light"
-          ? "bg-accent-light"
-          : "bg-primary-neon"
-      } flex flex-col items-center justify-between border-r-2 ${
-        theme === "dark"
-          ? "border-accent-dark"
-          : theme === "light"
-          ? "border-accent-light"
-          : "border-accent-neon"
-      } z-10 relative transition-all duration-200 overflow-hidden`}
-      ref={hideRef}
-    >
-      <Navitem
-        className="font-bold absolute top-0 right-1"
-        callback={() => setHidden(true)}
+    <div className="w-1/12 relative">
+      <div
+        className={`sidebar ${
+          theme === "dark"
+            ? "bg-primary-dark"
+            : theme === "light"
+            ? "bg-accent-light"
+            : "bg-primary-neon"
+        } flex flex-col items-center justify-between border-r-2 ${
+          theme === "dark"
+            ? "border-accent-dark"
+            : theme === "light"
+            ? "border-accent-light"
+            : "border-accent-neon"
+        } transition-all duration-200 overflow-hidden`}
+        ref={hideRef}
       >
-        <LeftArrow color={getClasses("sb", theme, "icon")} />
-      </Navitem>
+        <Navitem
+          className="font-bold absolute top-0 right-1"
+          callback={() => setHidden(true)}
+        >
+          <LeftArrow color={getClasses("sb", theme, "icon")} />
+        </Navitem>
 
-      <div className="w-full">
-        <Sideitem>
-          <Blogs color={getClasses("sb", theme, "icon")} />
-          <Link to="/" children="blogs" />
-        </Sideitem>
-        <Sideitem>
-          <Bars color={getClasses("sb", theme, "icon")} />
-          analytics
-        </Sideitem>
-        <Sideitem>
-          <Author color={getClasses("sb", theme, "icon")} />
-          authors
-        </Sideitem>
-      </div>
-      <div className="text-primary-light font-extrabold text-xl flex-col flex items-start">
-        <SwitchTheme />
+        <div className="w-full">
+          <Sideitem>
+            <Blogs color={getClasses("sb", theme, "icon")} />
+            <Link to="/" children="blogs" />
+          </Sideitem>
+          <Sideitem>
+            <Bars color={getClasses("sb", theme, "icon")} />
+            analytics
+          </Sideitem>
+          <Sideitem>
+            <Author color={getClasses("sb", theme, "icon")} />
+            authors
+          </Sideitem>
+        </div>
+        <div className="text-primary-light font-extrabold text-xl flex-col flex items-start">
+          <SwitchTheme />
+        </div>
       </div>
     </div>
   );

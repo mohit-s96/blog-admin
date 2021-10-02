@@ -5,15 +5,16 @@ import { Loader } from "../svg/svg.collection";
 
 interface Props {
   theme: ThemeType;
+  className?: string;
 }
 
-function AuthLoader({ theme }: Props): ReactElement {
+function AuthLoader({ theme, className = "" }: Props): ReactElement {
   return (
     <div
       className={`w-full h-screen flex justify-center items-center ${getClasses(
         "bg",
         theme
-      )}`}
+      )} ${className}`}
     >
       <div className="w-1/12">
         <Loader color={theme === "light" ? "crimson" : "cyan"} />

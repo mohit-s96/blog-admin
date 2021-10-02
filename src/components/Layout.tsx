@@ -13,7 +13,7 @@ function Layout(): ReactElement {
   let { path } = useRouteMatch();
   const { theme } = useTheme();
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   return (
     <div>
       <Nav />

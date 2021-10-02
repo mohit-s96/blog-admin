@@ -6,6 +6,8 @@ import AuthorBar from "./authorBar";
 import BlogImage from "./blogImage";
 import { EditorContext, WidthContext } from "./editorMain";
 import { astToHtml, parser } from "nomark-js";
+import Prism from "prismjs";
+import "prismjs/themes/prism-tomorrow.css";
 
 function Preview(): ReactElement {
   const { title, readingTime, heroImg, tags, body, excerpt } =
@@ -16,6 +18,11 @@ function Preview(): ReactElement {
   const divRef = useRef(null);
 
   const rect = useRect(divRef);
+
+  useEffect(() => {
+    // Prism.manual = true;
+    Prism.highlightAll();
+  }, [body]);
 
   useEffect(() => {
     wDispatch &&

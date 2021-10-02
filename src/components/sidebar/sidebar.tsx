@@ -42,22 +42,28 @@ function Sidebar({ show, setShow }: Props): ReactElement {
   }, [show]);
 
   return (
-    <div className="w-1/12 relative">
+    <div
+      className={`w-1/6 sidebar ${
+        theme === "dark"
+          ? "bg-primary-dark"
+          : theme === "light"
+          ? "bg-accent-light"
+          : "bg-primary-neon"
+      } flex flex-col items-center justify-between border-r-2 ${
+        theme === "dark"
+          ? "border-accent-dark"
+          : theme === "light"
+          ? "border-accent-light"
+          : "border-accent-neon"
+      } z-10 relative transition-all duration-200 overflow-hidden`}
+      ref={hideRef}
+    >
       <div
-        className={`sidebar ${
-          theme === "dark"
-            ? "bg-primary-dark"
-            : theme === "light"
-            ? "bg-accent-light"
-            : "bg-primary-neon"
-        } flex flex-col items-center justify-between border-r-2 ${
-          theme === "dark"
-            ? "border-accent-dark"
-            : theme === "light"
-            ? "border-accent-light"
-            : "border-accent-neon"
-        } transition-all duration-200 overflow-hidden`}
-        ref={hideRef}
+        className={`w-[inherit] h-full ${show ? "fixed" : ""}`}
+        style={{
+          backgroundColor: "inherit",
+          border: "inherit",
+        }}
       >
         <Navitem
           className="font-bold absolute top-0 right-1"
@@ -66,7 +72,7 @@ function Sidebar({ show, setShow }: Props): ReactElement {
           <LeftArrow color={getClasses("sb", theme, "icon")} />
         </Navitem>
 
-        <div className="w-full">
+        <div className="w-full flex flex-col items-end">
           <Sideitem>
             <Blogs color={getClasses("sb", theme, "icon")} />
             <Link to="/" children="blogs" />
@@ -80,9 +86,13 @@ function Sidebar({ show, setShow }: Props): ReactElement {
             authors
           </Sideitem>
         </div>
-        <div className="text-primary-light font-extrabold text-xl flex-col flex items-start">
-          <SwitchTheme />
-        </div>
+      </div>
+      <div
+        className={`text-primary-light font-extrabold text-xl flex-col flex items-start ${
+          show ? "fixed" : ""
+        } top-[88vh]`}
+      >
+        <SwitchTheme />
       </div>
     </div>
   );

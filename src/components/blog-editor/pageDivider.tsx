@@ -64,8 +64,6 @@ function PageDivider(): ReactElement {
     if (isPressed) {
       window.addEventListener("mousemove", manageWidth);
     } else {
-      console.log("clearing?");
-
       window.removeEventListener("mousemove", manageWidth);
     }
     return () => window.removeEventListener("mousemove", manageWidth);

@@ -16,6 +16,8 @@ function Sidebar({ show, setShow }: Props): ReactElement {
   const [hidden, setHidden] = useState(false);
   const hideRef = useRef(null);
 
+  const fixedRef = useRef(null);
+
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -24,7 +26,12 @@ function Sidebar({ show, setShow }: Props): ReactElement {
         "w-null",
         "border-r-0"
       );
-
+      // without settieout there will be a ver noticeadble lag and layout shift...
+      setTimeout(() => {
+        (fixedRef.current as unknown as HTMLDivElement).classList.remove(
+          "fixed"
+        );
+      }, 100);
       setShow(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,7 +43,7 @@ function Sidebar({ show, setShow }: Props): ReactElement {
         "w-null",
         "border-r-0"
       );
-
+      (fixedRef.current as unknown as HTMLDivElement).classList.add("fixed");
       setHidden(false);
     }
   }, [show]);
@@ -59,11 +66,12 @@ function Sidebar({ show, setShow }: Props): ReactElement {
       ref={hideRef}
     >
       <div
-        className={`w-[inherit] h-full ${show ? "fixed" : ""}`}
+        className={`w-[inherit] h-full`}
         style={{
           backgroundColor: "inherit",
           border: "inherit",
         }}
+        ref={fixedRef}
       >
         <Navitem
           className="font-bold absolute top-0 right-1"

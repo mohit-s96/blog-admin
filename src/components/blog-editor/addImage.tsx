@@ -1,5 +1,6 @@
 import React, { ReactElement, useContext, useRef, useState } from "react";
 import { ImageData } from "../../types/blogTypes";
+import { FilesData } from "../../types/globalTypes";
 import { getClasses } from "../../utils/classNameResolver";
 import Button from "../login/button";
 import Input from "../login/input";
@@ -14,15 +15,9 @@ interface Props {
 }
 
 function AddImage({ name, labelClassName }: Props): ReactElement {
-  const { dispatch, heroImg } = useContext(EditorContext);
+  const { dispatch, heroImg, files } = useContext(EditorContext);
 
   const { theme } = useTheme();
-
-  interface FilesData extends File {
-    blobUri: string;
-  }
-
-  const [files, setFiles] = useState<FilesData[]>();
 
   const [alt, setAlt] = useState("");
 
@@ -39,13 +34,18 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
 
-    if (file) {
+    if (file && file.name) {
       const tempUri = window.URL.createObjectURL(file);
       const fileData: FilesData = {
-        ...file,
+        file,
         blobUri: tempUri,
       };
-      setFiles(files?.concat(fileData));
+
+      dispatch &&
+        dispatch({
+          payload: files.concat(fileData) as any,
+          type: "ADD_FILE",
+        });
       setUri(tempUri);
     }
   };
@@ -68,10 +68,13 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
         payload: id as any,
         type: "REM_IMG",
       });
-
     const newFiles = files?.filter((file) => file.blobUri !== id);
     window.URL.revokeObjectURL(id);
-    setFiles(newFiles);
+    dispatch &&
+      dispatch({
+        payload: newFiles as any,
+        type: "ADD_FILE",
+      });
   };
 
   return (

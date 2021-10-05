@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useReducer, useRef } from "react";
 import { useRect } from "../../hooks/useRect";
 import { ImageData } from "../../types/blogTypes";
+import { FilesData } from "../../types/globalTypes";
 import WithTransition from "../hoc/withTransition";
 import EditBlog from "./editBlog";
 import PageDivider from "./pageDivider";
@@ -14,7 +15,8 @@ export type EditorActionType =
   | "TAGS"
   | "HEROIMG"
   | "ALL"
-  | "REM_IMG";
+  | "REM_IMG"
+  | "ADD_FILE";
 
 export interface EditorType {
   title: string;
@@ -23,6 +25,7 @@ export interface EditorType {
   excerpt: string;
   readingTime: string;
   body: string;
+  files: FilesData[];
   dispatch?: React.Dispatch<Action>;
 }
 
@@ -32,6 +35,7 @@ const initialState: EditorType = {
   tags: [],
   excerpt: "",
   readingTime: "",
+  files: [],
   body: "",
 };
 export const EditorContext = React.createContext<EditorType>(initialState);
@@ -63,7 +67,7 @@ function syncToLocalStorage(
   type: Action["type"],
   state: EditorType
 ) {
-  if (type !== "HEROIMG") {
+  if (type !== "HEROIMG" && type !== "ADD_FILE") {
     const temp: EditorType = {
       ...state,
       heroImg: [],
@@ -78,6 +82,11 @@ const reducer = (
 ): EditorType => {
   syncToLocalStorage(payload, type, state);
   switch (type) {
+    case "ADD_FILE":
+      return {
+        ...state,
+        files: payload as any,
+      };
     case "REM_IMG":
       return {
         ...state,

@@ -2,15 +2,15 @@ import React, { ReactElement, useContext, useEffect, useRef } from "react";
 import { useRect } from "../../hooks/useRect";
 import { EditorContext, WidthContext } from "./editorMain";
 import AceEditor from "react-ace";
-
 import "ace-builds/src-noconflict/mode-javascript";
 import PlainInput from "./plainInput";
 import { useTheme } from "../provider/Provider";
 import { getClasses } from "../../utils/classNameResolver";
 import AddImage from "./addImage";
+import SubmitBlog from "./submitBlog";
 
 function EditBlog(): ReactElement {
-  const { dispatch, title, readingTime, excerpt, heroImg, tags, body } =
+  const { dispatch, title, readingTime, excerpt, tags, body } =
     useContext(EditorContext);
 
   const { wDispatch, editorWidth } = useContext(WidthContext);
@@ -118,6 +118,9 @@ function EditBlog(): ReactElement {
             height: "80vh",
           }}
         />
+      </div>
+      <div className="flex justify-center p-2">
+        <SubmitBlog />
       </div>
     </div>
   );

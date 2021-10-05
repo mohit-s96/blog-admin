@@ -1,7 +1,7 @@
-import React, { ReactElement, useContext } from "react";
+import React, { ReactElement } from "react";
 import { ImageData } from "../../types/blogTypes";
 import Input from "../login/input";
-import { Action, EditorActionType, EditorContext } from "./editorMain";
+import { Action, EditorActionType } from "./editorMain";
 
 interface Props {
   commaSeparated?: boolean;
@@ -22,8 +22,6 @@ function PlainInput({
   isTextArea = false,
   className = "",
 }: Props): ReactElement {
-  const { heroImg } = useContext(EditorContext);
-
   function resolveCommas(val: string) {
     let resolvedObject: Array<string> | Partial<ImageData> = {} as ImageData;
     if (fieldType === "TAGS") {

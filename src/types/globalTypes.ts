@@ -15,3 +15,15 @@ export type AuthContextType = {
   signin: (uname: string, pass: string) => Promise<void>;
   logout: () => void;
 };
+
+export interface FilesData {
+  file: File;
+  blobUri: string;
+}
+
+export   interface NewImageData {
+  permUri: string;
+  alt: string;
+  uri: string;
+  isHero?: boolean | undefined;
+};

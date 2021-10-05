@@ -7,6 +7,7 @@ import "ace-builds/src-noconflict/mode-javascript";
 import PlainInput from "./plainInput";
 import { useTheme } from "../provider/Provider";
 import { getClasses } from "../../utils/classNameResolver";
+import AddImage from "./addImage";
 
 function EditBlog(): ReactElement {
   const { dispatch, title, readingTime, excerpt, heroImg, tags, body } =
@@ -69,17 +70,7 @@ function EditBlog(): ReactElement {
         value={excerpt}
         isTextArea={true}
       />
-      <PlainInput
-        dispatch={dispatch}
-        fieldName="hero image"
-        fieldType="HEROIMG"
-        value={
-          heroImg.uri +
-          (heroImg.uri && heroImg.alt !== undefined ? "\n" + heroImg.alt : "")
-        }
-        commaSeparated={true}
-        isTextArea={true}
-      />
+      <AddImage name="add images" />
       <PlainInput
         dispatch={dispatch}
         fieldName="tags"

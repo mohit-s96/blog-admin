@@ -9,10 +9,12 @@ interface Props {
   onLeave?: () => any;
   onBlur?: () => any;
   value: string;
+  className?: string;
 }
 
 function Button({
   value,
+  className = "",
   onClick,
   onBlur,
   onFocus,
@@ -23,11 +25,10 @@ function Button({
 
   return (
     <button
-      className={`p-2 mt-8 ${getClasses(
-        "bg",
-        theme,
-        "btn"
-      )} font-bold ${getClasses("text", theme)} w-6/12 rounded-sm`}
+      className={`p-2 ${getClasses("bg", theme, "btn")} font-bold ${getClasses(
+        "text",
+        theme
+      )} rounded-sm ${className}`}
       onClick={onClick}
       onBlur={() => onBlur && onBlur()}
       onFocus={() => onFocus && onFocus()}

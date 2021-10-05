@@ -26,25 +26,6 @@ function PlainInput({
 
   function resolveCommas(val: string) {
     let resolvedObject: Array<string> | Partial<ImageData> = {} as ImageData;
-    if (fieldType === "HEROIMG") {
-      val = val.replace(/\n/, "");
-      const arr = val.split(",");
-      resolvedObject = { alt: undefined, uri: undefined } as Partial<ImageData>;
-
-      if (heroImg.alt !== undefined && heroImg.uri) {
-        resolvedObject.uri = heroImg.uri;
-        resolvedObject.alt = arr[1];
-      } else if (arr[0]) {
-        resolvedObject.uri = arr[0];
-      }
-
-      if (val.endsWith(",")) {
-        if (heroImg.alt === undefined) {
-          resolvedObject.alt = "";
-          resolvedObject.uri += ",";
-        }
-      }
-    }
     if (fieldType === "TAGS") {
       const arr = val.split(",");
 

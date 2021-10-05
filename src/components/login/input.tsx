@@ -5,14 +5,16 @@ import { useTheme } from "../provider/Provider";
 interface Props {
   name: string;
   type: string;
-  value: string;
+  value?: string;
   id?: string;
   containerClassName?: string;
   labelClassName?: string;
   className?: string;
+  label?: boolean;
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => any;
+  ) => any | void;
+  clickRef?: React.MutableRefObject<null>;
   onFocus?: () => any;
   onBlur?: () => any;
   isTextArea?: boolean;
@@ -27,6 +29,8 @@ function Input({
   className = "",
   labelClassName = "",
   isTextArea = false,
+  label = true,
+  clickRef,
   onChange,
   onBlur,
   onFocus,
@@ -35,19 +39,21 @@ function Input({
 
   return (
     <div className={`flex flex-col items-start mb-8 ${containerClassName}`}>
-      <label
-        htmlFor={id}
-        className={`${getClasses(
-          "text",
-          theme,
-          "btn"
-        )} p-2 text-lg font-bold pl-0 ${labelClassName}`}
-        style={{
-          textAlign: "left",
-        }}
-      >
-        {name}:{" "}
-      </label>
+      {label ? (
+        <label
+          htmlFor={id}
+          className={`${getClasses(
+            "text",
+            theme,
+            "btn"
+          )} p-2 text-lg font-bold pl-0 ${labelClassName}`}
+          style={{
+            textAlign: "left",
+          }}
+        >
+          {name}:{" "}
+        </label>
+      ) : null}
       {isTextArea ? (
         <textarea
           className={`p-2 w-full rounded-sm fix-focus-${theme} ${className} ${getClasses(
@@ -77,11 +83,12 @@ function Input({
           } focus-visible:text-black`}
           type={type}
           placeholder={name}
-          value={value}
+          value={value || ""}
           id={id}
           onChange={(e) => onChange(e)}
           onFocus={() => onFocus && onFocus()}
           onBlur={() => onBlur && onBlur()}
+          ref={clickRef}
         />
       )}
       <p className="pt-0 w-0 h-[4px]"></p>

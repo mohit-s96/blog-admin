@@ -7,6 +7,7 @@ export type BlogPathNames = {
 export interface ImageData {
   alt: string;
   uri: string;
+  isHero?: boolean;
 }
 export interface BlogImages {
   hero: ImageData;

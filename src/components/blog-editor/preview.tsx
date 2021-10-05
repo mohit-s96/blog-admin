@@ -51,10 +51,10 @@ function Preview(): ReactElement {
         <div className="flex justify-start px-4">
           <p className="text-md my-2 text-gray-600 p-2">{excerpt}</p>
         </div>
-        {heroImg.uri &&
-        testMatch.test(heroImg.uri) &&
-        heroImg.uri.endsWith(",") ? (
-          <BlogImage src={heroImg.uri.slice(0, -1)} alt={heroImg.alt} />
+        {heroImg[0]?.uri &&
+        testMatch.test(heroImg[0].uri) &&
+        heroImg[0].uri.endsWith(",") ? (
+          <BlogImage src={heroImg[0].uri.slice(0, -1)} alt={heroImg[0].alt} />
         ) : null}
 
         <div className="p-2 m-1 flex">

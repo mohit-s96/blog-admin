@@ -13,11 +13,12 @@ export type EditorActionType =
   | "BODY"
   | "TAGS"
   | "HEROIMG"
-  | "ALL";
+  | "ALL"
+  | "REM_IMG";
 
 export interface EditorType {
   title: string;
-  heroImg: ImageData;
+  heroImg: ImageData[];
   tags: Array<string>;
   excerpt: string;
   readingTime: string;
@@ -27,10 +28,7 @@ export interface EditorType {
 
 const initialState: EditorType = {
   title: "",
-  heroImg: {
-    alt: "",
-    uri: "",
-  },
+  heroImg: [],
   tags: [],
   excerpt: "",
   readingTime: "",
@@ -65,11 +63,14 @@ function syncToLocalStorage(
   type: Action["type"],
   state: EditorType
 ) {
-  const temp = {
-    ...state,
-    [resolveType(type)]: data,
-  };
-  localStorage.setItem("nomark", JSON.stringify(temp));
+  if (type !== "HEROIMG") {
+    const temp: EditorType = {
+      ...state,
+      heroImg: [],
+      [resolveType(type)]: data,
+    };
+    localStorage.setItem("nomark", JSON.stringify(temp));
+  }
 }
 const reducer = (
   state = initialState,
@@ -77,6 +78,11 @@ const reducer = (
 ): EditorType => {
   syncToLocalStorage(payload, type, state);
   switch (type) {
+    case "REM_IMG":
+      return {
+        ...state,
+        heroImg: state.heroImg.filter((img) => img.uri !== payload),
+      };
     case "ALL":
       return {
         ...(payload as any),
@@ -92,12 +98,14 @@ const reducer = (
         excerpt: payload,
       };
     case "HEROIMG":
+      if (!state.heroImg.length) {
+        const heroImgData = payload as ImageData;
+        heroImgData.isHero = true;
+        payload = heroImgData as any;
+      }
       return {
         ...state,
-        heroImg: {
-          alt: payload.alt,
-          uri: payload.uri,
-        },
+        heroImg: state.heroImg.concat(payload),
       };
     case "RTIME":
       return {

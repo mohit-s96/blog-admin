@@ -16,6 +16,14 @@ function PageDivider(): ReactElement {
 
   const { theme } = useTheme();
 
+  const [device, setDevice] = useState(200);
+
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setDevice(5);
+    }
+  }, []);
+
   // w/o usecallback removeEventListener matches stale version of managewidth and doesn't remove the listener on mouseup (could be achieved by adding managewidth to the useeffect's dependency array but whatever)
   // added editor and previewrects in dependency array because managewidth was operating on stale values. also had to update the useeffect dependency with these 2 values
 
@@ -40,7 +48,7 @@ function PageDivider(): ReactElement {
         editorW = (parentRect as DOMRect).width - previewW;
       }
       // 200 is minimum width we want for any of the screen, should be change later for smaller devices
-      if (previewW > 200 && editorW > 200) {
+      if (previewW > device && editorW > device) {
         //@ts-ignore
         wDispatch &&
           wDispatch({

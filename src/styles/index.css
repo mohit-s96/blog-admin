@@ -98,6 +98,13 @@
 .width-transition {
   transition: width 0.1s ease-in-out;
 }
+
+.img-anim {
+  display: unset !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  display: flex !important;
+}
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

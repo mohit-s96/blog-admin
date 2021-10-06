@@ -20,9 +20,10 @@ type FormState = {
   uname: string;
   pass: string;
   error: string;
+  loading: boolean;
 };
 
-type ActionTypes = "CHANGE_UNAME" | "CHANGE_PASS" | "SET_ERROR";
+type ActionTypes = "CHANGE_UNAME" | "CHANGE_PASS" | "SET_ERROR" | "LOADING";
 
 type Action = {
   type: ActionTypes;
@@ -33,6 +34,7 @@ const initialState: FormState = {
   pass: "",
   uname: "",
   error: "",
+  loading: false,
 };
 
 const reducer = (
@@ -55,6 +57,12 @@ const reducer = (
     return {
       ...state,
       error: action.payload,
+    };
+  }
+  if (action.type === "LOADING") {
+    return {
+      ...state,
+      loading: action.payload,
     };
   }
   return state;
@@ -86,8 +94,16 @@ function LoginForm({ submit }: Props): ReactElement {
 
   async function handleSubmit() {
     try {
+      dispatch({
+        type: "LOADING",
+        payload: true,
+      });
       await submit(state.uname, state.pass);
     } catch (err) {
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
       dispatch({
         type: "SET_ERROR",
         payload: (err as any).message,
@@ -173,6 +189,8 @@ function LoginForm({ submit }: Props): ReactElement {
           onHover={() => setPosition(Math.random() < 0.5 ? "BL" : "BR")}
           onBlur={() => setPosition("H")}
           onLeave={() => setPosition("H")}
+          className="w-4/12 p-2"
+          disabled={state.loading}
         />
       </div>
     </>

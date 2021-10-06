@@ -1,24 +1,14 @@
 import React, { ReactElement } from "react";
-import { useHistory } from "react-router";
+import { Redirect } from "react-router";
 import LoginForm from "../components/login/form";
 import { useAuth, useTheme } from "../components/provider/Provider";
 import SwitchTheme from "../components/sidebar/switchTheme";
 import { getClasses } from "../utils/classNameResolver";
 
-interface Props {
-  auth?: boolean;
-}
-
-function Login({ auth }: Props): ReactElement {
-  const history = useHistory();
-
+function Login(): ReactElement {
   const { signin, isAuth } = useAuth();
 
   const { theme } = useTheme();
-
-  if (isAuth) {
-    history.push("/");
-  }
 
   async function handleSubmit(uname: string, pass: string) {
     if (uname.trim().length > 5 && pass.trim().length > 10) {
@@ -30,6 +20,9 @@ function Login({ auth }: Props): ReactElement {
     } else {
       throw new Error("invalid data in form fields");
     }
+  }
+  if (isAuth) {
+    return <Redirect to="/" />;
   }
   return (
     <div
@@ -49,5 +42,4 @@ function Login({ auth }: Props): ReactElement {
     </div>
   );
 }
-
 export default Login;

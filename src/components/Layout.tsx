@@ -14,6 +14,7 @@ function Layout(): ReactElement {
   const { theme } = useTheme();
 
   const [show, setShow] = useState(true);
+
   return (
     <div>
       <Nav />

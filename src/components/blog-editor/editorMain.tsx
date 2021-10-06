@@ -6,7 +6,11 @@ import {
   widthReducer,
 } from "../../reducers/editorWidthReducer";
 import { EditorType, WidthContextType } from "../../types/globalTypes";
+import { getClasses } from "../../utils/classNameResolver";
 import WithTransition from "../hoc/withTransition";
+import { useTheme } from "../provider/Provider";
+import { Ripple } from "../svg/svg.collection";
+import Overlay from "../util-components/modal";
 import EditBlog from "./editBlog";
 import PageDivider from "./pageDivider";
 import Preview from "./preview";
@@ -25,6 +29,8 @@ function EditorMain(): ReactElement {
   const divRef = useRef(null);
 
   const rect = useRect(divRef);
+
+  const { theme } = useTheme();
 
   const [widthData, widthDispatch] = useReducer(
     widthReducer,
@@ -63,6 +69,21 @@ function EditorMain(): ReactElement {
           }}
         >
           <div className="w-11/12 flex opacity-[inherit]" ref={divRef}>
+            {data.loading ? (
+              <Overlay type="loading">
+                <Ripple
+                  color={getClasses("accent", theme, "icon")}
+                  className="scale-150"
+                />
+              </Overlay>
+            ) : data.error ? (
+              <Overlay
+                type="error"
+                cb={() => dispatch({ payload: "" as any, type: "SET_ERROR" })}
+              >
+                {data.error}
+              </Overlay>
+            ) : null}
             <EditBlog />
             <PageDivider />
             <Preview />

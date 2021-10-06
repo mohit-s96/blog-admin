@@ -1,3 +1,4 @@
+import marked from "marked";
 import { astToHtml, parser } from "nomark-js";
 import ParseTree from "nomark-js/dist/core/parseTree";
 import React, { ReactElement, useContext } from "react";
@@ -10,8 +11,18 @@ import { EditorContext } from "./editorMain";
 function SubmitBlog(): ReactElement {
   const { theme } = useTheme();
 
-  const { body, title, tags, excerpt, files, heroImg, readingTime } =
-    useContext(EditorContext);
+  const {
+    body,
+    title,
+    tags,
+    excerpt,
+    files,
+    heroImg,
+    readingTime,
+    slug,
+    slugType,
+    commentsAllowed,
+  } = useContext(EditorContext);
 
   type UploadResponse = {
     message: string;
@@ -73,9 +84,6 @@ function SubmitBlog(): ReactElement {
           permUri: data[i].uri,
         };
       });
-      const nomarkAst = parser(body);
-
-      changeAstNodes(nomarkAst, newImageData);
 
       const images = newImageData.map((x) => ({
         uri: x.permUri,
@@ -83,23 +91,36 @@ function SubmitBlog(): ReactElement {
         isHero: x.isHero,
       }));
 
-      const html = astToHtml(nomarkAst);
+      let html = "";
+
+      if (slugType === "nm") {
+        const nomarkAst = parser(body);
+
+        changeAstNodes(nomarkAst, newImageData);
+
+        html = astToHtml(nomarkAst);
+      } else if (slugType === "md") {
+        html = marked(body);
+      } else {
+        html = body;
+      }
 
       const finalObject = {
         title,
         tags,
+        uri: slug,
         createdAt: Date.now(),
         images,
         blogData: html,
-        slugType: "html",
+        slugType,
         shares: 0,
         likes: 0,
         excerpt,
         author: "msx47",
-        commentsAllowed: true,
+        commentsAllowed,
         commentCount: 0,
         readingTime,
-        //to-do add fields for comments allowed and add extract metadata from parsetree
+        //to-do add fields for comments allowed and add extract metadata from parsetree and slugtype
       };
     }
   };

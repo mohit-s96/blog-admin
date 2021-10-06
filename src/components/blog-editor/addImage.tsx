@@ -15,7 +15,7 @@ interface Props {
 }
 
 function AddImage({ name, labelClassName }: Props): ReactElement {
-  const { dispatch, heroImg, files } = useContext(EditorContext);
+  const { dispatch, heroImg, files, slugType } = useContext(EditorContext);
 
   const { theme } = useTheme();
 
@@ -92,52 +92,61 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
         >
           {name}:{" "}
         </label>
-        <div
-          className={`p-2 pl-0 min-h-[24px] w-full flex items-center flex-wrap justify-center`}
-        >
-          {heroImg.length
-            ? heroImg.map((i) => (
-                <ImageLink
-                  key={i.uri}
-                  theme={theme}
-                  uri={i.uri}
-                  alt={i.alt}
-                  removeCb={() => removeImg(i.uri)}
+        {slugType === "nm" ? (
+          <>
+            <div
+              className={`p-2 pl-0 min-h-[24px] w-full flex items-center flex-wrap justify-center`}
+            >
+              {heroImg.length
+                ? heroImg.map((i) => (
+                    <ImageLink
+                      key={i.uri}
+                      theme={theme}
+                      uri={i.uri}
+                      alt={i.alt}
+                      removeCb={() => removeImg(i.uri)}
+                    />
+                  ))
+                : null}
+            </div>
+            <div className={`p-2 w-full ${getClasses("border", theme, "btn")}`}>
+              <span onClick={handleClick}>
+                <Upload
+                  color={getClasses("accent", theme, "icon")}
+                  className="cursor-pointer hover:scale-150 transition-transform duration-300"
                 />
-              ))
-            : null}
-        </div>
-        <div className={`p-2 w-full ${getClasses("border", theme, "btn")}`}>
-          <span onClick={handleClick}>
-            <Upload
-              color={getClasses("accent", theme, "icon")}
-              className="cursor-pointer hover:scale-150 transition-transform duration-300"
+              </span>
+              <Input
+                name="image alt"
+                onChange={(e) => setAlt(e.target.value)}
+                type="text"
+                value={alt}
+                label={false}
+                className={`mt-2 p-2`}
+              />
+              <div className="flex">
+                <Button
+                  value="add image"
+                  onClick={handleAdd}
+                  className="mt-0 w-2/12"
+                />
+              </div>
+            </div>
+            <Input
+              name="add images"
+              onChange={handleChange as any}
+              type="file"
+              label={false}
+              className="hidden"
+              clickRef={clickRef}
             />
+          </>
+        ) : (
+          <span className={`p-2 block ${getClasses("text", theme, "btn")}`}>
+            uploading images from local is only supportedd when editor mode is
+            nomark
           </span>
-          <Input
-            name="image alt"
-            onChange={(e) => setAlt(e.target.value)}
-            type="text"
-            value={alt}
-            label={false}
-            className={`mt-2 p-2`}
-          />
-          <div className="flex">
-            <Button
-              value="add image"
-              onClick={handleAdd}
-              className="mt-0 w-2/12"
-            />
-          </div>
-        </div>
-        <Input
-          name="add images"
-          onChange={handleChange as any}
-          type="file"
-          label={false}
-          className="hidden"
-          clickRef={clickRef}
-        />
+        )}
       </div>
     </div>
   );

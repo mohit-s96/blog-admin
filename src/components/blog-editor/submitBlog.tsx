@@ -2,6 +2,7 @@ import marked from "marked";
 import { astToHtml, parser } from "nomark-js";
 import ParseTree from "nomark-js/dist/core/parseTree";
 import React, { ReactElement, useContext } from "react";
+import { BlogSlug } from "../../types/blogTypes";
 import { NewImageData } from "../../types/globalTypes";
 import { getClasses } from "../../utils/classNameResolver";
 import { getUri } from "../../utils/resolvePort";
@@ -75,54 +76,75 @@ function SubmitBlog(): ReactElement {
     } else return;
   };
 
-  const startSubmitionProcess = async () => {
-    if (files.length > 0) {
-      const data = await uploadImages();
-      const newImageData: NewImageData[] = heroImg.map((img, i) => {
-        return {
-          ...img,
-          permUri: data[i].uri,
-        };
+  const publishBlog = async (obj: BlogSlug) => {
+    try {
+      const response = await fetch(`${getUri()}/api/publish`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ data: obj }),
       });
-
-      const images = newImageData.map((x) => ({
-        uri: x.permUri,
-        alt: x.alt,
-        isHero: x.isHero,
-      }));
-
-      let html = "";
-
-      if (slugType === "nm") {
-        const nomarkAst = parser(body);
-
-        changeAstNodes(nomarkAst, newImageData);
-
-        html = astToHtml(nomarkAst);
-      } else if (slugType === "md") {
-        html = marked(body);
-      } else {
-        html = body;
+      if (!response.ok) {
+        throw new Error("publish failed");
       }
-
-      const finalObject = {
-        title,
-        tags,
-        uri: slug,
-        createdAt: Date.now(),
-        images,
-        blogData: html,
-        slugType,
-        shares: 0,
-        likes: 0,
-        excerpt,
-        author: "msx47",
-        commentsAllowed,
-        commentCount: 0,
-        readingTime,
-        //to-do add fields for comments allowed and add extract metadata from parsetree and slugtype
-      };
+      console.log("blog published");
+    } catch (error) {
+      console.log((error as any).message);
     }
+  };
+
+  const startSubmitionProcess = async () => {
+    const data = await uploadImages();
+    const newImageData: NewImageData[] = heroImg.map((img, i) => {
+      return {
+        ...img,
+        permUri: data[i].uri,
+      };
+    });
+
+    const images = newImageData.map((x) => ({
+      uri: x.permUri,
+      alt: x.alt,
+      isHero: x.isHero,
+    }));
+
+    let html = "";
+
+    if (slugType === "nm") {
+      const nomarkAst = parser(body);
+
+      changeAstNodes(nomarkAst, newImageData);
+
+      html = astToHtml(nomarkAst);
+    } else if (slugType === "md") {
+      html = marked(body);
+    } else {
+      html = body;
+    }
+
+    const finalObject = {
+      title,
+      tags,
+      uri: slug,
+      createdAt: Date.now(),
+      images,
+      blogData: html,
+      slugType,
+      shares: 0,
+      likes: 0,
+      excerpt,
+      author: "msx47",
+      commentsAllowed,
+      commentCount: 0,
+      readingTime,
+      viewCount: 0,
+      //to-do add fields for comments allowed and add extract metadata from parsetree and slugtype
+    };
+
+    await publishBlog(finalObject);
   };
 
   return (

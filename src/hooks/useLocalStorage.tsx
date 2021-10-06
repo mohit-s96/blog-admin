@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { EditorType } from "../components/blog-editor/editorMain";
+import { EditorType } from "../types/globalTypes";
 
 function useLocalStorage(key: string, refetchValues: EditorType) {
   const { readingTime, body, heroImg, excerpt, tags, title } = refetchValues;

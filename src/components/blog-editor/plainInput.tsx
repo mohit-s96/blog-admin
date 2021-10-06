@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { ImageData } from "../../types/blogTypes";
+import { EditorActionType, Action } from "../../types/globalTypes";
 import Input from "../login/input";
-import { Action, EditorActionType } from "./editorMain";
 
 interface Props {
   commaSeparated?: boolean;

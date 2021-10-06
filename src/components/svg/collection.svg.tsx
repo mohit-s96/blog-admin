@@ -1,8 +1,8 @@
 import React from "react";
-import { SizeVariantType, ThemeType } from "../../types/globalTypes";
+import { SizeVariantType } from "../../types/globalTypes";
 
 export type SvgProps = {
-  color?: ThemeType;
+  color?: string;
   size?: "xsm" | SizeVariantType;
   accent?: boolean;
 };
@@ -17,7 +17,7 @@ export const Solid = ({ color, size }: SvgProps) => (
   >
     <path
       d="M15.7 17.8L12.7 14.8C12.3 14.4 11.7 14.4 11.3 14.8L8.3 17.8C7.9 18.2 7.9 18.8 8.3 19.2C8.7 19.6 9.3 19.6 9.7 19.2L12 16.9L14.3 19.2C14.5 19.4 14.7 19.5 15 19.5C15.3 19.5 15.5 19.4 15.7 19.2C16.1 18.8 16.1 18.2 15.7 17.8ZM11.3 10.2C11.5 10.4 11.7 10.5 12 10.5C12.3 10.5 12.5 10.4 12.7 10.2L15.7 7.2C16.1 6.8 16.1 6.2 15.7 5.8C15.3 5.4 14.7 5.4 14.3 5.8L12 8.1L9.7 5.8C9.3 5.4 8.7 5.4 8.3 5.8C7.9 6.2 7.9 6.8 8.3 7.2L11.3 10.2Z"
-      fill={color === "dark" ? "#FFFFFF" : "#6A6666"}
+      fill={color}
     />
   </svg>
 );
@@ -52,7 +52,7 @@ export const Clock = ({ color, size }: SvgProps) => (
   </svg>
 );
 
-export const Check = ({ accent, size }: SvgProps) => (
+export const Check = ({ color, size }: SvgProps) => (
   <svg
     width={size === "xsm" ? 14 : size === "sm" ? 18 : 24}
     height={size === "xsm" ? 14 : size === "sm" ? 18 : 24}
@@ -62,7 +62,7 @@ export const Check = ({ accent, size }: SvgProps) => (
   >
     <path
       d="M12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2ZM16.2 10.3L11.4 15.1C11 15.5 10.4 15.5 10 15.1L7.8 12.9C7.4 12.5 7.4 11.9 7.8 11.5C8.2 11.1 8.8 11.1 9.2 11.5L10.7 13L14.8 8.9C15.2 8.5 15.8 8.5 16.2 8.9C16.6 9.3 16.6 9.9 16.2 10.3Z"
-      fill={accent ? "#6A279F" : "#6A6666"}
+      fill={color}
     />
   </svg>
 );

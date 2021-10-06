@@ -49,7 +49,9 @@ export type EditorActionType =
   | "ADD_FILE"
   | "CHANGE_MODE"
   | "SET_COMMENT"
-  | "SET_SLUG";
+  | "SET_SLUG"
+  | "SET_LOADING"
+  | "SET_ERROR";
 
 export type Action = {
   type: EditorActionType;
@@ -68,6 +70,8 @@ export interface EditorType {
   commentsAllowed: boolean;
   author?: string;
   slug: string;
+  loading?: boolean;
+  error?: string;
   dispatch?: React.Dispatch<Action>;
 }
 
@@ -91,3 +95,8 @@ export interface WidthContextType {
   previewWidth: number | null;
   wDispatch?: React.Dispatch<WidthAction>;
 }
+
+export type UploadResponse = {
+  message: string;
+  uri: string;
+};

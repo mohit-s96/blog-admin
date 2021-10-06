@@ -13,6 +13,8 @@ const initialState: EditorType = {
   slugType: "nm",
   commentsAllowed: true,
   slug: "",
+  loading: false,
+  error: "",
 };
 
 export function getInitialEditorState() {
@@ -25,6 +27,16 @@ export const reducer = (
 ): EditorType => {
   syncToLocalStorage(payload, type, state);
   switch (type) {
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: payload as any,
+      };
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: payload,
+      };
     case "SET_COMMENT":
       return {
         ...state,

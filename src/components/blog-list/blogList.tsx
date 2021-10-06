@@ -10,9 +10,11 @@ function BlogList({ auth }: Props): ReactElement {
   const data = useContext(BlogContext);
   return (
     <div className="flex-col flex">
-      {data!.map((blog) => (
-        <PostPreview key={blog._id as unknown as string} data={blog} />
-      ))}
+      {data!
+        .sort((a, b) => b.createdAt - a.createdAt)
+        .map((blog) => (
+          <PostPreview key={blog._id as unknown as string} data={blog} />
+        ))}
     </div>
   );
 }

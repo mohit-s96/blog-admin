@@ -21,9 +21,16 @@ export interface FilesData {
   blobUri: string;
 }
 
-export   interface NewImageData {
+export interface NewImageData {
   permUri: string;
   alt: string;
   uri: string;
   isHero?: boolean | undefined;
-};
+}
+
+export type SlugType = "html" | "md" | "nm";
+
+export interface SlugTuple {
+  name: string;
+  type: SlugType;
+}

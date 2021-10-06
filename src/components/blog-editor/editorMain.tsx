@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useReducer, useRef } from "react";
 import { useRect } from "../../hooks/useRect";
 import { ImageData } from "../../types/blogTypes";
-import { FilesData } from "../../types/globalTypes";
+import { FilesData, SlugType } from "../../types/globalTypes";
 import WithTransition from "../hoc/withTransition";
 import EditBlog from "./editBlog";
 import PageDivider from "./pageDivider";
@@ -16,7 +16,10 @@ export type EditorActionType =
   | "HEROIMG"
   | "ALL"
   | "REM_IMG"
-  | "ADD_FILE";
+  | "ADD_FILE"
+  | "CHANGE_MODE"
+  | "SET_COMMENT"
+  | "SET_SLUG";
 
 export interface EditorType {
   title: string;
@@ -26,6 +29,10 @@ export interface EditorType {
   readingTime: string;
   body: string;
   files: FilesData[];
+  slugType: SlugType;
+  commentsAllowed: boolean;
+  author?: string;
+  slug: string;
   dispatch?: React.Dispatch<Action>;
 }
 
@@ -37,6 +44,9 @@ const initialState: EditorType = {
   readingTime: "",
   files: [],
   body: "",
+  slugType: "nm",
+  commentsAllowed: true,
+  slug: "",
 };
 export const EditorContext = React.createContext<EditorType>(initialState);
 
@@ -58,6 +68,12 @@ function resolveType(type: Action["type"]) {
       return "tags";
     case "TITLE":
       return "title";
+    case "SET_SLUG":
+      return "slug";
+    case "SET_COMMENT":
+      return "commentsAllowed";
+    case "CHANGE_MODE":
+      return "slugType";
     default:
       return "";
   }
@@ -82,6 +98,21 @@ const reducer = (
 ): EditorType => {
   syncToLocalStorage(payload, type, state);
   switch (type) {
+    case "SET_COMMENT":
+      return {
+        ...state,
+        commentsAllowed: payload as any,
+      };
+    case "SET_SLUG":
+      return {
+        ...state,
+        slug: payload,
+      };
+    case "CHANGE_MODE":
+      return {
+        ...state,
+        slugType: payload as any,
+      };
     case "ADD_FILE":
       return {
         ...state,

@@ -4,13 +4,14 @@ import { testMatch } from "../../utils/constants";
 import SimpleTags from "../tags/SimpleTags";
 import AuthorBar from "./authorBar";
 import BlogImage from "./blogImage";
+import marked from "marked";
 import { EditorContext, WidthContext } from "./editorMain";
 import { astToHtml, parser } from "nomark-js";
 import Prism from "prismjs";
 import "prismjs/themes/prism-tomorrow.css";
 
 function Preview(): ReactElement {
-  const { title, readingTime, heroImg, tags, body, excerpt } =
+  const { title, readingTime, heroImg, tags, body, excerpt, slugType } =
     useContext(EditorContext);
 
   const { wDispatch, previewWidth } = useContext(WidthContext);
@@ -18,6 +19,16 @@ function Preview(): ReactElement {
   const divRef = useRef(null);
 
   const rect = useRect(divRef);
+
+  function resolveBodyType() {
+    if (slugType === "nm") {
+      return astToHtml(parser(body, "warn"));
+    } else if (slugType === "html") {
+      return body;
+    } else {
+      return marked(body);
+    }
+  }
 
   useEffect(() => {
     // Prism.manual = true;
@@ -65,7 +76,7 @@ function Preview(): ReactElement {
         <AuthorBar time={readingTime} />
         <div
           className="p-2 m-1"
-          dangerouslySetInnerHTML={{ __html: astToHtml(parser(body, "warn")) }}
+          dangerouslySetInnerHTML={{ __html: resolveBodyType() }}
         ></div>
       </div>
     </div>

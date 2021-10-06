@@ -8,14 +8,7 @@ import PostPreviewImage from "./PostPreviewImage";
 export interface CardProps {
   data: BlogListType;
 }
-function PostPreview({
-  data,
-  data: {
-    images: {
-      hero: { uri, alt },
-    },
-  },
-}: CardProps): ReactElement {
+function PostPreview({ data, data: { images } }: CardProps): ReactElement {
   const [deviceType, setDeviceType] = useState<DeviceTypes>("ipad");
   const { theme } = useTheme();
   useEffect(() => {
@@ -46,17 +39,29 @@ function PostPreview({
       <div className={resolveLayouts()}>
         {deviceType === "regular" ? (
           <>
-            <PostPreviewImage type="horiz" uri={uri} alt={alt} />
+            <PostPreviewImage
+              type="horiz"
+              uri={images[0].uri}
+              alt={images[0].alt}
+            />
             <PostPreviewContent content={data} type="horiz" theme={theme} />
           </>
         ) : deviceType === "mobile" ? (
           <>
-            <PostPreviewImage type="vert" uri={uri} alt={alt} />
+            <PostPreviewImage
+              type="vert"
+              uri={images[0].uri}
+              alt={images[0].alt}
+            />
             <PostPreviewContent content={data} type="vert" theme={theme} />
           </>
         ) : (
           <>
-            <PostPreviewImage type="horiz" uri={uri} alt={alt} />
+            <PostPreviewImage
+              type="horiz"
+              uri={images[0].uri}
+              alt={images[0].alt}
+            />
             <PostPreviewContent content={data} type="horiz" theme={theme} />
           </>
         )}

@@ -1,4 +1,5 @@
 import { ObjectId } from "bson";
+import { SlugType } from "./globalTypes";
 
 export type BlogPathNames = {
   _id: ObjectId;
@@ -22,21 +23,22 @@ export interface BlogMetadata {
 }
 
 export interface BlogSlug {
-  _id: ObjectId;
+  _id?: ObjectId;
   title: string;
-  url: string;
+  uri: string;
   tags: string[];
   createdAt: number;
-  images: BlogImages;
+  images: ImageData[];
   blogData: string;
   shares: number;
   likes: number;
   excerpt: string;
   author: string;
-  commentsAllowed: string;
+  commentsAllowed: boolean;
   commentCount: number;
-  metadata: BlogMetadata;
+  metadata?: BlogMetadata;
   viewCount: number;
+  slugType: SlugType;
 }
 
 export interface CommentMetadata {

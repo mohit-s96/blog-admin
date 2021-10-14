@@ -34,7 +34,7 @@ function Editor({ theme }: Props): ReactElement {
         }}
       />
       <AceEditor
-        placeholder="nomark data"
+        placeholder={`${resolveSlugType(slugType)} data`}
         mode="javascript"
         name="blah2"
         onChange={onChange}

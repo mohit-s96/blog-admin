@@ -21,6 +21,8 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
 
   const [alt, setAlt] = useState("");
 
+  const [currentFileName, setCurrentFileName] = useState("select an image");
+
   const [uri, setUri] = useState("");
 
   const clickRef = useRef(null);
@@ -33,8 +35,9 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
-
+    
     if (file && file.name) {
+      setCurrentFileName(file.name);
       const tempUri = window.URL.createObjectURL(file);
       const fileData: FilesData = {
         file,
@@ -63,6 +66,7 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
   };
 
   const removeImg = (id: string) => {
+    setCurrentFileName("select an image");
     dispatch &&
       dispatch({
         payload: id as any,
@@ -110,11 +114,12 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
                 : null}
             </div>
             <div className={`p-2 w-full ${getClasses("border", theme, "btn")}`}>
-              <span onClick={handleClick}>
+              <span onClick={handleClick} className={`${getClasses("text", theme, "btn")} flex w-2/5 justify-between`}>
                 <Upload
                   color={getClasses("accent", theme, "icon")}
                   className="cursor-pointer hover:scale-150 transition-transform duration-300"
                 />
+                {currentFileName}
               </span>
               <Input
                 name="image alt"
@@ -143,7 +148,7 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
           </>
         ) : (
           <span className={`p-2 block ${getClasses("text", theme, "btn")}`}>
-            uploading images from local is only supportedd when editor mode is
+            uploading images from local is only supported when editor mode is
             nomark
           </span>
         )}

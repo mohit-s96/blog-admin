@@ -23,6 +23,7 @@ function Layout(): ReactElement {
         <Navitem
           className="absolute top-2 left-0 z-[5]"
           callback={() => setShow(true)}
+          label="open sidebar"
         >
           <RightArrow color={getClasses("accent", theme, "icon")} />
         </Navitem>

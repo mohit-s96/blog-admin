@@ -7,10 +7,11 @@ import { uploadImages, publishBlog } from "../../utils/fetchResource";
 import { changeAstNodes } from "../../utils/misc";
 import { useTheme } from "../provider/Provider";
 import { EditorContext } from "./editorMain";
+import { useHistory } from "react-router";
 
 function SubmitBlog(): ReactElement {
   const { theme } = useTheme();
-
+  const history = useHistory();
   const {
     body,
     title,
@@ -62,21 +63,26 @@ function SubmitBlog(): ReactElement {
 
       let html = "";
 
+      let rawBody = "";
+
       if (slugType === "nm") {
         const nomarkAst = parser(body);
 
         changeAstNodes(nomarkAst, newImageData);
 
         html = astToHtml(nomarkAst);
-        console.log(html);
+
+        rawBody = JSON.stringify(nomarkAst);
         
       } else if (slugType === "md") {
+        rawBody = body;
         html = marked(body);
       } else {
         html = body;
       }
-
+      
       const finalObject = {
+        rawBody,
         title,
         tags,
         uri: slug,
@@ -103,6 +109,8 @@ function SubmitBlog(): ReactElement {
         type: "SET_ERROR",
         payload: "" as any,
       });
+      localStorage.removeItem("/api/list");
+      history.push("/");
     } catch (error) {
       dispatch!({
         type: "SET_LOADING",

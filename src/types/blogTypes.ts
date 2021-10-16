@@ -24,6 +24,7 @@ export interface BlogMetadata {
 
 export interface BlogSlug {
   _id?: ObjectId;
+  rawBody?: string;
   title: string;
   uri: string;
   tags: string[];

@@ -10,8 +10,13 @@ interface Props {
 
 function PostPreviewImage({ type, uri, alt }: Props): ReactElement {
   return (
-    <div className={`${type === "horiz" ? "w-card-lg-vert" : "w-full h-3/6"}`}>
-      <ResImage className={`w-full h-72  ${
+    <div className={`${type === "horiz" ? "w-card-lg-vert" : "w-full h-3/6"}`}
+    style={{
+      minWidth: "400px",
+      minHeight: "225px"
+    }}
+    >
+      <ResImage className={`w-full ${
           type === "horiz"
             ? "rounded-tl-3xl rounded-bl-3xl"
             : "rounded-tl-3xl rounded-tr-3xl"

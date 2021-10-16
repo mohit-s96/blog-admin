@@ -1,5 +1,5 @@
 import { ObjectId } from "bson";
-import { SlugType } from "./globalTypes";
+import { NewImageData, SlugType } from "./globalTypes";
 
 export type BlogPathNames = {
   _id: ObjectId;
@@ -28,7 +28,7 @@ export interface BlogSlug {
   uri: string;
   tags: string[];
   createdAt: number;
-  images: ImageData[];
+  images: NewImageData[];
   blogData: string;
   shares: number;
   likes: number;

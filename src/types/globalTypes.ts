@@ -24,9 +24,9 @@ export interface FilesData {
 }
 
 export interface NewImageData {
-  permUri: string;
+  permUri: SupaUploadResponseType[];
   alt: string;
-  uri: string;
+  uri?: string;
   isHero?: boolean | undefined;
 }
 
@@ -96,7 +96,14 @@ export interface WidthContextType {
   wDispatch?: React.Dispatch<WidthAction>;
 }
 
+export type SupaUploadResponseType = {
+  data: {
+    Key: string;
+  } | null;
+  error: Error | null;
+};
+
 export type UploadResponse = {
   message: string;
-  uri: string;
+  uri: SupaUploadResponseType[];
 };

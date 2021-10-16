@@ -41,7 +41,7 @@ function PostPreview({ data, data: { images } }: CardProps): ReactElement {
           <>
             <PostPreviewImage
               type="horiz"
-              uri={images[0].uri}
+              uri={images[0].permUri}
               alt={images[0].alt}
             />
             <PostPreviewContent content={data} type="horiz" theme={theme} />
@@ -50,7 +50,7 @@ function PostPreview({ data, data: { images } }: CardProps): ReactElement {
           <>
             <PostPreviewImage
               type="vert"
-              uri={images[0].uri}
+              uri={images[0].permUri}
               alt={images[0].alt}
             />
             <PostPreviewContent content={data} type="vert" theme={theme} />
@@ -59,7 +59,7 @@ function PostPreview({ data, data: { images } }: CardProps): ReactElement {
           <>
             <PostPreviewImage
               type="horiz"
-              uri={images[0].uri}
+              uri={images[0].permUri}
               alt={images[0].alt}
             />
             <PostPreviewContent content={data} type="horiz" theme={theme} />

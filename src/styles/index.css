@@ -105,6 +105,13 @@
   transform: scale(1) !important;
   display: flex !important;
 }
+
+.no-decor {
+  text-decoration: none !important;
+}
+.text-blue {
+  color: #004ad4 !important;
+}
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

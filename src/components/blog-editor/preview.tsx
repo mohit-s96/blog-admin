@@ -8,6 +8,8 @@ import marked from "marked";
 import { EditorContext, WidthContext } from "./editorMain";
 import { astToHtml, parser } from "nomark-js";
 import Prism from "prismjs";
+import "prismjs/components/prism-bash";
+// import "prismjs/components/prism-cpp";
 import "prismjs/themes/prism-tomorrow.css";
 
 function Preview(): ReactElement {
@@ -19,6 +21,11 @@ function Preview(): ReactElement {
   const divRef = useRef(null);
 
   const rect = useRect(divRef);
+
+  useEffect(() => {
+    const element = divRef.current as unknown as HTMLDivElement;
+    element.scrollTop = element.scrollHeight - element.clientHeight;
+  }, [body]);
 
   function resolveBodyType() {
     if (slugType === "nm") {
@@ -32,7 +39,7 @@ function Preview(): ReactElement {
 
   useEffect(() => {
     // Prism.manual = true;
-    Prism.highlightAll();
+      Prism.highlightAll();
   }, [body]);
 
   useEffect(() => {
@@ -59,9 +66,6 @@ function Preview(): ReactElement {
             {title}
           </h1>
         </div>
-        <div className="flex justify-start px-4">
-          <p className="text-md my-2 text-gray-600 p-2">{excerpt}</p>
-        </div>
         {heroImg[0]?.uri &&
         testMatch.test(heroImg[0].uri) &&
         heroImg[0].uri.endsWith(",") ? (
@@ -74,6 +78,9 @@ function Preview(): ReactElement {
             : null}
         </div>
         <AuthorBar time={readingTime} />
+        <div className="flex justify-start px-2">
+          <p className="text-md my-2 text-gray-600 italic text-xl font-bold p-1">{excerpt}</p>
+        </div>
         <div
           className="p-2 m-1"
           dangerouslySetInnerHTML={{ __html: resolveBodyType() }}

@@ -76,6 +76,7 @@ function Sidebar({ show, setShow }: Props): ReactElement {
         <Navitem
           className="font-bold absolute top-0 right-1"
           callback={() => setHidden(true)}
+          label="close sidebar"
         >
           <LeftArrow color={getClasses("sb", theme, "icon")} />
         </Navitem>

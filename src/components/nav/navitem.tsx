@@ -6,14 +6,16 @@ interface Props {
   children: ReactNode;
   callback?: () => any;
   className?: string;
+  label?: string
 }
 
-function Navitem({ children, callback, className = "" }: Props): ReactElement {
+function Navitem({ children, callback, className = "", label = "" }: Props): ReactElement {
   const { theme } = useTheme();
 
   return (
     <button
       onClick={() => callback && callback()}
+      aria-label={label}
       className={`p-1 bg-transparent flex justify-between items-center rounded-sm ml-8 ${getClasses(
         "text",
         theme,

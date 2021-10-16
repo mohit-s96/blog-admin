@@ -33,6 +33,7 @@ export function syncToLocalStorage(
     const temp: EditorType = {
       ...state,
       heroImg: [],
+      files: [],
       [resolveType(type)]: data,
     };
     localStorage.setItem("nomark", JSON.stringify(temp));

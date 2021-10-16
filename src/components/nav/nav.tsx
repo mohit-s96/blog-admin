@@ -24,7 +24,7 @@ function Nav(): ReactElement {
         "btn"
       )}`}
     >
-      <Link to="/" className="cursor-pointer flex justify-center items-center">
+      <Link to="/" className="cursor-pointer flex justify-center items-center" aria-label="home page">
         <Branding color={getClasses("nb", theme, "icon")} />
       </Link>
       <div className="flex justify-center items-center">

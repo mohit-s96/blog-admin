@@ -28,7 +28,7 @@ function Login(): ReactElement {
     <div
       className={`flex flex-col w-full h-screen ${
         theme === "neon" ? "bg-[#090d24]" : getClasses("bg", theme, "btn")
-      } justify-center items-center overflow-hidden`}
+      } justify-center items-center overflow-hidden relative`}
     >
       <nav
         className={`flex items-center justify-center absolute w-full top-0 ${getClasses(

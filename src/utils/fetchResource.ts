@@ -4,6 +4,7 @@ import { getUri } from "./resolvePort";
 
 export const uploadImages = async (files: FilesData[]) => {
   let promises: Promise<Response>[] = [];
+
   files.forEach((file) => {
     const image = file.file;
     const formData = new FormData();

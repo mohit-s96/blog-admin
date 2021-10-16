@@ -1,17 +1,42 @@
 import ParseTree from "nomark-js/dist/core/parseTree";
+import { generateParseTree } from "nomark-js";
 import { NewImageData } from "../types/globalTypes";
 
 export const changeAstNodes = (node: ParseTree, imgData: NewImageData[]) => {
   if (node.type === "img") {
+    node.type = "picture";
+    let data: NewImageData | undefined;
     node.attributes = node.attributes!.map((x) => {
       if (x.key !== "src") {
         return x;
       } else {
-        const data = imgData.find((img) => img.uri === x.value);
-        x.value = data!.permUri;
+        data = imgData.find((img) => img.uri === x.value);
+        x.value = data!.permUri[1].data!.Key;
         return x;
       }
     });
+
+    const temp = node.attributes;
+
+    const s1 = generateParseTree({
+      attributes: [
+        { key: "media", value: "(max-width: 799px)" },
+        { key: "srcset", value: data!.permUri[1].data!.Key },
+      ],
+      type: "source",
+    });
+    const s2 = generateParseTree({
+      attributes: [
+        { key: "media", value: "(min-width: 800px)" },
+        { key: "srcset", value: data!.permUri[2].data!.Key },
+      ],
+      type: "source",
+    });
+    const s3 = generateParseTree({ attributes: [...temp], type: "img" });
+    node.children = [s1, s2, s3];
+
+    node.attributes = [];
+
     return;
   } else if (node.children?.length) {
     node.children!.forEach((x) => {

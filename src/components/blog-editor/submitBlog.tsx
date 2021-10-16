@@ -17,7 +17,7 @@ function SubmitBlog(): ReactElement {
     tags,
     excerpt,
     files,
-    heroImg,
+    heroImg: blogImages,
     readingTime,
     slug,
     slugType,
@@ -25,14 +25,29 @@ function SubmitBlog(): ReactElement {
     dispatch,
   } = useContext(EditorContext);
 
+  const validFormFields = (): boolean => {
+    if(!body.length || !title.length || !tags.length || !excerpt.length || !blogImages.length || !readingTime.length || !slug){
+      return false;
+    }
+    return true;
+  }
+
   const startSubmitionProcess = async () => {
     try {
+      if(!validFormFields()){
+        dispatch!({
+          type: "SET_ERROR",
+          payload: "one or more fields empty" as any,
+        });  
+        return;
+      }
       dispatch!({
         type: "SET_LOADING",
         payload: true as any,
       });
       const data = await uploadImages(files);
-      const newImageData: NewImageData[] = heroImg.map((img, i) => {
+      
+      const newImageData: NewImageData[] = blogImages.map((img, i) => {
         return {
           ...img,
           permUri: data[i].uri,
@@ -40,7 +55,7 @@ function SubmitBlog(): ReactElement {
       });
 
       const images = newImageData.map((x) => ({
-        uri: x.permUri,
+        permUri: x.permUri,
         alt: x.alt,
         isHero: x.isHero,
       }));
@@ -53,6 +68,8 @@ function SubmitBlog(): ReactElement {
         changeAstNodes(nomarkAst, newImageData);
 
         html = astToHtml(nomarkAst);
+        console.log(html);
+        
       } else if (slugType === "md") {
         html = marked(body);
       } else {

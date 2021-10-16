@@ -7871,10 +7871,10 @@ node-releases@^1.1.61, node-releases@^1.1.70:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.70.tgz#66e0ed0273aa65666d7fe78febe7634875426a08"
   integrity sha512-Slf2s69+2/uAD79pVVQo8uSiC34+g8GWY8UH2Qtqv34ZfhYrxpYpfzs9Js9d6O0mbDmALuxaTlplnBTnSELcrw==
 
-nomark-js@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/nomark-js/-/nomark-js-0.1.8.tgz#c0ded4c9a76eccec1b14a2726ce2cd8c1f893237"
-  integrity sha512-+e05IDSlLGB3gTArUidgi6yOhE7clo//TG3qmiYic0Xfyq3Qf6lJviAFpgA5YKdScEzCjbTTZiLjdIo4lYoFLw==
+nomark-js@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/nomark-js/-/nomark-js-0.1.9.tgz#72fbeb23d8e016cbe2fe5eba4aaae02369af2e61"
+  integrity sha512-o/qskxitJ7cU2ymKQgntHIXy9PVec8lhAjuFc8I46Xf0AKJDOzotPTGXZ+H5mxXbdEOzDK9UZ4lgj+ZFPlISIg==
 
 normalize-package-data@^2.3.2, normalize-package-data@^2.5.0:
   version "2.5.0"

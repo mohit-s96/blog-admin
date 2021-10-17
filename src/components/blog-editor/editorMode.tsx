@@ -43,7 +43,7 @@ function EditorMode({
       >
         <DropDown modes={slugModes} visible={visible} setType={changeMode} />
         <span className={`font-bold p-2 ${getClasses("text", theme, "btn")}`}>
-          change
+          change editor mode
         </span>
         <Solid color={getClasses("accent", theme, "icon")} />
       </div>

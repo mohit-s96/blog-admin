@@ -82,7 +82,7 @@ function Preview(): ReactElement {
           <p className="text-md my-2 text-gray-600 italic text-xl font-bold p-1">{excerpt}</p>
         </div>
         <div
-          className="p-2 m-1"
+          className="p-2 m-1 flex flex-col items-center"
           dangerouslySetInnerHTML={{ __html: resolveBodyType() }}
         ></div>
       </div>

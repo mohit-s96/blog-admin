@@ -1,6 +1,6 @@
 import ParseTree from "nomark-js/dist/core/parseTree";
-import { generateParseTree } from "nomark-js";
-import { NewImageData } from "../types/globalTypes";
+import { astToHtml, generateParseTree } from "nomark-js";
+import { NewImageData, UploadResponse } from "../types/globalTypes";
 
 export const changeAstNodes = (node: ParseTree, imgData: NewImageData[]) => {
   if (node.type === "img") {
@@ -43,4 +43,34 @@ export const changeAstNodes = (node: ParseTree, imgData: NewImageData[]) => {
       changeAstNodes(x, imgData);
     });
   } else return;
+};
+
+export const generateResponsiveImageHtml = (images: UploadResponse): string => {
+  const s1 = generateParseTree({
+    attributes: [
+      { key: "media", value: "(max-width: 799px)" },
+      { key: "srcset", value: images.uri[1].data!.Key },
+    ],
+    type: "source",
+  });
+  const s2 = generateParseTree({
+    attributes: [
+      { key: "media", value: "(min-width: 800px)" },
+      { key: "srcset", value: images.uri[2].data!.Key },
+    ],
+    type: "source",
+  });
+  const s3 = generateParseTree({
+    attributes: [{ key: "src", value: images.uri[1].data!.Key }],
+    type: "img",
+  });
+
+  const node = generateParseTree({
+    children: [s1, s2, s3],
+    type: "picture",
+  });
+
+  const html = astToHtml(node);
+
+  return html;
 };

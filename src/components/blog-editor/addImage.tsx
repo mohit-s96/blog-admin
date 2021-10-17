@@ -2,6 +2,8 @@ import React, { ReactElement, useContext, useRef, useState } from "react";
 import { ImageData } from "../../types/blogTypes";
 import { FilesData } from "../../types/globalTypes";
 import { getClasses } from "../../utils/classNameResolver";
+import { uploadImages } from "../../utils/fetchResource";
+import { generateResponsiveImageHtml } from "../../utils/misc";
 import Button from "../login/button";
 import Input from "../login/input";
 import { useTheme } from "../provider/Provider";
@@ -33,6 +35,19 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
     }
   };
 
+  const uploadImageAndGenerateHtml = async (blobUri: string): Promise<string> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const file = files.find(file => file.blobUri === blobUri)!;
+        const response = await uploadImages([file]);
+        const html = generateResponsiveImageHtml(response[0]);
+        resolve(html);
+      } catch (error) {
+        reject((error as any).message);
+      }
+    });
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
     
@@ -63,6 +78,7 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
     }
     setAlt("");
     setUri("");
+    setCurrentFileName("select an image");
   };
 
   const removeImg = (id: string) => {
@@ -96,7 +112,7 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
         >
           {name}:{" "}
         </label>
-        {slugType === "nm" ? (
+        {(slugType === "nm" || slugType === "md") ? (
           <>
             <div
               className={`p-2 pl-0 min-h-[24px] w-full flex items-center flex-wrap justify-center`}
@@ -109,6 +125,7 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
                       uri={i.uri}
                       alt={i.alt}
                       removeCb={() => removeImg(i.uri)}
+                      uploadImage={() => uploadImageAndGenerateHtml(i.uri)}
                     />
                   ))
                 : null}

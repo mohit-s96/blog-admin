@@ -2,7 +2,8 @@ import React, { ReactElement, useContext, useState } from "react";
 import { SlugType, ThemeType } from "../../types/globalTypes";
 import { EditorContext } from "./editorMain";
 import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/mode-markdown";
+import "ace-builds/src-noconflict/theme-dracula";
 import EditorMode from "./editorMode";
 
 interface Props {
@@ -35,10 +36,11 @@ function Editor({ theme }: Props): ReactElement {
       />
       <AceEditor
         placeholder={`${resolveSlugType(slugType)} data`}
-        mode="javascript"
+        mode="markdown"
         name="blah2"
         onChange={onChange}
-        fontSize={18}
+        theme="dracula"
+        fontSize={20}
         showPrintMargin={true}
         showGutter={true}
         highlightActiveLine={true}

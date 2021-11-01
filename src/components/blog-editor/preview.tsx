@@ -39,7 +39,7 @@ function Preview(): ReactElement {
 
   useEffect(() => {
     // Prism.manual = true;
-      Prism.highlightAll();
+    Prism.highlightAll();
   }, [body]);
 
   useEffect(() => {
@@ -79,10 +79,12 @@ function Preview(): ReactElement {
         </div>
         <AuthorBar time={readingTime} />
         <div className="flex justify-start px-2">
-          <p className="text-md my-2 text-gray-600 italic text-xl font-bold p-1">{excerpt}</p>
+          <p className="text-md my-2 text-gray-600 italic text-xl font-bold p-1">
+            {excerpt}
+          </p>
         </div>
         <div
-          className="p-2 m-1 flex flex-col items-center"
+          className="p-2 m-1 md-render-parent"
           dangerouslySetInnerHTML={{ __html: resolveBodyType() }}
         ></div>
       </div>

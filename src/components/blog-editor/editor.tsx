@@ -45,6 +45,7 @@ function Editor({ theme }: Props): ReactElement {
         showGutter={true}
         highlightActiveLine={true}
         value={body}
+        wrapEnabled
         setOptions={{
           enableBasicAutocompletion: false,
           enableLiveAutocompletion: false,

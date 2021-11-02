@@ -61,8 +61,13 @@ export const generateResponsiveImageHtml = (images: UploadResponse): string => {
     type: "source",
   });
   const s3 = generateParseTree({
-    attributes: [{ key: "src", value: images.uri[1].data!.Key }],
+    attributes: [
+      { key: "src", value: images.uri[1].data!.Key },
+      { key: "width", value: "400" },
+      { key: "height", value: "225" },
+    ],
     type: "img",
+    classes: ["w-full"],
   });
 
   const node = generateParseTree({

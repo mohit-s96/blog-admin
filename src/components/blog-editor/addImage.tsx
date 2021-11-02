@@ -35,22 +35,34 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
     }
   };
 
-  const uploadImageAndGenerateHtml = async (blobUri: string): Promise<string> => {
+  const uploadImageAndGenerateHtml = async (
+    blobUri: string
+  ): Promise<string> => {
     return new Promise(async (resolve, reject) => {
       try {
-        const file = files.find(file => file.blobUri === blobUri)!;
+        const file = files.find((file) => file.blobUri === blobUri)!;
         const response = await uploadImages([file]);
+        let newImages = heroImg.map((img) => {
+          if (img.uri === blobUri) {
+            img.permUri = response[0].uri;
+          }
+          return img;
+        });
+
+        dispatch!({ payload: newImages as any, type: "SET_PERM_URI" });
+
         const html = generateResponsiveImageHtml(response[0]);
+
         resolve(html);
       } catch (error) {
         reject((error as any).message);
       }
     });
-  }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
-    
+
     if (file && file.name) {
       setCurrentFileName(file.name);
       const tempUri = window.URL.createObjectURL(file);
@@ -112,7 +124,7 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
         >
           {name}:{" "}
         </label>
-        {(slugType === "nm" || slugType === "md") ? (
+        {slugType === "nm" || slugType === "md" ? (
           <>
             <div
               className={`p-2 pl-0 min-h-[24px] w-full flex items-center flex-wrap justify-center`}
@@ -131,7 +143,14 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
                 : null}
             </div>
             <div className={`p-2 w-full ${getClasses("border", theme, "btn")}`}>
-              <span onClick={handleClick} className={`${getClasses("text", theme, "btn")} flex w-2/5 justify-between`}>
+              <span
+                onClick={handleClick}
+                className={`${getClasses(
+                  "text",
+                  theme,
+                  "btn"
+                )} flex w-2/5 justify-between`}
+              >
                 <Upload
                   color={getClasses("accent", theme, "icon")}
                   className="cursor-pointer hover:scale-150 transition-transform duration-300"

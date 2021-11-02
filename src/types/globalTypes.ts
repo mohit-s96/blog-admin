@@ -51,7 +51,8 @@ export type EditorActionType =
   | "SET_COMMENT"
   | "SET_SLUG"
   | "SET_LOADING"
-  | "SET_ERROR";
+  | "SET_ERROR"
+  | "SET_PERM_URI";
 
 export type Action = {
   type: EditorActionType;

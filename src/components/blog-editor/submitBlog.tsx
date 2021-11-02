@@ -1,7 +1,11 @@
 import React, { ReactElement, useContext } from "react";
 import marked from "marked";
 import { astToHtml, parser } from "nomark-js";
-import { NewImageData } from "../../types/globalTypes";
+import {
+  NewImageData,
+  SupaUploadResponseType,
+  UploadResponse,
+} from "../../types/globalTypes";
 import { getClasses } from "../../utils/classNameResolver";
 import { uploadImages, publishBlog } from "../../utils/fetchResource";
 import { changeAstNodes } from "../../utils/misc";
@@ -27,39 +31,61 @@ function SubmitBlog(): ReactElement {
   } = useContext(EditorContext);
 
   const validFormFields = (): boolean => {
-    if(!body.length || !title.length || !tags.length || !excerpt.length || !blogImages.length || !readingTime.length || !slug){
+    if (
+      !body.length ||
+      !title.length ||
+      !tags.length ||
+      !excerpt.length ||
+      !blogImages.length ||
+      !readingTime.length ||
+      !slug
+    ) {
       return false;
     }
     return true;
-  }
+  };
 
   const startSubmitionProcess = async () => {
     try {
-      if(!validFormFields()){
+      if (!validFormFields()) {
         dispatch!({
           type: "SET_ERROR",
           payload: "one or more fields empty" as any,
-        });  
+        });
         return;
       }
       dispatch!({
         type: "SET_LOADING",
         payload: true as any,
       });
-      const data = await uploadImages(files);
-      
-      const newImageData: NewImageData[] = blogImages.map((img, i) => {
-        return {
-          ...img,
-          permUri: data[i].uri,
-        };
-      });
 
-      const images = newImageData.map((x) => ({
-        permUri: x.permUri,
-        alt: x.alt,
-        isHero: x.isHero,
-      }));
+      let data: UploadResponse[] = [];
+
+      let images;
+
+      let newImageData: NewImageData[] = [];
+
+      if (slugType === "nm") {
+        data = await uploadImages(files);
+        newImageData = blogImages.map((img, i) => {
+          return {
+            ...img,
+            permUri: data[i].uri,
+          };
+        });
+
+        images = newImageData.map((x) => ({
+          permUri: x.permUri,
+          alt: x.alt,
+          isHero: x.isHero,
+        }));
+      } else {
+        images = blogImages.map((img) => ({
+          permUri: img.permUri as SupaUploadResponseType[],
+          alt: img.alt,
+          isHero: img.isHero,
+        }));
+      }
 
       let html = "";
 
@@ -72,15 +98,14 @@ function SubmitBlog(): ReactElement {
 
         html = astToHtml(nomarkAst);
 
-        rawBody = JSON.stringify(nomarkAst);
-        
+        // rawBody = JSON.stringify(nomarkAst);
       } else if (slugType === "md") {
-        rawBody = body;
         html = marked(body);
       } else {
         html = body;
       }
-      
+      rawBody = body;
+
       const finalObject = {
         rawBody,
         title,

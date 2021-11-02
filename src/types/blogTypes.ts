@@ -1,11 +1,12 @@
 import { ObjectId } from "bson";
-import { NewImageData, SlugType } from "./globalTypes";
+import { NewImageData, SlugType, SupaUploadResponseType } from "./globalTypes";
 
 export type BlogPathNames = {
   _id: ObjectId;
   pathNames: Array<string>;
 };
 export interface ImageData {
+  permUri?: SupaUploadResponseType[];
   alt: string;
   uri: string;
   isHero?: boolean;

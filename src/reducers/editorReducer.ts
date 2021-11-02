@@ -101,6 +101,11 @@ export const reducer = (
         ...state,
         title: payload,
       };
+    case "SET_PERM_URI":
+      return {
+        ...state,
+        heroImg: payload as unknown as ImageData[],
+      };
     default:
       return state;
   }

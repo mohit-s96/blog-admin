@@ -1,4 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useRef } from "react";
+import DomPurify from "dompurify";
 import { useRect } from "../../hooks/useRect";
 import { testMatch } from "../../utils/constants";
 import SimpleTags from "../tags/SimpleTags";
@@ -9,8 +10,9 @@ import { EditorContext, WidthContext } from "./editorMain";
 import { astToHtml, parser } from "nomark-js";
 import Prism from "prismjs";
 import "prismjs/components/prism-bash";
+import "../../styles/prism.css";
 // import "prismjs/components/prism-cpp";
-import "prismjs/themes/prism-tomorrow.css";
+// import "prismjs/themes/prism-tomorrow.css";
 
 function Preview(): ReactElement {
   const { title, readingTime, heroImg, tags, body, excerpt, slugType } =
@@ -22,10 +24,14 @@ function Preview(): ReactElement {
 
   const rect = useRect(divRef);
 
-  useEffect(() => {
-    const element = divRef.current as unknown as HTMLDivElement;
-    element.scrollTop = element.scrollHeight - element.clientHeight;
-  }, [body]);
+  // useEffect(() => {
+  //   const element = divRef.current as unknown as HTMLDivElement;
+  //   element.scrollTop = element.scrollHeight - element.clientHeight;
+  // }, [body]);
+
+  function sanitizeHTML(html: string) {
+    return DomPurify.sanitize(html);
+  }
 
   function resolveBodyType() {
     if (slugType === "nm") {
@@ -33,12 +39,19 @@ function Preview(): ReactElement {
     } else if (slugType === "html") {
       return body;
     } else {
-      return marked(body);
+      return marked(sanitizeHTML(body));
     }
   }
 
   useEffect(() => {
     // Prism.manual = true;
+    let links = document.links;
+
+    for (let i = 0, linksLength = links.length; i < linksLength; i++) {
+      if (links[i].hostname !== window.location.hostname) {
+        links[i].target = "_blank";
+      }
+    }
     Prism.highlightAll();
   }, [body]);
 

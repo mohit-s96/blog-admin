@@ -112,6 +112,39 @@
 .text-blue {
   color: #004ad4 !important;
 }
+.md-render-parent > h1 {
+  text-align: center;
+  font-size: x-large;
+  font-weight: 800;
+  padding: 8px;
+}
+.md-render-parent > h2 {
+  font-weight: 600;
+  margin: 8px 0;
+  font-size: large;
+}
+
+.md-render-parent > ul > li,
+ol > li {
+  list-style-type: lower-roman;
+  cursor: pointer;
+  color: #004ad4;
+  font-weight: 400;
+  margin-left: 14px;
+  padding: 4px;
+  transition: all 0.25s ease-out;
+}
+.md-render-parent > ul > li:hover,
+ol > li:hover {
+  text-decoration: underline;
+}
+.md-render-parent > p > a {
+  font-weight: 600;
+  color: #01379b;
+}
+.md-render-parent > p {
+  padding: 4px 0;
+}
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

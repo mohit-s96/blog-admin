@@ -56,7 +56,7 @@ export type EditorActionType =
 
 export type Action = {
   type: EditorActionType;
-  payload: string & ImageData & [string];
+  payload: any;
 };
 
 export interface EditorType {

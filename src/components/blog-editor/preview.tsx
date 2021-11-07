@@ -39,9 +39,28 @@ function Preview(): ReactElement {
     } else if (slugType === "html") {
       return body;
     } else {
-      return marked(sanitizeHTML(body));
+      return marked.parse(body);
     }
   }
+
+  useEffect(() => {
+    const renderer = {
+      blockquote(quote: string) {
+        console.log(quote);
+
+        if (quote.startsWith("<p>@warn")) {
+          quote = quote.replace("@warn", "");
+          return `<blockquote class="bq-warn">${quote}</blockquote>`;
+        } else if (quote.startsWith("<p>@err")) {
+          quote = quote.replace("@err", "");
+          return `<blockquote class="bq-err">${quote}</blockquote>`;
+        } else {
+          return `<blockquote>${quote}</blockquote>`;
+        }
+      },
+    };
+    marked.use({ renderer });
+  }, []);
 
   useEffect(() => {
     // Prism.manual = true;

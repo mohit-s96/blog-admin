@@ -173,6 +173,26 @@ ol > li:hover {
   opacity: 0.1;
   background-color: #4b96ff;
 }
+
+.md-render-parent > blockquote.bq-warn {
+  color: #bb9b0a;
+  border-left: 4px solid #ffde4b;
+}
+
+.md-render-parent > blockquote.bq-warn::after {
+  opacity: 0.2;
+  background-color: #ffde4b;
+}
+
+.md-render-parent > blockquote.bq-err {
+  color: #bb160a;
+  border-left: 4px solid #bb160a;
+}
+
+.md-render-parent > blockquote.bq-err::after {
+  opacity: 0.1;
+  background-color: #bb160a;
+}
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

@@ -39,7 +39,7 @@ function Preview(): ReactElement {
     } else if (slugType === "html") {
       return body;
     } else {
-      return marked.parse(body);
+      return sanitizeHTML(marked.parse(body));
     }
   }
 

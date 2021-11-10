@@ -11,8 +11,6 @@ import { astToHtml, parser } from "nomark-js";
 import Prism from "prismjs";
 import "prismjs/components/prism-bash";
 import "../../styles/prism.css";
-// import "prismjs/components/prism-cpp";
-// import "prismjs/themes/prism-tomorrow.css";
 
 function Preview(): ReactElement {
   const { title, readingTime, heroImg, tags, body, excerpt, slugType } =

@@ -10,6 +10,8 @@ import { formatDistance } from "date-fns";
 import CreateNew from "../blog-nav/createNew";
 import { Author } from "../svg/svg.collection";
 import { getClasses } from "../../utils/classNameResolver";
+import { getUri } from "../../utils/resolvePort";
+import { useHistory } from "react-router-dom";
 
 interface Props {
   theme: ThemeType;
@@ -19,10 +21,28 @@ interface Props {
 }
 
 function PostPreviewContent({
-  content: { excerpt, createdAt, title, tags },
+  content: { excerpt, createdAt, title, tags, uri },
   type,
   theme,
 }: Props): ReactElement {
+  const history = useHistory();
+  const fetchDataForediting = async () => {
+    const data = await fetch(`${getUri()}/api/blog`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ id: uri }),
+    });
+    if (!data.ok) {
+      throw data.statusText;
+    }
+    const blogdata = await data.json();
+
+    history.push("/edit", blogdata);
+  };
   return (
     <div
       className={`${
@@ -36,7 +56,9 @@ function PostPreviewContent({
       <div className={`p-2 flex flex-col h-full justify-evenly`}>
         <CreateNew className="inline-block absolute top-2 right-2 mt-2 mr-2">
           <Author color={getClasses("", theme, "icon")} />
-          <span className="font-bold">edit blog</span>
+          <span className="font-bold" onClick={fetchDataForediting}>
+            edit blog
+          </span>
         </CreateNew>
         <PostTitle text={title} theme={theme} type={type} />
         <PostExcerpt text={excerpt} theme={theme} type={type} />

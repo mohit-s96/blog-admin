@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { BlogListType } from "../../types/blogTypes";
-import { DeviceTypes } from "../../types/globalTypes";
+import { DeviceTypes, SupaUploadResponseType } from "../../types/globalTypes";
 import { useTheme } from "../provider/Provider";
 import PostPreviewContent from "./PostPreviewContent";
 import PostPreviewImage from "./PostPreviewImage";
@@ -41,7 +41,7 @@ function PostPreview({ data, data: { images } }: CardProps): ReactElement {
           <>
             <PostPreviewImage
               type="horiz"
-              uri={images[0].permUri}
+              uri={images[0].permUri as SupaUploadResponseType[]}
               alt={images[0].alt}
             />
             <PostPreviewContent content={data} type="horiz" theme={theme} />
@@ -50,7 +50,7 @@ function PostPreview({ data, data: { images } }: CardProps): ReactElement {
           <>
             <PostPreviewImage
               type="vert"
-              uri={images[0].permUri}
+              uri={images[0].permUri as SupaUploadResponseType[]}
               alt={images[0].alt}
             />
             <PostPreviewContent content={data} type="vert" theme={theme} />
@@ -59,7 +59,7 @@ function PostPreview({ data, data: { images } }: CardProps): ReactElement {
           <>
             <PostPreviewImage
               type="horiz"
-              uri={images[0].permUri}
+              uri={images[0].permUri as SupaUploadResponseType[]}
               alt={images[0].alt}
             />
             <PostPreviewContent content={data} type="horiz" theme={theme} />

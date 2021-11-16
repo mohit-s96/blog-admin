@@ -11,7 +11,7 @@ export const changeAstNodes = (node: ParseTree, imgData: NewImageData[]) => {
         return x;
       } else {
         data = imgData.find((img) => img.uri === x.value);
-        x.value = data!.permUri[1].data!.Key;
+        x.value = data!.permUri![1].data!.Key;
         return x;
       }
     });
@@ -21,14 +21,14 @@ export const changeAstNodes = (node: ParseTree, imgData: NewImageData[]) => {
     const s1 = generateParseTree({
       attributes: [
         { key: "media", value: "(max-width: 799px)" },
-        { key: "srcset", value: data!.permUri[1].data!.Key },
+        { key: "srcset", value: data!.permUri![1].data!.Key },
       ],
       type: "source",
     });
     const s2 = generateParseTree({
       attributes: [
         { key: "media", value: "(min-width: 800px)" },
-        { key: "srcset", value: data!.permUri[2].data!.Key },
+        { key: "srcset", value: data!.permUri![2].data!.Key },
       ],
       type: "source",
     });

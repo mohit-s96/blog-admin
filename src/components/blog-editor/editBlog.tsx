@@ -8,8 +8,13 @@ import AddImage from "./addImage";
 import SubmitBlog from "./submitBlog";
 import CommentCheckbox from "./commentCheckbox";
 import Editor from "./editor";
+import { BlogSlug } from "../../types/blogTypes";
 
-function EditBlog(): ReactElement {
+interface Props {
+  state: BlogSlug | undefined;
+}
+
+function EditBlog({ state }: Props): ReactElement {
   const { dispatch, title, readingTime, excerpt, tags, slug, commentsAllowed } =
     useContext(EditorContext);
 
@@ -94,7 +99,7 @@ function EditBlog(): ReactElement {
       />
       <Editor theme={theme} />
       <div className="flex justify-center p-2">
-        <SubmitBlog />
+        <SubmitBlog state={state} />
       </div>
     </div>
   );

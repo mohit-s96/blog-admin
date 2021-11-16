@@ -7,14 +7,26 @@ import {
   UploadResponse,
 } from "../../types/globalTypes";
 import { getClasses } from "../../utils/classNameResolver";
-import { uploadImages, publishBlog } from "../../utils/fetchResource";
+import {
+  uploadImages,
+  publishBlog,
+  publishChanges,
+} from "../../utils/fetchResource";
 import { changeAstNodes } from "../../utils/misc";
 import { useTheme } from "../provider/Provider";
 import { EditorContext } from "./editorMain";
 import { useHistory } from "react-router";
+import { useRouteMatch } from "react-router";
+import { BlogSlug } from "../../types/blogTypes";
 
-function SubmitBlog(): ReactElement {
+interface Props {
+  state: BlogSlug | undefined;
+}
+
+function SubmitBlog({ state }: Props): ReactElement {
   const { theme } = useTheme();
+  let { path } = useRouteMatch();
+
   const history = useHistory();
   const {
     body,
@@ -80,11 +92,15 @@ function SubmitBlog(): ReactElement {
           isHero: x.isHero,
         }));
       } else {
-        images = blogImages.map((img) => ({
-          permUri: img.permUri as SupaUploadResponseType[],
-          alt: img.alt,
-          isHero: img.isHero,
-        }));
+        if (path === "/create") {
+          images = blogImages.map((img) => ({
+            permUri: img.permUri as SupaUploadResponseType[],
+            alt: img.alt,
+            isHero: img.isHero,
+          }));
+        } else {
+          images = blogImages;
+        }
       }
 
       let html = "";
@@ -102,8 +118,6 @@ function SubmitBlog(): ReactElement {
       } else if (slugType === "md") {
         const renderer = {
           blockquote(quote: string) {
-            console.log(quote);
-
             if (quote.startsWith("<p>@warn")) {
               quote = quote.replace("@warn", "");
               return `<blockquote class="bq-warn">${quote}</blockquote>`;
@@ -127,7 +141,7 @@ function SubmitBlog(): ReactElement {
         title,
         tags,
         uri: slug,
-        createdAt: Date.now(),
+        createdAt: path === "/edit" ? state!.createdAt : Date.now(),
         images,
         blogData: html,
         slugType,
@@ -139,9 +153,14 @@ function SubmitBlog(): ReactElement {
         commentCount: 0,
         readingTime,
         viewCount: 0,
+        lastEdited: path === "/edit" ? Date.now() : null,
       };
+      if (path === "/edit") {
+        (finalObject as BlogSlug)._id = state!._id;
+      }
+      if (path === "/edit") await publishChanges(finalObject);
+      else await publishBlog(finalObject);
 
-      await publishBlog(finalObject);
       dispatch!({
         type: "SET_LOADING",
         payload: false as any,
@@ -173,7 +192,7 @@ function SubmitBlog(): ReactElement {
         "btn"
       )} ${getClasses("text", theme, "")}`}
     >
-      submit blog
+      {path === "/create" ? "publish blog" : "publish changes"}
     </button>
   );
 }

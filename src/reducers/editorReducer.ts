@@ -1,4 +1,4 @@
-import { ImageData } from "../types/blogTypes";
+import { BlogSlug, ImageData } from "../types/blogTypes";
 import { Action, EditorType } from "../types/globalTypes";
 import { syncToLocalStorage } from "../utils/syncToLs";
 
@@ -17,8 +17,26 @@ const initialState: EditorType = {
   error: "",
 };
 
-export function getInitialEditorState() {
-  return initialState;
+export function getInitialEditorState(state: BlogSlug | undefined) {
+  if (!state) return initialState;
+  else {
+    let initState: EditorType;
+    initState = {
+      body: state.rawBody as string,
+      heroImg: state.images,
+      commentsAllowed: state.commentsAllowed,
+      error: "",
+      loading: false,
+      tags: state.tags,
+      excerpt: state.excerpt,
+      readingTime: state.readingTime,
+      files: [],
+      slugType: state.slugType,
+      slug: state.uri,
+      title: state.title,
+    };
+    return initState;
+  }
 }
 
 export const reducer = (

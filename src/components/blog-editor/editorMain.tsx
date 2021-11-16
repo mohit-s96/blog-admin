@@ -5,6 +5,7 @@ import {
   getInititalWidthState,
   widthReducer,
 } from "../../reducers/editorWidthReducer";
+import { BlogSlug } from "../../types/blogTypes";
 import { EditorType, WidthContextType } from "../../types/globalTypes";
 import { getClasses } from "../../utils/classNameResolver";
 import WithTransition from "../hoc/withTransition";
@@ -16,15 +17,17 @@ import PageDivider from "./pageDivider";
 import Preview from "./preview";
 
 export const EditorContext = React.createContext<EditorType>(
-  getInitialEditorState()
+  getInitialEditorState(undefined)
 );
 
 export const WidthContext = React.createContext<WidthContextType>(
   getInititalWidthState()
 );
-
-function EditorMain(): ReactElement {
-  const [data, dispatch] = useReducer(reducer, getInitialEditorState());
+interface Props {
+  state: BlogSlug | undefined;
+}
+function EditorMain({ state }: Props): ReactElement {
+  const [data, dispatch] = useReducer(reducer, getInitialEditorState(state));
 
   const divRef = useRef(null);
 
@@ -45,12 +48,16 @@ function EditorMain(): ReactElement {
   }, [rect]);
 
   useEffect(() => {
-    const data = localStorage.getItem("nomark");
-    if (data) {
-      dispatch({
-        type: "ALL",
-        payload: JSON.parse(data),
-      });
+    if (!state) {
+      const data = localStorage.getItem("nomark");
+      if (data) {
+        dispatch({
+          type: "ALL",
+          payload: JSON.parse(data),
+        });
+      }
+    } else {
+      localStorage.removeItem("nomark");
     }
   }, []);
 
@@ -84,7 +91,7 @@ function EditorMain(): ReactElement {
                 {data.error}
               </Overlay>
             ) : null}
-            <EditBlog />
+            <EditBlog state={state} />
             <PageDivider />
             <Preview />
           </div>

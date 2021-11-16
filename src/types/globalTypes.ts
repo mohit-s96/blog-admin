@@ -24,7 +24,7 @@ export interface FilesData {
 }
 
 export interface NewImageData {
-  permUri: SupaUploadResponseType[];
+  permUri?: SupaUploadResponseType[];
   alt: string;
   uri?: string;
   isHero?: boolean | undefined;

@@ -8,8 +8,8 @@ export type BlogPathNames = {
 export interface ImageData {
   permUri?: SupaUploadResponseType[];
   alt: string;
-  uri: string;
-  isHero?: boolean;
+  uri?: string;
+  isHero?: boolean | undefined;
 }
 export interface BlogImages {
   hero: ImageData;
@@ -41,6 +41,8 @@ export interface BlogSlug {
   metadata?: BlogMetadata;
   viewCount: number;
   slugType: SlugType;
+  readingTime: string;
+  lastEdited: number | null;
 }
 
 export interface CommentMetadata {

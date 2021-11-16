@@ -18,6 +18,9 @@ function App() {
           <AuthRoute exact path="/create">
             <Dashboard />
           </AuthRoute>
+          <AuthRoute exact path="/edit">
+            <Dashboard />
+          </AuthRoute>
           <Route exact path="/auth">
             <Login />
           </Route>

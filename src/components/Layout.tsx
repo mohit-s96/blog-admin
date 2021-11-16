@@ -1,5 +1,5 @@
-import React, { ReactElement, useState } from "react";
-import { useRouteMatch } from "react-router";
+import React, { ReactElement, useEffect, useState } from "react";
+import { Redirect, useRouteMatch } from "react-router";
 import { getClasses } from "../utils/classNameResolver";
 import EditorMain from "./blog-editor/editorMain";
 import Blog from "./blog/blog";
@@ -9,11 +9,20 @@ import { useTheme } from "./provider/Provider";
 import Sidebar from "./sidebar/sidebar";
 import { RightArrow } from "./svg/svg.collection";
 
-function Layout(): ReactElement {
+interface Props {
+  data: any;
+}
+
+function Layout({ data }: Props): ReactElement {
   let { path } = useRouteMatch();
+
   const { theme } = useTheme();
 
   const [show, setShow] = useState(true);
+
+  if (path === "/edit" && !data) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div>
@@ -27,7 +36,7 @@ function Layout(): ReactElement {
         >
           <RightArrow color={getClasses("accent", theme, "icon")} />
         </Navitem>
-        {path === "/" ? <Blog /> : <EditorMain />}
+        {path === "/" ? <Blog /> : <EditorMain state={data} />}
       </div>
     </div>
   );

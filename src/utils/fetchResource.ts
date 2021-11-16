@@ -49,3 +49,18 @@ export const publishBlog = async (obj: BlogSlug) => {
     throw new Error("publish failed");
   }
 };
+
+export const publishChanges = async (obj: BlogSlug) => {
+  const response = await fetch(`${getUri()}/api/update`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ data: obj }),
+  });
+  if (!response.ok) {
+    throw new Error("publish failed");
+  }
+};

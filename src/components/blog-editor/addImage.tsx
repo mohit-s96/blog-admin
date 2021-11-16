@@ -132,12 +132,18 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
               {heroImg.length
                 ? heroImg.map((i) => (
                     <ImageLink
-                      key={i.uri}
+                      key={(i.uri || i.permUri![0].data?.Key) as string}
                       theme={theme}
-                      uri={i.uri}
+                      uri={(i.uri || i.permUri![0].data?.Key) as string}
                       alt={i.alt}
-                      removeCb={() => removeImg(i.uri)}
-                      uploadImage={() => uploadImageAndGenerateHtml(i.uri)}
+                      removeCb={() =>
+                        removeImg((i.uri || i.permUri![0].data?.Key) as string)
+                      }
+                      uploadImage={() =>
+                        uploadImageAndGenerateHtml(
+                          (i.uri || i.permUri![0].data?.Key) as string
+                        )
+                      }
                     />
                   ))
                 : null}

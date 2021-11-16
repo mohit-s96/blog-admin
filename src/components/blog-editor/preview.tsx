@@ -33,7 +33,7 @@ function Preview(): ReactElement {
 
   function resolveBodyType() {
     if (slugType === "nm") {
-      return astToHtml(parser(body, "warn"));
+      return astToHtml(parser(body || "", "warn"));
     } else if (slugType === "html") {
       return body;
     } else {
@@ -44,8 +44,6 @@ function Preview(): ReactElement {
   useEffect(() => {
     const renderer = {
       blockquote(quote: string) {
-        console.log(quote);
-
         if (quote.startsWith("<p>@warn")) {
           quote = quote.replace("@warn", "");
           return `<blockquote class="bq-warn">${quote}</blockquote>`;

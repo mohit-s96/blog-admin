@@ -78,7 +78,7 @@ function EditBlog({ state }: Props): ReactElement {
         value={excerpt}
         isTextArea={true}
       />
-      <AddImage name="add images" />
+      <AddImage name="add image" />
       <PlainInput
         dispatch={dispatch}
         fieldName="tags"

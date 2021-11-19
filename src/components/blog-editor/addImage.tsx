@@ -191,7 +191,7 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
         ) : (
           <span className={`p-2 block ${getClasses("text", theme, "btn")}`}>
             uploading images from local is only supported when editor mode is
-            nomark
+            nomark or markdown
           </span>
         )}
       </div>

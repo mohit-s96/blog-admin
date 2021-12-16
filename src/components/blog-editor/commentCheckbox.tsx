@@ -7,9 +7,15 @@ interface Props {
   callback: () => any;
   theme: ThemeType;
   condition: boolean;
+  name: string;
 }
 
-function CommentCheckbox({ callback, theme, condition }: Props): ReactElement {
+function CommentCheckbox({
+  callback,
+  theme,
+  condition,
+  name,
+}: Props): ReactElement {
   return (
     <div className="flex items-center p-2 m-2 flex-col">
       <div className="flex justify-start w-10/12 relative items-center">
@@ -23,7 +29,7 @@ function CommentCheckbox({ callback, theme, condition }: Props): ReactElement {
             textAlign: "left",
           }}
         >
-          allow comments:
+          {name}
         </label>
         <div className="relative cursor-pointer translate-y-[-8px]">
           <span

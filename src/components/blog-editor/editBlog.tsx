@@ -15,8 +15,16 @@ interface Props {
 }
 
 function EditBlog({ state }: Props): ReactElement {
-  const { dispatch, title, readingTime, excerpt, tags, slug, commentsAllowed } =
-    useContext(EditorContext);
+  const {
+    dispatch,
+    title,
+    readingTime,
+    excerpt,
+    tags,
+    slug,
+    commentsAllowed,
+    isArchived,
+  } = useContext(EditorContext);
 
   const { wDispatch, editorWidth } = useContext(WidthContext);
 
@@ -88,6 +96,7 @@ function EditBlog({ state }: Props): ReactElement {
         isTextArea={true}
       />
       <CommentCheckbox
+        name="allow comments:"
         callback={() =>
           dispatch!({
             type: "SET_COMMENT",
@@ -95,6 +104,17 @@ function EditBlog({ state }: Props): ReactElement {
           })
         }
         condition={commentsAllowed}
+        theme={theme}
+      />
+      <CommentCheckbox
+        name="is archived ?"
+        callback={() =>
+          dispatch!({
+            type: "SET_ARCHIVE",
+            payload: !isArchived as any,
+          })
+        }
+        condition={isArchived}
         theme={theme}
       />
       <Editor theme={theme} />

@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { Redirect, useRouteMatch } from "react-router";
 import { getClasses } from "../utils/classNameResolver";
 import EditorMain from "./blog-editor/editorMain";

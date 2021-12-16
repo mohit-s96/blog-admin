@@ -29,12 +29,22 @@ function Blog(): ReactElement {
 
   const { theme } = useTheme();
 
+  function getPublishedBlogCount(blogs: [BlogListType]) {
+    let published = 0;
+    let unPublished = 0;
+    blogs.forEach((x) => {
+      if (x.isArchived) unPublished++;
+      else published++;
+    });
+    return [unPublished, published];
+  }
+
   const render = loading ? (
     <AuthLoader theme={theme} className="h-full z-10" />
   ) : data ? (
     <BlogContext.Provider value={data}>
       <div className="flex flex-col w-10/12 items-center opacity-[inherit]">
-        <BlogNav count={data ? data.length : -1} />
+        <BlogNav count={data ? getPublishedBlogCount(data) : [-1]} />
         <BlogLists />
       </div>
     </BlogContext.Provider>

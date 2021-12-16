@@ -1,17 +1,38 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { Link } from "react-router-dom";
 import { getClasses } from "../../utils/classNameResolver";
+import { getUri } from "../../utils/resolvePort";
 import { useTheme } from "../provider/Provider";
-import { Author } from "../svg/svg.collection";
+import { Author, Settings } from "../svg/svg.collection";
 import CreateNew from "./createNew";
 
 interface Props {
-  auth?: boolean;
-  count: number;
+  count: number[];
 }
 
-function BlogNav({ auth, count }: Props): ReactElement {
+function BlogNav({ count }: Props): ReactElement {
   const { theme } = useTheme();
+
+  const [deploying, setDeploying] = useState(false);
+
+  async function redeployBlog() {
+    setDeploying(true);
+
+    try {
+      await fetch(`${getUri()}/api/build`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    setDeploying(false);
+  }
 
   return (
     <nav
@@ -30,15 +51,29 @@ function BlogNav({ auth, count }: Props): ReactElement {
             : "text-accent-neon"
         } font-bold`}
       >
-        {count >= 0 ? `Welcome! - ${count} blogs published` : "Welcome!"}
+        {count.length > 1
+          ? `Welcome! - ${count[1]} blogs published - [ ${count[0]} archived ]`
+          : "Welcome!"}
       </span>
 
-      <CreateNew>
-        <Author color={getClasses("", theme, "icon")} />
-        <Link to="/create" className="font-bold">
-          Create New
-        </Link>
-      </CreateNew>
+      <div className="flex">
+        <CreateNew className="mx-2">
+          <Settings color={getClasses("", theme, "icon")} />
+          <button
+            disabled={deploying}
+            className="font-bold"
+            onClick={redeployBlog}
+          >
+            redeploy{" "}
+          </button>
+        </CreateNew>
+        <CreateNew className="mx-2">
+          <Author color={getClasses("", theme, "icon")} />
+          <Link to="/create" className="font-bold">
+            Create New
+          </Link>
+        </CreateNew>
+      </div>
     </nav>
   );
 }

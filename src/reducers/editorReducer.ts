@@ -15,6 +15,7 @@ const initialState: EditorType = {
   slug: "",
   loading: false,
   error: "",
+  isArchived: false,
 };
 
 export function getInitialEditorState(state: BlogSlug | undefined) {
@@ -34,6 +35,7 @@ export function getInitialEditorState(state: BlogSlug | undefined) {
       slugType: state.slugType,
       slug: state.uri,
       title: state.title,
+      isArchived: state.isArchived,
     };
     return initState;
   }
@@ -123,6 +125,11 @@ export const reducer = (
       return {
         ...state,
         heroImg: payload as unknown as ImageData[],
+      };
+    case "SET_ARCHIVE":
+      return {
+        ...state,
+        isArchived: payload as unknown as boolean,
       };
     default:
       return state;

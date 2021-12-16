@@ -52,7 +52,8 @@ export type EditorActionType =
   | "SET_SLUG"
   | "SET_LOADING"
   | "SET_ERROR"
-  | "SET_PERM_URI";
+  | "SET_PERM_URI"
+  | "SET_ARCHIVE";
 
 export type Action = {
   type: EditorActionType;
@@ -73,6 +74,7 @@ export interface EditorType {
   slug: string;
   loading?: boolean;
   error?: string;
+  isArchived: boolean;
   dispatch?: React.Dispatch<Action>;
 }
 

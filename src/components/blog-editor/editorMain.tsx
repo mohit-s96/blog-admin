@@ -59,6 +59,7 @@ function EditorMain({ state }: Props): ReactElement {
     } else {
       localStorage.removeItem("nomark");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

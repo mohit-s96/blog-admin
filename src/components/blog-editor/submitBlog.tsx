@@ -39,6 +39,7 @@ function SubmitBlog({ state }: Props): ReactElement {
     slug,
     slugType,
     commentsAllowed,
+    isArchived,
     dispatch,
   } = useContext(EditorContext);
 
@@ -154,6 +155,7 @@ function SubmitBlog({ state }: Props): ReactElement {
         readingTime,
         viewCount: 0,
         lastEdited: path === "/edit" ? Date.now() : null,
+        isArchived,
       };
       if (path === "/edit") {
         (finalObject as BlogSlug)._id = state!._id;

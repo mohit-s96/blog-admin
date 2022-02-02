@@ -157,6 +157,11 @@ function SubmitBlog({ state }: Props): ReactElement {
         lastEdited: path === "/edit" ? Date.now() : null,
         isArchived,
       };
+      if (isArchived && path === "/edit") {
+        await fetch("http://localhost:5000/api/comment?id=" + state!._id, {
+          method: "DELETE",
+        });
+      }
       if (path === "/edit") {
         (finalObject as BlogSlug)._id = state!._id;
       }

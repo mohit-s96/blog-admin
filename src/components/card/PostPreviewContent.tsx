@@ -54,7 +54,7 @@ function PostPreviewContent({
   const updateBlogUriIdHashInRedis = async () => {
     setHashLoading(true);
     try {
-      const data = await fetch(`${getUri("query")}/api/blog/hash`, {
+      const data = await fetch(`${getUri()}/api/blog`, {
         method: "PUT",
         headers: {
           Accept: "application/json",

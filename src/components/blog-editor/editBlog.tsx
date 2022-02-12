@@ -119,6 +119,21 @@ function EditBlog({ state }: Props): ReactElement {
       />
       <Editor theme={theme} />
       <div className="flex justify-center p-2">
+        <button
+          onClick={() => {
+            dispatch!({
+              type: "RESET_STATE",
+              payload: "",
+            });
+          }}
+          className={`p-2 m-2 rounded-md ${getClasses(
+            "bg",
+            theme,
+            "btn"
+          )} ${getClasses("text", theme, "")}`}
+        >
+          reset editor
+        </button>
         <SubmitBlog state={state} />
       </div>
     </div>

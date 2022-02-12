@@ -53,7 +53,8 @@ export type EditorActionType =
   | "SET_LOADING"
   | "SET_ERROR"
   | "SET_PERM_URI"
-  | "SET_ARCHIVE";
+  | "SET_ARCHIVE"
+  | "RESET_STATE";
 
 export type Action = {
   type: EditorActionType;

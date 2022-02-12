@@ -11,7 +11,7 @@ function CreateNew({ children, className = "" }: Props): ReactElement {
   const { theme } = useTheme();
 
   return (
-    <button
+    <div
       className={`flex justify-between items-center p-2 rounded-sm ${getClasses(
         "text",
         theme
@@ -22,7 +22,7 @@ function CreateNew({ children, className = "" }: Props): ReactElement {
       )} hover:scale-105 transition-all duration-300 ${className}`}
     >
       {children}
-    </button>
+    </div>
   );
 }
 

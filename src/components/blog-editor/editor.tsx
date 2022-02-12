@@ -33,6 +33,9 @@ function Editor({ theme }: Props): ReactElement {
         changeMode={(type: SlugType) => {
           dispatch!({ type: "CHANGE_MODE", payload: type as any });
         }}
+        setBody={(body: string) => {
+          dispatch!({ type: "BODY", payload: body });
+        }}
       />
       <AceEditor
         placeholder={`${resolveSlugType(slugType)} data`}

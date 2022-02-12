@@ -29,7 +29,7 @@ export function syncToLocalStorage(
   type: Action["type"],
   state: EditorType
 ) {
-  if (type !== "HEROIMG" && type !== "ADD_FILE") {
+  if (type !== "HEROIMG" && type !== "ADD_FILE" && type !== "RESET_STATE") {
     const temp: EditorType = {
       ...state,
       heroImg: [],

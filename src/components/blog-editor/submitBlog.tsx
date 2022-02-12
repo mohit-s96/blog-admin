@@ -18,6 +18,7 @@ import { EditorContext } from "./editorMain";
 import { useHistory } from "react-router";
 import { useRouteMatch } from "react-router";
 import { BlogSlug } from "../../types/blogTypes";
+import { getUri } from "../../utils/resolvePort";
 
 interface Props {
   state: BlogSlug | undefined;
@@ -158,7 +159,7 @@ function SubmitBlog({ state }: Props): ReactElement {
         isArchived,
       };
       if (isArchived && path === "/edit") {
-        await fetch("http://localhost:5000/api/comment?id=" + state!._id, {
+        await fetch(getUri("query") + state!._id, {
           method: "DELETE",
         });
       }

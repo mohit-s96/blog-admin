@@ -10,7 +10,7 @@ const initialState: EditorType = {
   readingTime: "",
   files: [],
   body: "",
-  slugType: "nm",
+  slugType: "md",
   commentsAllowed: true,
   slug: "",
   loading: false,
@@ -47,6 +47,9 @@ export const reducer = (
 ): EditorType => {
   syncToLocalStorage(payload, type, state);
   switch (type) {
+    case "RESET_STATE":
+      localStorage.removeItem("nomark");
+      return initialState;
     case "SET_LOADING":
       return {
         ...state,

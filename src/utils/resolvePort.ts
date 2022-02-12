@@ -1,7 +1,7 @@
 export function getUri(query?: string): string {
   if (query === "query") {
     return process.env.NODE_ENV === "production"
-      ? "https:api.mohits.dev"
+      ? "https://api.mohits.dev"
       : "http://localhost:5001";
   }
   let uri: string;

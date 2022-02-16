@@ -3,7 +3,7 @@ import { getClasses } from "../../utils/classNameResolver";
 import { useTheme } from "../provider/Provider";
 
 interface Props {
-  onClick: () => any;
+  onClick?: () => any;
   onFocus?: () => any;
   onHover?: () => any;
   onLeave?: () => any;
@@ -17,7 +17,7 @@ function Button({
   value,
   className = "",
   disabled = false,
-  onClick,
+  onClick = () => {},
   onBlur,
   onFocus,
   onHover,

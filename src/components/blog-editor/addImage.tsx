@@ -29,6 +29,13 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
 
   const clickRef = useRef(null);
 
+  const setHero = (id: string) => {
+    dispatch!({
+      type: "SET_HERO_IMG",
+      payload: id as any,
+    });
+  };
+
   const handleClick = () => {
     if (clickRef.current) {
       (clickRef.current as HTMLInputElement).click();
@@ -55,6 +62,8 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
 
         resolve(html);
       } catch (error) {
+        console.log(error);
+
         reject((error as any).message);
       }
     });
@@ -132,6 +141,10 @@ function AddImage({ name, labelClassName }: Props): ReactElement {
               {heroImg.length
                 ? heroImg.map((i) => (
                     <ImageLink
+                      isHero={i.isHero!}
+                      setHero={() =>
+                        setHero((i.uri || i.permUri![0].data?.Key) as string)
+                      }
                       key={(i.uri || i.permUri![0].data?.Key) as string}
                       theme={theme}
                       uri={(i.uri || i.permUri![0].data?.Key) as string}

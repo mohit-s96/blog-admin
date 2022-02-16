@@ -41,7 +41,10 @@ function PostPreview({ data, data: { images } }: CardProps): ReactElement {
           <>
             <PostPreviewImage
               type="horiz"
-              uri={images[0].permUri as SupaUploadResponseType[]}
+              uri={
+                images.find((img) => img.isHero)
+                  ?.permUri as SupaUploadResponseType[]
+              }
               alt={images[0].alt}
             />
             <PostPreviewContent content={data} type="horiz" theme={theme} />

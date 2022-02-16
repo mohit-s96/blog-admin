@@ -47,6 +47,35 @@ export const reducer = (
 ): EditorType => {
   syncToLocalStorage(payload, type, state);
   switch (type) {
+    case "SET_HERO_IMG":
+      return {
+        ...state,
+        heroImg: state.heroImg.map((img) => {
+          if (img.permUri?.length) {
+            if (img.permUri[0].data?.Key === payload) {
+              return {
+                ...img,
+                isHero: true,
+              };
+            } else {
+              if (img.isHero) {
+                img.isHero = false;
+              }
+              return img;
+            }
+          } else {
+            if (img.uri === payload) {
+              return {
+                ...img,
+                isHero: true,
+              };
+            } else {
+              if (img.isHero) img.isHero = false;
+              return img;
+            }
+          }
+        }),
+      };
     case "RESET_STATE":
       localStorage.removeItem("nomark");
       return initialState;
@@ -83,7 +112,13 @@ export const reducer = (
     case "REM_IMG":
       return {
         ...state,
-        heroImg: state.heroImg.filter((img) => img.uri !== payload),
+        heroImg: state.heroImg.filter((img) => {
+          if (img.permUri?.length) {
+            return img.permUri[0].data?.Key !== payload;
+          } else {
+            return img.uri !== payload;
+          }
+        }),
       };
     case "ALL":
       return {

@@ -54,7 +54,8 @@ export type EditorActionType =
   | "SET_ERROR"
   | "SET_PERM_URI"
   | "SET_ARCHIVE"
-  | "RESET_STATE";
+  | "RESET_STATE"
+  | "SET_HERO_IMG";
 
 export type Action = {
   type: EditorActionType;

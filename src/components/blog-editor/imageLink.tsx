@@ -1,4 +1,10 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { ThemeType } from "../../types/globalTypes";
 import { getClasses } from "../../utils/classNameResolver";
 import Button from "../login/button";
@@ -11,6 +17,8 @@ interface Props {
   alt: string;
   removeCb?: () => any;
   uploadImage?: () => Promise<string>;
+  isHero: boolean;
+  setHero: () => void;
 }
 
 function ImageLink({
@@ -18,13 +26,15 @@ function ImageLink({
   uri,
   alt,
   removeCb = () => {},
-  uploadImage = () => Promise.resolve("")
+  uploadImage = () => Promise.resolve(""),
+  isHero,
+  setHero,
 }: Props): ReactElement {
   const [copied, setCopied] = useState(false);
 
   const [imageHtml, setImageHtml] = useState("");
 
-  const {dispatch} = useContext(EditorContext);
+  const { dispatch } = useContext(EditorContext);
 
   const imgRef = useRef(null);
 
@@ -43,20 +53,23 @@ function ImageLink({
   }, [theme]);
 
   const copyHtml = async () => {
-    if(imageHtml){
+    if (imageHtml) {
       copyUri(imageHtml);
-    }else{
+    } else {
       try {
-        dispatch!({type: "SET_LOADING", payload: true as any})
+        dispatch!({ type: "SET_LOADING", payload: true as any });
         const html = await uploadImage();
-        dispatch!({type: "SET_LOADING", payload: false as any})
+        dispatch!({ type: "SET_LOADING", payload: false as any });
         setImageHtml(html);
         copyUri(html);
       } catch (error) {
-        dispatch!({type: "SET_ERROR", payload: "error uploading image" as any})
+        dispatch!({
+          type: "SET_ERROR",
+          payload: "error uploading image" as any,
+        });
       }
     }
-  }
+  };
 
   return (
     <div
@@ -101,6 +114,17 @@ function ImageLink({
           ""
         )} w-[90%]`}
       />
+      {!isHero ? (
+        <Button
+          value={"make hero"}
+          onClick={setHero}
+          className={`mt-0 mb-1 ${getClasses("bg", theme, "btn")} ${getClasses(
+            "text",
+            theme,
+            ""
+          )} w-[90%]`}
+        />
+      ) : null}
     </div>
   );
 }

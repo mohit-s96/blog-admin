@@ -94,15 +94,16 @@ function SubmitBlog({ state }: Props): ReactElement {
           isHero: x.isHero,
         }));
       } else {
-        if (path === "/create") {
-          images = blogImages.map((img) => ({
-            permUri: img.permUri as SupaUploadResponseType[],
-            alt: img.alt,
-            isHero: img.isHero,
-          }));
-        } else {
-          images = blogImages;
-        }
+        // if (path === "/create") {
+        images = blogImages.map((img) => ({
+          permUri: img.permUri as SupaUploadResponseType[],
+          alt: img.alt,
+          isHero: img.isHero,
+        }));
+        // }
+        //  else {
+        //   images = blogImages;
+        // }
       }
 
       let html = "";
@@ -159,7 +160,7 @@ function SubmitBlog({ state }: Props): ReactElement {
         isArchived,
       };
       if (isArchived && path === "/edit") {
-        await fetch(getUri("query") + state!._id, {
+        await fetch(getUri("query") + "/api/comment/" + state!._id, {
           method: "DELETE",
         });
       }
@@ -180,6 +181,8 @@ function SubmitBlog({ state }: Props): ReactElement {
       localStorage.removeItem("/api/list");
       history.push("/");
     } catch (error) {
+      console.log(error);
+
       dispatch!({
         type: "SET_LOADING",
         payload: false as any,

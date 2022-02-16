@@ -65,6 +65,7 @@ export const generateResponsiveImageHtml = (images: UploadResponse): string => {
       { key: "src", value: images.uri[1].data!.Key },
       { key: "width", value: "400" },
       { key: "height", value: "225" },
+      { key: "loading", value: "lazy" },
     ],
     type: "img",
     classes: ["w-full"],

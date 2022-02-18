@@ -193,6 +193,13 @@ ol > li:hover {
   opacity: 0.1;
   background-color: #bb160a;
 }
+
+p > code {
+  font-size: small;
+  padding: 1px;
+  background-color: rgb(190, 185, 185);
+  /* color: #fff; */
+}
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

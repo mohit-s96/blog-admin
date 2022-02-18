@@ -9,7 +9,6 @@ import marked from "marked";
 import { EditorContext, WidthContext } from "./editorMain";
 import { astToHtml, parser } from "nomark-js";
 import Prism from "prismjs";
-import "prismjs/components/prism-bash";
 import "../../styles/prism.css";
 
 function Preview(): ReactElement {
@@ -42,6 +41,19 @@ function Preview(): ReactElement {
   }
 
   useEffect(() => {
+    //@ts-ignore
+    import("prismjs/plugins/line-numbers/prism-line-numbers");
+    //@ts-ignore
+    import("prismjs/plugins/toolbar/prism-toolbar").then(() => {
+      let promises: Promise<any>[] = [];
+      promises.push(
+        //@ts-ignore
+        import("prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard")
+      );
+      Promise.all(promises).then(() => {
+        //do smthg
+      });
+    });
     const renderer = {
       blockquote(quote: string) {
         if (quote.startsWith("<p>@warn")) {
@@ -111,10 +123,10 @@ function Preview(): ReactElement {
             {excerpt}
           </p>
         </div>
-        <div
-          className="p-2 m-1 md-render-parent"
+        <section
+          className="p-2 m-1 md-render-parent line-numbers"
           dangerouslySetInnerHTML={{ __html: resolveBodyType() }}
-        ></div>
+        ></section>
       </div>
     </div>
   );

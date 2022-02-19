@@ -159,10 +159,26 @@ function SubmitBlog({ state }: Props): ReactElement {
         lastEdited: path === "/edit" ? Date.now() : null,
         isArchived,
       };
+      console.log(isArchived, path);
+
       if (isArchived && path === "/edit") {
-        await fetch(getUri("query") + "/api/comment/" + state!._id, {
-          method: "DELETE",
-        });
+        const res = await fetch(
+          getUri("query") + "/api/comment/" + state!.uri,
+          {
+            method: "DELETE",
+            credentials: "include",
+          }
+        );
+        if (!res.ok) {
+          throw Error("error while running post archive cleanup");
+        }
+        const data = await res.json();
+        if (data.message !== "success") {
+          throw Error(
+            "didn't receive success response for post archive cleanup. expected -> 'success' received -> " +
+              JSON.stringify(data.message ?? "")
+          );
+        }
       }
       if (path === "/edit") {
         (finalObject as BlogSlug)._id = state!._id;

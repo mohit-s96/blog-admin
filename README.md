@@ -1,46 +1,22 @@
-# Getting Started with Create React App
+## blog cms
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the cms for my [blog](https://mohits.dev). Built on CRA it uses tailwind for styling and talks to bakckend serverless function on vercel.
 
-## Available Scripts
+> I didn't bother making it responsive because I only ever use it on my PC.
 
-In the project directory, you can run:
+I designed this with for being a flexible way to create, edit and publish my blog. It is technically still a WIP but that's for the features I want to integrate later like analytics. Currently it allows me to:
 
-### `yarn start`
+- Create a blog in markdown or html.
+- Upload images, optimize them through a backend function, and get back html with proper srcSet attributes for all image sizes.
+- Specify general metadata like slug, title, tags etc.
+- Have finer control like enabling or disabling comments on a blog.
+- Archive a blog if need be.
+- Edit any of the above mentioned features.
+- Preview the output of the blog I am writing in real time and with a responsive adjustable view.
+- Handle side effects of archiving a blog by invalidating the redis cache related to that blog.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+..and much more
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Since it is password protected, only I can actually use anything but I plan to add a test user account with no privilege for anyone to use.
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+> PS: there is a cat on the login page 🐱

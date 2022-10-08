@@ -159,7 +159,6 @@ function SubmitBlog({ state }: Props): ReactElement {
         lastEdited: path === "/edit" ? Date.now() : null,
         isArchived,
       };
-      console.log(isArchived, path);
 
       if (isArchived && path === "/edit") {
         const res = await fetch(

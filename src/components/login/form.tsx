@@ -120,7 +120,8 @@ function LoginForm({ submit }: Props): ReactElement {
           isPassword={passFieldActive}
         />
       ) : null}
-      <div
+      <form
+        onSubmit={(e) => e.preventDefault()}
         className={`w-clamp min-h-[500px] border-4 ${getClasses(
           "border",
           theme,
@@ -192,7 +193,7 @@ function LoginForm({ submit }: Props): ReactElement {
           className="w-4/12 p-2"
           disabled={state.loading}
         />
-      </div>
+      </form>
     </>
   );
 }

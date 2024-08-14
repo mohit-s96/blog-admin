@@ -7,6 +7,7 @@ const initialState: EditorType = {
   heroImg: [],
   tags: [],
   excerpt: "",
+  keywords: [],
   readingTime: "",
   files: [],
   body: "",
@@ -30,6 +31,7 @@ export function getInitialEditorState(state: BlogSlug | undefined) {
       loading: false,
       tags: state.tags,
       excerpt: state.excerpt,
+      keywords: state.keywords ?? [],
       readingTime: state.readingTime,
       files: [],
       slugType: state.slugType,
@@ -153,6 +155,11 @@ export const reducer = (
       return {
         ...state,
         tags: payload,
+      };
+    case "KEYWORDS":
+      return {
+        ...state,
+        keywords: payload,
       };
     case "TITLE":
       return {

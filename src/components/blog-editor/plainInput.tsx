@@ -24,22 +24,11 @@ function PlainInput({
 }: Props): ReactElement {
   function resolveCommas(val: string) {
     let resolvedObject: Array<string> | Partial<ImageData> = {} as ImageData;
-    if (fieldType === "TAGS") {
-      const arr = val.split(",");
 
-      resolvedObject = [];
+    const arr = val.split(",");
+    resolvedObject = [];
+    resolvedObject = resolvedObject.concat(...arr);
 
-      resolvedObject = resolvedObject.concat(...arr);
-    }
-    if (fieldType === "BODY") {
-      if (val.endsWith("{")) {
-        return (val += "\n\t}");
-      }
-      if (val.endsWith("*")) {
-        return (val += "*");
-      }
-      return val;
-    }
     return resolvedObject;
   }
   return (

@@ -35,6 +35,7 @@ export interface BlogSlug {
   shares: number;
   likes: number;
   excerpt: string;
+  keywords: string[];
   author: string;
   commentsAllowed: boolean;
   commentCount: number;

@@ -42,6 +42,7 @@ function SubmitBlog({ state }: Props): ReactElement {
     commentsAllowed,
     isArchived,
     dispatch,
+    keywords,
   } = useContext(EditorContext);
 
   const validFormFields = (): boolean => {
@@ -151,6 +152,7 @@ function SubmitBlog({ state }: Props): ReactElement {
         shares: 0,
         likes: 0,
         excerpt,
+        keywords,
         author: "msx47",
         commentsAllowed,
         commentCount: 0,
@@ -182,6 +184,7 @@ function SubmitBlog({ state }: Props): ReactElement {
       if (path === "/edit") {
         (finalObject as BlogSlug)._id = state!._id;
       }
+      debugger;
       if (path === "/edit") await publishChanges(finalObject);
       else await publishBlog(finalObject);
 

@@ -40,6 +40,7 @@ export interface SlugTuple {
 export type EditorActionType =
   | "TITLE"
   | "EXCERPT"
+  | "KEYWORDS"
   | "RTIME"
   | "BODY"
   | "TAGS"
@@ -67,6 +68,7 @@ export interface EditorType {
   heroImg: ImageData[];
   tags: Array<string>;
   excerpt: string;
+  keywords: string[];
   readingTime: string;
   body: string;
   files: FilesData[];

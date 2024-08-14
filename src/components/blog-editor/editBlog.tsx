@@ -24,6 +24,7 @@ function EditBlog({ state }: Props): ReactElement {
     slug,
     commentsAllowed,
     isArchived,
+    keywords,
   } = useContext(EditorContext);
 
   const { wDispatch, editorWidth } = useContext(WidthContext);
@@ -92,6 +93,14 @@ function EditBlog({ state }: Props): ReactElement {
         fieldName="tags"
         fieldType="TAGS"
         value={tags.join(",")}
+        commaSeparated={true}
+        isTextArea={true}
+      />
+      <PlainInput
+        dispatch={dispatch}
+        fieldName="keywords"
+        fieldType="KEYWORDS"
+        value={keywords.join(",")}
         commaSeparated={true}
         isTextArea={true}
       />

@@ -30,7 +30,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "TAILWIND_MODE=watch craco start",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider; TAILWIND_MODE=watch craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
@@ -61,5 +61,8 @@
     "autoprefixer": "^9",
     "postcss": "^7",
     "tailwindcss": "yarn:@tailwindcss/postcss7-compat"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

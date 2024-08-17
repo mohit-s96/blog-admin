@@ -8,6 +8,7 @@ function AuthRoute({ children, ...rest }: RouteProps) {
   return (
     <Route
       {...rest}
+      //@ts-ignore
       render={({ location }) =>
         isAuth ? (
           children

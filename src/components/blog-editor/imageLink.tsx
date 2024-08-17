@@ -1,10 +1,4 @@
-import React, {
-  ReactElement,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ReactElement, useContext, useEffect, useRef, useState } from "react";
 import { ThemeType } from "../../types/globalTypes";
 import { getClasses } from "../../utils/classNameResolver";
 import Button from "../login/button";

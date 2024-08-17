@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import Layout from "../components/Layout";
 import { useLocation } from "react-router-dom";
 
-function Dashboard(props: any): ReactElement {
+function Dashboard(): ReactElement {
   const location = useLocation();
 
   return <Layout data={location.state} />;

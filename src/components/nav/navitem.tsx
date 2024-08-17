@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import { getClasses } from "../../utils/classNameResolver";
 import { useTheme } from "../provider/Provider";
 
@@ -6,10 +6,15 @@ interface Props {
   children: ReactNode;
   callback?: () => any;
   className?: string;
-  label?: string
+  label?: string;
 }
 
-function Navitem({ children, callback, className = "", label = "" }: Props): ReactElement {
+function Navitem({
+  children,
+  callback,
+  className = "",
+  label = "",
+}: Props): ReactElement {
   const { theme } = useTheme();
 
   return (

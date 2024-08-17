@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { getClasses } from "../../utils/classNameResolver";
 import { useTheme } from "../provider/Provider";
 

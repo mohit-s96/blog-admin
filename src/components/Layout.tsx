@@ -1,5 +1,5 @@
-import React, { ReactElement, useState } from "react";
-import { Redirect, useRouteMatch } from "react-router";
+import { ReactElement, useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import { getClasses } from "../utils/classNameResolver";
 import EditorMain from "./blog-editor/editorMain";
 import Blog from "./blog/blog";
@@ -14,14 +14,14 @@ interface Props {
 }
 
 function Layout({ data }: Props): ReactElement {
-  let { path } = useRouteMatch();
+  const location = useLocation();
 
   const { theme } = useTheme();
 
   const [show, setShow] = useState(true);
 
-  if (path === "/edit" && !data) {
-    return <Redirect to="/" />;
+  if (location.pathname === "/edit" && !data) {
+    return <Navigate to="/" replace />;
   }
 
   return (
@@ -36,7 +36,7 @@ function Layout({ data }: Props): ReactElement {
         >
           <RightArrow color={getClasses("accent", theme, "icon")} />
         </Navitem>
-        {path === "/" ? <Blog /> : <EditorMain state={data} />}
+        {location.pathname === "/" ? <Blog /> : <EditorMain state={data} />}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef } from "react";
+import { ReactElement, useContext, useEffect, useRef } from "react";
 import DomPurify from "dompurify";
 import { useRect } from "../../hooks/useRect";
 import { testMatch } from "../../utils/constants";

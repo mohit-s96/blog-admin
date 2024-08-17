@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import useAnimation, { CatPosition } from "../../hooks/useAnimation";
 import { useTheme } from "../provider/Provider";
 import { Cat } from "../svg/svg.collection";

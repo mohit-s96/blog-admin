@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef } from "react";
+import { ReactElement, useContext, useEffect, useRef } from "react";
 import { useRect } from "../../hooks/useRect";
 import { EditorContext, WidthContext } from "./editorMain";
 import PlainInput from "./plainInput";

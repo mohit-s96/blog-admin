@@ -1,4 +1,3 @@
-import React from "react";
 import { SizeVariantType } from "../../types/globalTypes";
 
 export type SvgProps = {

@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { ThemeType } from "../../types/globalTypes";
 
 interface Props {

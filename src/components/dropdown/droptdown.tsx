@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from "react";
+import { ReactElement, useContext, useState } from "react";
 import { SlugTuple, SlugType } from "../../types/globalTypes";
 import { getClasses } from "../../utils/classNameResolver";
 import { EditorContext } from "../blog-editor/editorMain";

@@ -1,10 +1,4 @@
-import React, {
-  ReactElement,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-} from "react";
+import { ReactElement, useEffect, useReducer, useRef, useState } from "react";
 import { CatPosition } from "../../hooks/useAnimation";
 import { getClasses } from "../../utils/classNameResolver";
 import FormCat from "../cat/cat";

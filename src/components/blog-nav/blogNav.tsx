@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 import { Link } from "react-router-dom";
 import { getClasses } from "../../utils/classNameResolver";
 import { getUri } from "../../utils/resolvePort";

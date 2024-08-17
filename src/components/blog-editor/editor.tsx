@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from "react";
+import { ReactElement, useContext, useState } from "react";
 import { SlugType, ThemeType } from "../../types/globalTypes";
 import { EditorContext } from "./editorMain";
 import AceEditor from "react-ace";

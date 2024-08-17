@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getClasses } from "../../utils/classNameResolver";
 import Navitem from "../nav/navitem";

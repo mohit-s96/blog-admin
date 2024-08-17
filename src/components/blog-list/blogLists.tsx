@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { getClasses } from "../../utils/classNameResolver";
 import { useTheme } from "../provider/Provider";
 import BlogList from "./blogList";
@@ -7,7 +7,7 @@ interface Props {
   auth?: boolean;
 }
 
-function BlogLists({ auth }: Props): ReactElement {
+function BlogLists({}: Props): ReactElement {
   const { theme } = useTheme();
 
   return (

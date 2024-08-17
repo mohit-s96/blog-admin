@@ -1,23 +1,20 @@
 import React from "react";
-import { Redirect, Route, RouteProps } from "react-router";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../components/provider/Provider";
 
-function AuthRoute({ children, ...rest }: RouteProps) {
-  const { isAuth } = useAuth();
+interface AuthRouteProps {
+  children: React.ReactNode;
+}
 
-  return (
-    <Route
-      {...rest}
-      //@ts-ignore
-      render={({ location }) =>
-        isAuth ? (
-          children
-        ) : (
-          <Redirect to={{ pathname: "/auth", state: { from: location } }} />
-        )
-      }
-    />
-  );
+function AuthRoute({ children }: AuthRouteProps) {
+  const { isAuth } = useAuth();
+  const location = useLocation();
+
+  if (!isAuth) {
+    return <Navigate to="/auth" state={{ from: location }} replace />;
+  }
+
+  return <>{children}</>;
 }
 
 export default AuthRoute;

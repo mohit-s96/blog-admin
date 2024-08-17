@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useState } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import { DeviceTypes, LayoutType, ThemeType } from "../../types/globalTypes";
 import SimpleTags from "../tags/SimpleTags";
 

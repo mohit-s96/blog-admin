@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { BlogListType } from "../../types/blogTypes";
 import { DeviceTypes, SupaUploadResponseType } from "../../types/globalTypes";
 import { useTheme } from "../provider/Provider";

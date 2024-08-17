@@ -1,10 +1,10 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 interface Props {
   color?: string;
 }
 
-export function ErrorCat({ color }: Props): ReactElement {
+export function ErrorCat({}: Props): ReactElement {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

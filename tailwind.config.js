@@ -1,8 +1,6 @@
-module.exports = {
-  mode: "jit",
-  purge: {
-    content: ["./src/**/*.{tsx,js,jsx,ts}", "./public/**/*.html"],
-  },
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -29,7 +27,6 @@ module.exports = {
       letterSpacing: {
         tighter: "-.04em",
       },
-
       lineHeight: {
         tight: 1.2,
       },
@@ -80,4 +77,5 @@ module.exports = {
       }),
     },
   },
+  plugins: [],
 };

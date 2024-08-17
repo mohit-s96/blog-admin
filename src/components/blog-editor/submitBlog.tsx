@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from "react";
+import { ReactElement, useContext } from "react";
 import marked from "marked";
 import { astToHtml, parser } from "nomark-js";
 import {
@@ -15,8 +15,7 @@ import {
 import { changeAstNodes } from "../../utils/misc";
 import { useTheme } from "../provider/Provider";
 import { EditorContext } from "./editorMain";
-import { useHistory } from "react-router";
-import { useRouteMatch } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BlogSlug } from "../../types/blogTypes";
 import { getUri } from "../../utils/resolvePort";
 
@@ -26,9 +25,10 @@ interface Props {
 
 function SubmitBlog({ state }: Props): ReactElement {
   const { theme } = useTheme();
-  let { path } = useRouteMatch();
+  const location = useLocation();
+  let path = location.pathname;
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const {
     body,
     title,
@@ -197,7 +197,7 @@ function SubmitBlog({ state }: Props): ReactElement {
         payload: "" as any,
       });
       localStorage.removeItem("/api/list");
-      history.push("/");
+      navigate("/");
     } catch (error) {
       console.log(error);
 

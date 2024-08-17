@@ -1,4 +1,8 @@
-@tailwind base;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Your custom styles here */
 
 /* Write your own custom base styles here */
 .sidebar {

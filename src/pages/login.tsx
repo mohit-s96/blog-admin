@@ -1,5 +1,5 @@
-import React, { ReactElement } from "react";
-import { Redirect } from "react-router";
+import { ReactElement } from "react";
+import { Navigate } from "react-router-dom";
 import LoginForm from "../components/login/form";
 import { useAuth, useTheme } from "../components/provider/Provider";
 import SwitchTheme from "../components/sidebar/switchTheme";
@@ -22,7 +22,7 @@ function Login(): ReactElement {
     }
   }
   if (isAuth) {
-    return <Redirect to="/" />;
+    return <Navigate to="/" replace />;
   }
   return (
     <div

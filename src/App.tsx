@@ -1,5 +1,4 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./styles/index.css";
 import Dashboard from "./pages/dashboard";
 import Login from "./pages/login";
@@ -11,23 +10,35 @@ function App() {
   return (
     <Provider>
       <BrowserRouter>
-        <Switch>
-          <AuthRoute exact path="/">
-            <Dashboard />
-          </AuthRoute>
-          <AuthRoute exact path="/create">
-            <Dashboard />
-          </AuthRoute>
-          <AuthRoute exact path="/edit">
-            <Dashboard />
-          </AuthRoute>
-          <Route exact path="/auth">
-            <Login />
-          </Route>
-          <Route exact path="/test">
-            <Test />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <AuthRoute>
+                <Dashboard />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/create"
+            element={
+              <AuthRoute>
+                <Dashboard />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/edit"
+            element={
+              <AuthRoute>
+                <Dashboard />
+              </AuthRoute>
+            }
+          />
+          <Route path="/auth" element={<Login />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </BrowserRouter>
     </Provider>
   );

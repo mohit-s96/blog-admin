@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 import { DeviceTypes, LayoutType, ThemeType } from "../../types/globalTypes";
 import NavItem from "./NavItem";
 import { Clock } from "../svg/collection.svg";
@@ -11,7 +11,7 @@ import CreateNew from "../blog-nav/createNew";
 import { Author, Spinner } from "../svg/svg.collection";
 import { getClasses } from "../../utils/classNameResolver";
 import { getUri } from "../../utils/resolvePort";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   theme: ThemeType;
@@ -25,7 +25,7 @@ function PostPreviewContent({
   type,
   theme,
 }: Props): ReactElement {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [editLoading, setEditLoading] = useState(false);
   const [hashLoading, setHashLoading] = useState(false);
@@ -48,7 +48,7 @@ function PostPreviewContent({
 
     const blogdata = await data.json();
     setEditLoading(false);
-    history.push("/edit", blogdata);
+    navigate("/edit", { state: blogdata });
   };
 
   const updateBlogUriIdHashInRedis = async () => {

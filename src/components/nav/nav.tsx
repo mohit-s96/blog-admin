@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import Navitem from "./navitem";
 import { Blogs, Branding, Logout, Settings } from "../svg/svg.collection";
 import { Link } from "react-router-dom";
@@ -24,7 +24,11 @@ function Nav(): ReactElement {
         "btn"
       )}`}
     >
-      <Link to="/" className="cursor-pointer flex justify-center items-center" aria-label="home page">
+      <Link
+        to="/"
+        className="cursor-pointer flex justify-center items-center"
+        aria-label="home page"
+      >
         <Branding color={getClasses("nb", theme, "icon")} />
       </Link>
       <div className="flex justify-center items-center">

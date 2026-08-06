@@ -1,4 +1,4 @@
-export function getUri(query?: string): string {
+export function getUri(_query?: string): string {
   // if (query === "query") {
   return process.env.NODE_ENV === "production"
     ? "https://api.mohits.dev"

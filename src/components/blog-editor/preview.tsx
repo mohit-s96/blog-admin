@@ -7,7 +7,7 @@ import AuthorBar from "./authorBar";
 import BlogImage from "./blogImage";
 import marked from "marked";
 import { EditorContext, WidthContext } from "./editorMain";
-import { astToHtml, parser } from "nomark-js";
+// import { astToHtml, parser } from "nomark-js";
 import Prism from "prismjs";
 import "../../styles/prism.css";
 
@@ -32,7 +32,8 @@ function Preview(): ReactElement {
 
   function resolveBodyType() {
     if (slugType === "nm") {
-      return astToHtml(parser(body || "", "warn"));
+      // return astToHtml(parser(body || "", "warn"));
+      return "";
     } else if (slugType === "html") {
       return body;
     } else {

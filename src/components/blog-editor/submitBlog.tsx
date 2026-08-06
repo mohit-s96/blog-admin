@@ -1,6 +1,6 @@
 import { ReactElement, useContext } from "react";
 import marked from "marked";
-import { astToHtml, parser } from "nomark-js";
+// import { astToHtml, parser } from "nomark-js";
 import {
   NewImageData,
   SupaUploadResponseType,
@@ -12,7 +12,7 @@ import {
   publishBlog,
   publishChanges,
 } from "../../utils/fetchResource";
-import { changeAstNodes } from "../../utils/misc";
+// import { changeAstNodes } from "../../utils/misc";
 import { useTheme } from "../provider/Provider";
 import { EditorContext } from "./editorMain";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -112,12 +112,9 @@ function SubmitBlog({ state }: Props): ReactElement {
       let rawBody = "";
 
       if (slugType === "nm") {
-        const nomarkAst = parser(body);
-
-        changeAstNodes(nomarkAst, newImageData);
-
-        html = astToHtml(nomarkAst);
-
+        // const nomarkAst = parser(body);
+        // changeAstNodes(nomarkAst, newImageData);
+        // html = astToHtml(nomarkAst);
         // rawBody = JSON.stringify(nomarkAst);
       } else if (slugType === "md") {
         const renderer = {
